@@ -174,6 +174,12 @@
       outline: none;
       background: var(--white);
       font-weight: 500;
+      min-height: 50px;
+      -webkit-appearance: none;
+    }
+    
+    input[type="date"], input[type="time"] {
+      -webkit-appearance: listbox; /* Garante os botões nativos em browsers Android/iOS */
     }
 
     input:focus {
