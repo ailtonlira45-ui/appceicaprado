@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ceiça Prado Maquiagem e Penteado - Agenda & Financeiro</title>
-  <!-- Google Fonts: Playfair Display para luxo/destaque e Montserrat para leitura -->
+  <!-- Google Fonts & FullCalendar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,600&display=swap" rel="stylesheet">
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
   
   <style>
     :root {
@@ -51,7 +52,7 @@
 
     .container {
       width: 100%;
-      max-width: 650px;
+      max-width: 680px;
       background: rgba(255, 255, 255, 0.98);
       border: 3px solid var(--black-main);
       border-radius: 24px;
@@ -166,7 +167,7 @@
       color: var(--black-soft);
     }
 
-    input[type="text"], input[type="tel"], input[type="date"], input[type="time"] {
+    input[type="text"], input[type="tel"], input[type="date"], select {
       padding: 14px;
       border: 2px solid var(--black-main);
       border-radius: 10px;
@@ -175,14 +176,13 @@
       background: var(--white);
       font-weight: 500;
       min-height: 50px;
-      -webkit-appearance: none;
-    }
-    
-    input[type="date"], input[type="time"] {
-      -webkit-appearance: listbox; /* Garante os botões nativos em browsers Android/iOS */
     }
 
-    input:focus {
+    select {
+      cursor: pointer;
+    }
+
+    input:focus, select:focus {
       border-color: var(--pink-main);
       box-shadow: 0 0 8px var(--pink-glow);
     }
@@ -249,6 +249,48 @@
       color: var(--white);
       border-color: var(--pink-hover);
       box-shadow: 0 4px 12px var(--pink-glow);
+    }
+
+    /* ESTILO DO CALENDÁRIO */
+    .calendar-container {
+      background: var(--white);
+      border: 2px solid var(--black-main);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .calendar-container h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--black-main);
+      border-left: 5px solid var(--pink-main);
+      padding-left: 10px;
+    }
+
+    #calendar {
+      max-width: 100%;
+      font-size: 13px;
+    }
+
+    .fc-toolbar-title {
+      font-size: 16px !important;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .fc-button-primary {
+      background-color: var(--black-main) !important;
+      border-color: var(--black-main) !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+    }
+
+    .fc-button-primary:hover {
+      background-color: var(--pink-hover) !important;
+      border-color: var(--pink-hover) !important;
     }
 
     /* SEÇÃO DE BACKUP CONTROLS */
@@ -595,13 +637,46 @@
           <input type="date" id="data" required>
         </div>
         <div style="flex: 1;">
-          <label for="hora">Horário</label>
-          <input type="time" id="hora" required>
+          <label>Horário</label>
+          <div style="display: flex; gap: 4px;">
+            <select id="hora_h" style="flex: 1;" required>
+              <option value="">Hora</option>
+              <option value="05">05h</option>
+              <option value="06">06h</option>
+              <option value="07">07h</option>
+              <option value="08">08h</option>
+              <option value="09">09h</option>
+              <option value="10">10h</option>
+              <option value="11">11h</option>
+              <option value="12">12h</option>
+              <option value="13">13h</option>
+              <option value="14">14h</option>
+              <option value="15">15h</option>
+              <option value="16">16h</option>
+              <option value="17">17h</option>
+              <option value="18">18h</option>
+              <option value="19">19h</option>
+              <option value="20">20h</option>
+              <option value="21">21h</option>
+            </select>
+            <select id="hora_m" style="flex: 1;" required>
+              <option value="00">:00</option>
+              <option value="15">:15</option>
+              <option value="30">:30</option>
+              <option value="45">:45</option>
+            </select>
+          </div>
         </div>
       </div>
 
       <button type="submit" id="btnSalvar" class="btn-submit">Agendar Horário</button>
     </form>
+
+    <!-- CALENDÁRIO VISUAL MENSAL -->
+    <div class="calendar-container">
+      <h3>📅 Visão Geral do Mês</h3>
+      <div id="calendar"></div>
+    </div>
 
     <!-- SEÇÃO DE SALVAR E RESTAURAR DADOS PARA TROCAR DE CELULAR -->
     <div class="backup-section">
@@ -644,8 +719,10 @@
     const totalFinanceiroEl = document.getElementById('totalFinanceiro');
     const textoValorTotal = document.getElementById('textoValorTotal');
     const textoDesconto = document.getElementById('textoDesconto');
+    let calendarObj = null;
 
     document.addEventListener('DOMContentLoaded', () => {
+      inicializarCalendario();
       carregarAgendamentos();
       atualizarPreviewValor();
     });
@@ -656,15 +733,53 @@
       cb.addEventListener('change', atualizarPreviewValor);
     });
 
+    function inicializarCalendario() {
+      const calendarEl = document.getElementById('calendar');
+      calendarObj = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'today'
+        },
+        buttonText: {
+          today: 'Hoje'
+        },
+        eventClick: function(info) {
+          const cardEl = document.getElementById(`card-${info.event.id}`);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cardEl.style.boxShadow = '0 0 15px var(--pink-main)';
+            setTimeout(() => cardEl.style.boxShadow = '', 2000);
+          }
+        }
+      });
+      calendarObj.render();
+    }
+
+    function atualizarEventosCalendario(agendamentos) {
+      if (!calendarObj) return;
+      calendarObj.removeAllEvents();
+
+      agendamentos.forEach(item => {
+        const servicosTexto = Array.isArray(item.servicos) ? item.servicos.join(', ') : item.servico;
+        const corEvento = item.concluido ? '#2e7d32' : '#ff69b4';
+
+        calendarObj.addEvent({
+          id: item.id.toString(),
+          title: `${item.hora} - ${item.cliente} (${servicosTexto})`,
+          start: `${item.data}T${item.hora}:00`,
+          color: corEvento,
+          textColor: '#ffffff'
+        });
+      });
+    }
+
     function calcularValorDosServicos(servicos) {
       if (!servicos || servicos.length === 0) return 0;
-      
       let soma = servicos.reduce((acc, s) => acc + (PRECOS_SERVICOS[s] || 0), 0);
-      
-      if (servicos.length > 1) {
-        soma -= 10;
-      }
-      
+      if (servicos.length > 1) soma -= 10;
       return soma;
     }
 
@@ -674,7 +789,6 @@
       const valorTotal = calcularValorDosServicos(servicos);
       
       textoValorTotal.textContent = `Valor total selecionado: ${formatarMoeda(valorTotal)}`;
-      
       if (servicos.length > 1) {
         textoDesconto.textContent = "💖 Desconto de R$ 10,00 aplicado com carinho pelo seu combo!";
       } else {
@@ -689,7 +803,14 @@
       const cliente = document.getElementById('cliente').value;
       const celular = document.getElementById('celular').value;
       const data = document.getElementById('data').value;
-      const hora = document.getElementById('hora').value;
+      
+      const horaH = document.getElementById('hora_h').value;
+      const horaM = document.getElementById('hora_m').value;
+      if (!horaH) {
+        alert('Por favor, escolha a hora!');
+        return;
+      }
+      const hora = `${horaH}:${horaM}`;
 
       const checkboxes = document.querySelectorAll('input[name="servicos"]:checked');
       const servicos = Array.from(checkboxes).map(cb => cb.value);
@@ -700,7 +821,6 @@
       }
 
       const valor = calcularValorDosServicos(servicos);
-
       let agendamentos = obterAgendamentos();
 
       if (id) {
@@ -760,7 +880,12 @@
         document.getElementById('cliente').value = item.cliente;
         document.getElementById('celular').value = item.celular || '';
         document.getElementById('data').value = item.data;
-        document.getElementById('hora').value = item.hora;
+        
+        if (item.hora && item.hora.includes(':')) {
+          const [h, m] = item.hora.split(':');
+          document.getElementById('hora_h').value = h;
+          document.getElementById('hora_m').value = m;
+        }
 
         document.querySelectorAll('input[name="servicos"]').forEach(cb => cb.checked = false);
 
@@ -806,7 +931,6 @@
       window.open(url, '_blank');
     }
 
-    // MENSAGEM 1: CONFIRMAÇÃO DE AGENDAMENTO (AO MARCAR)
     function enviarWhatsApp(id) {
       const agendamentos = obterAgendamentos();
       const item = agendamentos.find(a => a.id === id);
@@ -824,7 +948,6 @@
       abrirWhatsappURL(item.celular, mensagem);
     }
 
-    // MENSAGEM 2: LEMBRETE DE CONFIRMAÇÃO DO DIA (SEM DICAS)
     function enviarLembreteWhatsApp(id) {
       const agendamentos = obterAgendamentos();
       const item = agendamentos.find(a => a.id === id);
@@ -856,6 +979,7 @@
       listaAgendamentos.innerHTML = '';
 
       calcularTotalFinanceiro(agendamentos);
+      atualizarEventosCalendario(agendamentos);
 
       const agendamentosFiltrados = agendamentos.filter(item => {
         const nomeCliente = item.cliente.toLowerCase();
@@ -880,6 +1004,7 @@
         const card = document.createElement('div');
         const estaConcluido = item.concluido ? 'concluido' : '';
         card.className = `card ${estaConcluido}`;
+        card.id = `card-${item.id}`;
 
         const celularDisplay = item.celular && item.celular.trim() !== '' 
           ? `<span class="card-data">📱 ${item.celular}</span>` 
@@ -918,7 +1043,6 @@
       });
     }
 
-    /* FUNÇÕES DE BACKUP / IMPORTAR E EXPORTAR DADOS */
     function exportarDados() {
       const agendamentos = obterAgendamentos();
       if (agendamentos.length === 0) {
