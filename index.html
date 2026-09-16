@@ -1,1087 +1,2364 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ceiça Prado Maquiagem e Penteado - Agenda & Financeiro</title>
-  <!-- Google Fonts & FullCalendar -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,600&display=swap" rel="stylesheet">
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-  
-  <style>
-    :root {
-      --pink-main: #ff69b4;
-      --pink-light: #fff0f6;
-      --pink-hover: #ff4797;
-      --pink-glow: rgba(255, 105, 180, 0.4);
-      --black-main: #111111;
-      --black-soft: #222222;
-      --gold-accent: #d4af37;
-      --whatsapp-green: #25d366;
-      --whatsapp-dark: #128c7e;
-      --white: #ffffff;
-      --green-done: #2e7d32;
-      --green-light: #e8f5e9;
-      --purple-reminder: #8e44ad;
-      --purple-hover: #732d91;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    body {
-      background-color: var(--pink-light);
-      background-image: 
-        linear-gradient(rgba(255, 240, 246, 0.90), rgba(255, 240, 246, 0.90)),
-        url('https://img.freepik.com/free-vector/beauty-makeup-seamless-pattern-background_1284-52621.jpg');
-      background-repeat: repeat;
-      background-size: 350px;
-      color: var(--black-main);
-      padding: 20px 15px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      font-size: 16px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 680px;
-      background: rgba(255, 255, 255, 0.98);
-      border: 3px solid var(--black-main);
-      border-radius: 24px;
-      padding: 30px 22px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(5px);
-    }
-
-    /* HEADER DESTACADO E ELEGANTE */
-    header.header-destaque {
-      text-align: center;
-      margin-bottom: 25px;
-      padding: 20px 15px;
-      background: linear-gradient(135deg, #111111 0%, #222222 100%);
-      border-radius: 18px;
-      border: 2px solid var(--pink-main);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header.header-destaque::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--pink-main), transparent);
-    }
-
-    .header-icon {
-      font-size: 28px;
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      color: #ffffff;
-      font-size: 36px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      line-height: 1.1;
-      text-transform: uppercase;
-      text-shadow: 0 2px 10px var(--pink-glow);
-    }
-
-    header p {
-      font-family: 'Montserrat', sans-serif;
-      color: var(--pink-light);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 3px;
-      margin-top: 8px;
-      text-transform: uppercase;
-      border-top: 1px solid rgba(255, 105, 180, 0.3);
-      display: inline-block;
-      padding-top: 6px;
-    }
-
-    /* Card Financeiro */
-    .finance-card {
-      background: var(--black-main);
-      color: var(--white);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-left: 6px solid var(--pink-main);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-
-    .finance-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--pink-main);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    .finance-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #25d366;
-      margin-top: 4px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 25px;
-      background: var(--pink-light);
-      padding: 22px;
-      border-radius: 16px;
-      border: 2px solid var(--pink-main);
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    label {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--black-soft);
-    }
-
-    input[type="text"], input[type="tel"], input[type="date"], select {
-      padding: 14px;
-      border: 2px solid var(--black-main);
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
-      background: var(--white);
-      font-weight: 500;
-      min-height: 50px;
-    }
-
-    select {
-      cursor: pointer;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--pink-main);
-      box-shadow: 0 0 8px var(--pink-glow);
-    }
-
-    .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: var(--white);
-      padding: 14px;
-      border: 2px solid var(--black-main);
-      border-radius: 10px;
-    }
-
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .checkbox-item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--pink-main);
-      cursor: pointer;
-    }
-
-    .valor-preview {
-      font-weight: 700;
-      color: var(--pink-hover);
-      font-size: 15px;
-      margin-top: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .desconto-tag {
-      color: #2e7d32;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .btn-submit {
-      background-color: var(--black-main);
-      color: var(--pink-main);
-      border: 2px solid var(--black-main);
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-top: 5px;
-    }
-
-    .btn-submit:hover {
-      background-color: var(--pink-hover);
-      color: var(--white);
-      border-color: var(--pink-hover);
-      box-shadow: 0 4px 12px var(--pink-glow);
-    }
-
-    /* ESTILO DO CALENDÁRIO */
-    .calendar-container {
-      background: var(--white);
-      border: 2px solid var(--black-main);
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .calendar-container h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      margin-bottom: 12px;
-      color: var(--black-main);
-      border-left: 5px solid var(--pink-main);
-      padding-left: 10px;
-    }
-
-    #calendar {
-      max-width: 100%;
-      font-size: 13px;
-    }
-
-    .fc-toolbar-title {
-      font-size: 16px !important;
-      font-weight: 700;
-      text-transform: capitalize;
-    }
-
-    .fc-button-primary {
-      background-color: var(--black-main) !important;
-      border-color: var(--black-main) !important;
-      font-size: 12px !important;
-      font-weight: 700 !important;
-    }
-
-    .fc-button-primary:hover {
-      background-color: var(--pink-hover) !important;
-      border-color: var(--pink-hover) !important;
-    }
-
-    /* SEÇÃO DE BACKUP CONTROLS */
-    .backup-section {
-      background: var(--white);
-      border: 2px dashed var(--black-main);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .backup-section h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--black-main);
-      margin-bottom: 6px;
-    }
-
-    .backup-section p {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 14px;
-    }
-
-    .backup-buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-backup {
-      background: var(--black-main);
-      color: var(--white);
-      border: none;
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-backup:hover {
-      background: var(--pink-hover);
-    }
-
-    .btn-restore {
-      background: var(--pink-light);
-      color: var(--black-main);
-      border: 2px solid var(--black-main);
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-      display: inline-block;
-    }
-
-    .btn-restore:hover {
-      background: var(--black-main);
-      color: var(--pink-main);
-    }
-
-    .agenda-section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: var(--black-main);
-      border-left: 6px solid var(--pink-main);
-      padding-left: 12px;
-    }
-
-    .search-container {
-      margin-bottom: 20px;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid var(--black-main);
-      border-radius: 10px;
-      font-size: 15px;
-      background: var(--white);
-      transition: all 0.2s ease;
-    }
-
-    .search-input:focus {
-      border-color: var(--pink-main);
-      box-shadow: 0 0 6px var(--pink-glow);
-    }
-
-    .agendamentos-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 2px solid var(--black-main);
-      border-left: 8px solid var(--pink-main);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.3s ease;
-    }
-
-    .card.concluido {
-      border-left-color: var(--green-done);
-      background-color: var(--green-light);
-      opacity: 0.9;
-    }
-
-    .card.concluido .card-cliente {
-      text-decoration: line-through;
-      color: var(--green-done);
-    }
-
-    .card-info {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .card-cliente {
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--black-main);
-    }
-
-    .card-servicos-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .card-servico {
-      display: inline-block;
-      background: var(--pink-light);
-      color: var(--pink-hover);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--pink-main);
-    }
-
-    .card-valor {
-      font-weight: 700;
-      color: var(--green-done);
-      font-size: 15px;
-    }
-
-    .card-desconto-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: #2e7d32;
-      background: #e8f5e9;
-      border: 1px solid #2e7d32;
-      padding: 2px 6px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-top: 2px;
-    }
-
-    .card-data {
-      font-size: 14px;
-      font-weight: 500;
-      color: #555;
-    }
-
-    .card-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 130px;
-    }
-
-    .btn-concluir {
-      background: var(--white);
-      color: var(--green-done);
-      border: 2px solid var(--green-done);
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-concluir:hover, .card.concluido .btn-concluir {
-      background: var(--green-done);
-      color: var(--white);
-    }
-
-    .btn-whatsapp {
-      background: var(--whatsapp-green);
-      color: var(--white);
-      border: 1px solid var(--whatsapp-dark);
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-      text-decoration: none;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .btn-whatsapp:hover {
-      background: var(--whatsapp-dark);
-    }
-
-    .btn-lembrete {
-      background: var(--purple-reminder);
-      color: var(--white);
-      border: 1px solid var(--purple-hover);
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-      text-decoration: none;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .btn-lembrete:hover {
-      background: var(--purple-hover);
-    }
-
-    .btn-editar {
-      background: transparent;
-      color: var(--black-main);
-      border: 1px solid var(--black-main);
-      padding: 7px 12px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-editar:hover {
-      background: var(--black-main);
-      color: var(--pink-main);
-    }
-
-    .btn-deletar {
-      background: transparent;
-      color: #e74c3c;
-      border: 1px solid #e74c3c;
-      padding: 7px 12px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-deletar:hover {
-      background: #e74c3c;
-      color: var(--white);
-    }
-
-    .empty-msg {
-      text-align: center;
-      color: #777;
-      font-style: italic;
-      font-size: 16px;
-      padding: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
+<title>Rotina de Trabalho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  :root{--bg:#080a12;--card-brd:rgba(255,255,255,.09);--txt:#eef1f8;--muted:#8b93a8;--accent:#7c5cff;--ok:#2ee6a8;--warn:#ffb547;--danger:#ff5c7c;--radius:20px;color-scheme:dark}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;padding:0 18px 130px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(620px 420px at 12% -8%,rgba(124,92,255,.38),transparent 62%),radial-gradient(520px 400px at 92% 2%,rgba(61,220,255,.16),transparent 62%),radial-gradient(700px 520px at 50% 112%,rgba(255,92,124,.10),transparent 62%)}
+  .wrap{max-width:680px;margin:0 auto}
+
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:26px 0 20px}
+  .brand{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+  .logo{width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:linear-gradient(135deg,#7c5cff,#3ddcff);display:grid;place-items:center;font-size:20px;box-shadow:0 8px 26px rgba(124,92,255,.45)}
+  .brand h1{font-size:17px;font-weight:800;letter-spacing:-.4px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand p{font-size:12px;color:var(--muted);font-weight:500;margin-top:3px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand p .sep{opacity:.4;margin:0 4px}
+  .brand p .hora{color:#aab2c9}
+  .header-acoes{display:flex;gap:6px;flex:0 0 auto}
+  .icone-btn{width:42px;height:42px;flex:0 0 42px;border-radius:13px;cursor:pointer;border:1px solid var(--card-brd);background:rgba(255,255,255,.04);color:var(--muted);font-size:17px;display:grid;place-items:center;transition:.22s;position:relative}
+  .icone-btn:hover{background:rgba(255,255,255,.09);color:#fff}
+  .icone-btn.on{color:var(--ok);border-color:rgba(46,230,168,.4);background:rgba(46,230,168,.1)}
+  .icone-btn.report{border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.08);color:#5fdc94}
+  .icone-btn.report:hover{background:rgba(37,211,102,.18);color:#7ceba9}
+  .db-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--warn);transition:.3s}
+  .db-dot.ready{background:var(--ok);animation:pulsaDb 2s infinite}
+  @keyframes pulsaDb{0%{box-shadow:0 0 0 0 rgba(46,230,168,.6)}70%{box-shadow:0 0 0 7px rgba(46,230,168,0)}100%{box-shadow:0 0 0 0 rgba(46,230,168,0)}}
+
+  .ext-panel{border-radius:22px;padding:16px 18px;margin-bottom:16px;background:linear-gradient(135deg,rgba(255,181,71,.14),rgba(255,92,124,.08));border:1px solid rgba(255,181,71,.28);box-shadow:0 14px 40px -20px rgba(255,181,71,.6);animation:entra .4s ease both}
+  .ext-panel[hidden]{display:none}
+  .ext-panel-top{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .ext-panel-top h2{font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#ffc46e}
+  .ext-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .ext-stat{padding:10px 8px;border-radius:12px;text-align:center;border:1px solid;transition:.2s}
+  .ext-stat .n{font-size:22px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .ext-stat .l{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:5px;opacity:.9}
+  .ext-stat.verde{background:rgba(46,230,168,.12);border-color:rgba(46,230,168,.35);color:#5ff0bd}
+  .ext-stat.amarelo{background:rgba(255,181,71,.12);border-color:rgba(255,181,71,.38);color:#ffc46e}
+  .ext-stat.vermelho{background:rgba(255,92,124,.12);border-color:rgba(255,92,124,.4);color:#ff9db2}
+
+  .painel{border-radius:22px;padding:18px 20px;margin-bottom:16px;background:linear-gradient(135deg,rgba(124,92,255,.20),rgba(61,220,255,.10));border:1px solid rgba(124,92,255,.35);box-shadow:0 14px 40px -18px rgba(124,92,255,.8);animation:entra .4s ease both}
+  .painel[hidden]{display:none}
+  .painel-top{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .painel-top .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulsa 2s infinite}
+  .painel-top h2{font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#cfd4e6}
+  .painel-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,.09);font-size:14.5px}
+  .painel-item:first-of-type{border-top:none}
+  .painel-item .hora{font-weight:700;font-size:13px;padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.12);flex:0 0 auto;font-variant-numeric:tabular-nums}
+  .painel-item .txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+  .painel-item.atras .hora{background:rgba(255,92,124,.2);color:#ff9db2}
+  .painel-item .status-dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+
+  .filtros{display:flex;gap:8px;overflow-x:auto;padding:0 0 16px;scrollbar-width:none}
+  .filtros::-webkit-scrollbar{display:none}
+  .filtro{padding:9px 17px;border-radius:999px;cursor:pointer;white-space:nowrap;border:1px solid var(--card-brd);background:rgba(255,255,255,.03);color:var(--muted);font-size:13.5px;font-weight:600;font-family:inherit;transition:.22s}
+  .filtro:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .filtro.on{background:#fff;color:#0b0d17;border-color:#fff;box-shadow:0 6px 18px -6px rgba(255,255,255,.4)}
+  .filtro.ext.on{background:linear-gradient(135deg,#ffb547,#ff5c7c);color:#fff;border-color:transparent}
+
+  .lista{display:flex;flex-direction:column;gap:12px}
+  .card{position:relative;display:flex;gap:14px;padding:17px 17px 62px;border-radius:var(--radius);border:1px solid var(--card-brd);background:linear-gradient(180deg,rgba(255,255,255,.058),rgba(255,255,255,.022));transition:transform .25s cubic-bezier(.2,.9,.3,1),border-color .25s,opacity .25s;animation:entra .38s cubic-bezier(.2,.9,.3,1) both}
+  .card::before{content:'';position:absolute;left:0;top:16px;bottom:70px;width:3px;border-radius:0 4px 4px 0;background:var(--c,var(--accent));opacity:.85}
+  .card:hover{transform:translateY(-2px);border-color:rgba(124,92,255,.45)}
+  .card.done{opacity:.5}
+  .card.done h3{text-decoration:line-through;text-decoration-color:var(--muted)}
+  .check{flex:0 0 23px;width:23px;height:23px;margin-top:1px;border-radius:50%;border:2px solid rgba(255,255,255,.24);background:transparent;cursor:pointer;display:grid;place-items:center;color:transparent;font-size:11px;transition:.22s;font-family:inherit}
+  .check:hover{border-color:var(--accent);transform:scale(1.1)}
+  .card.done .check{background:linear-gradient(135deg,#2ee6a8,#12b981);border-color:transparent;color:#04120c}
+  .corpo{flex:1;min-width:0}
+  .linha1{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+  .cat{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:8px;letter-spacing:.2px;background:color-mix(in srgb, var(--c) 16%, transparent);color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, transparent)}
+  .prio{font-size:10.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;padding:4px 9px;border-radius:8px}
+  .prio.alta{background:rgba(255,92,124,.16);color:#ff8098}
+  .prio.media{background:rgba(255,181,71,.15);color:#ffc46e}
+  .prio.baixa{background:rgba(139,147,168,.16);color:#9aa2b8}
+  .card h3{font-size:15.5px;font-weight:600;letter-spacing:-.2px;line-height:1.45;word-break:break-word;white-space:pre-wrap}
+  .card .desc{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:5px;word-break:break-word}
+  .meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:9px;background:rgba(255,255,255,.055);color:#a9b0c4;border:1px solid rgba(255,255,255,.06);font-variant-numeric:tabular-nums}
+  .tag.hoje{background:rgba(46,230,168,.14);color:#5ff0bd;border-color:rgba(46,230,168,.25)}
+  .tag.lembrete{background:rgba(124,92,255,.16);color:#b9a6ff;border-color:rgba(124,92,255,.3)}
+  .tag.atras{background:rgba(255,92,124,.14);color:#ff9db2;border-color:rgba(255,92,124,.25)}
+  .tag.voz{background:rgba(61,220,255,.14);color:#7ee6ff;border-color:rgba(61,220,255,.3)}
+  .tag.foto{background:rgba(255,181,71,.14);color:#ffc46e;border-color:rgba(255,181,71,.3)}
+
+  .card.extintor{padding:16px 16px 62px;border-width:1.5px;flex-direction:column;gap:0}
+  .card.extintor .check{position:absolute;top:16px;right:16px;margin:0}
+  .card.extintor::before{display:none}
+  .card.extintor.status-verde{border-color:rgba(46,230,168,.5);background:linear-gradient(180deg,rgba(46,230,168,.10),rgba(46,230,168,.02))}
+  .card.extintor.status-verde .ext-icone{background:linear-gradient(135deg,#2ee6a8,#12b981);box-shadow:0 8px 22px -8px rgba(46,230,168,.9)}
+  .card.extintor.status-verde .status-badge{background:rgba(46,230,168,.18);color:#5ff0bd;border-color:rgba(46,230,168,.45)}
+  .card.extintor.status-amarelo{border-color:rgba(255,181,71,.55);background:linear-gradient(180deg,rgba(255,181,71,.12),rgba(255,181,71,.02))}
+  .card.extintor.status-amarelo .ext-icone{background:linear-gradient(135deg,#ffb547,#e6930f);box-shadow:0 8px 22px -8px rgba(255,181,71,.9)}
+  .card.extintor.status-amarelo .status-badge{background:rgba(255,181,71,.18);color:#ffc46e;border-color:rgba(255,181,71,.45)}
+  .card.extintor.status-vermelho{border-color:rgba(255,92,124,.55);background:linear-gradient(180deg,rgba(255,92,124,.12),rgba(255,92,124,.02))}
+  .card.extintor.status-vermelho .ext-icone{background:linear-gradient(135deg,#ff5c7c,#e0437d);box-shadow:0 8px 22px -8px rgba(255,92,124,.9);animation:pulsaRed 2.2s infinite}
+  .card.extintor.status-vermelho .status-badge{background:rgba(255,92,124,.18);color:#ff9db2;border-color:rgba(255,92,124,.5)}
+  .card.extintor.status-cinza .ext-icone{background:linear-gradient(135deg,#5c6479,#40485c);box-shadow:none}
+  .card.extintor.status-cinza .status-badge{background:rgba(139,147,168,.16);color:#9aa2b8;border-color:rgba(139,147,168,.3)}
+  @keyframes pulsaRed{0%,100%{box-shadow:0 8px 22px -8px rgba(255,92,124,.9)}50%{box-shadow:0 8px 28px -4px rgba(255,92,124,1)}}
+
+  .ext-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-right:36px}
+  .ext-icone{width:46px;height:46px;flex:0 0 46px;border-radius:14px;display:grid;place-items:center;font-size:22px}
+  .ext-titulo-box{flex:1;min-width:0}
+  .ext-titulo{font-size:15.5px;font-weight:700;letter-spacing:-.2px;line-height:1.25;word-break:break-word}
+  .ext-sub{font-size:12.5px;color:#a9b0c4;margin-top:3px;font-weight:500;word-break:break-word}
+  .status-badge{font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 10px;border-radius:9px;border:1px solid;white-space:nowrap;flex:0 0 auto}
+
+  .ext-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .ext-info-item{padding:9px 11px;border-radius:11px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07)}
+  .ext-info-item .lbl{font-size:9.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#8b93a8;margin-bottom:4px}
+  .ext-info-item .val{font-size:13.5px;font-weight:600;color:#eef1f8;font-variant-numeric:tabular-nums;word-break:break-word;line-height:1.35}
+  .ext-info-item.destaque{grid-column:1 / -1;background:rgba(61,220,255,.08);border-color:rgba(61,220,255,.25)}
+  .ext-info-item.destaque .lbl{color:#7ee6ff}
+  .ext-info-item.destaque .val{font-size:14.5px;color:#aef1ff}
+  .ext-dias{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;font-size:13.5px;font-weight:700;line-height:1.35}
+  .ext-dias.verde{background:rgba(46,230,168,.12);color:#5ff0bd;border:1px solid rgba(46,230,168,.3)}
+  .ext-dias.amarelo{background:rgba(255,181,71,.12);color:#ffc46e;border:1px solid rgba(255,181,71,.35)}
+  .ext-dias.vermelho{background:rgba(255,92,124,.12);color:#ff9db2;border:1px solid rgba(255,92,124,.38)}
+  .ext-dias.cinza{background:rgba(139,147,168,.1);color:#9aa2b8;border:1px solid rgba(139,147,168,.25)}
+  .ext-dias .emoji{font-size:16px}
+
+  .card-acoes{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:8px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07)}
+  .acao-btn{flex:1;padding:9px 12px;border-radius:11px;cursor:pointer;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);color:#c3c9db;font-family:inherit;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s}
+  .acao-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.18)}
+  .acao-btn.editar:hover{background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.45);color:#c9b8ff}
+  .acao-btn.excluir:hover{background:rgba(255,92,124,.16);border-color:rgba(255,92,124,.45);color:#ff9db2}
+  .acao-btn svg{width:13px;height:13px;flex:0 0 auto}
+
+  .vazio{text-align:center;padding:66px 20px;color:var(--muted);animation:entra .4s ease both}
+  .vazio .ico{width:76px;height:76px;margin:0 auto 18px;border-radius:24px;background:rgba(255,255,255,.04);border:1px solid var(--card-brd);display:grid;place-items:center;font-size:33px}
+  .vazio h3{font-size:16px;font-weight:700;color:#c3c9db;margin-bottom:7px}
+  .vazio p{font-size:13.5px;line-height:1.6;max-width:280px;margin:0 auto}
+
+  .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:30;display:flex;align-items:center;gap:9px;padding:0 6px}
+  .fab{padding:15px 22px;border-radius:19px;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:-.2px;color:#fff;background:linear-gradient(135deg,#7c5cff,#5b3df5 55%,#3ddcff 140%);box-shadow:0 14px 38px -10px rgba(124,92,255,.9),0 0 0 1px rgba(255,255,255,.12) inset;display:flex;align-items:center;gap:8px;transition:transform .22s cubic-bezier(.2,.9,.3,1),box-shadow .22s;white-space:nowrap}
+  .fab:hover{transform:translateY(-3px);box-shadow:0 20px 46px -12px rgba(124,92,255,1)}
+  .fab:active{transform:scale(.97)}
+  .acao-circ{width:56px;height:56px;flex:0 0 56px;border-radius:19px;cursor:pointer;border:1px solid rgba(255,255,255,.14);background:rgba(18,22,38,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;font-size:22px;display:grid;place-items:center;box-shadow:0 14px 38px -12px rgba(0,0,0,.95);transition:transform .22s cubic-bezier(.2,.9,.3,1),background .22s,border-color .22s}
+  .acao-circ:hover{transform:translateY(-3px);background:rgba(124,92,255,.3);border-color:rgba(124,92,255,.6)}
+  .acao-circ:active{transform:scale(.95)}
+
+  .overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;background:rgba(4,6,12,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .28s}
+  .overlay.on{opacity:1;pointer-events:auto}
+  .sheet{width:100%;max-width:640px;max-height:92vh;overflow-y:auto;background:#101321;border:1px solid rgba(255,255,255,.1);border-radius:28px 28px 0 0;padding:22px 22px 30px;transform:translateY(40px);transition:transform .36s cubic-bezier(.2,.9,.3,1)}
+  .overlay.on .sheet{transform:none}
+  .sheet::-webkit-scrollbar{width:5px}
+  .sheet::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:9px}
+  .handle{width:42px;height:4px;border-radius:9px;background:rgba(255,255,255,.2);margin:0 auto 20px}
+
+  .form-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}
+  .form-header h2{font-size:19px;font-weight:800;letter-spacing:-.4px}
+  .camera-form-btn{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:13px;
+    border:1px solid rgba(255,181,71,.4);background:rgba(255,181,71,.12);color:#ffc46e;
+    font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;
+    white-space:nowrap;flex:0 0 auto;
+  }
+  .camera-form-btn:hover{background:rgba(255,181,71,.24);border-color:rgba(255,181,71,.65);color:#ffd699}
+  .camera-form-btn .em{font-size:16px;line-height:1}
+  .camera-form-btn.busy{opacity:.6;pointer-events:none}
+  .camera-form-btn.busy .em{animation:gira 1s linear infinite;display:inline-block}
+
+  .field{margin-bottom:17px}
+  .field > label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin-bottom:9px}
+  input,textarea,select{width:100%;background:rgba(255,255,255,.045);border:1px solid var(--card-brd);border-radius:14px;padding:13px 15px;color:var(--txt);font:inherit;font-size:15px;outline:none;transition:.2s}
+  textarea{resize:vertical;min-height:100px;line-height:1.55;font-family:inherit}
+  input::placeholder,textarea::placeholder{color:#5c6479}
+  input:focus,textarea:focus,select:focus{border-color:rgba(124,92,255,.75);background:rgba(124,92,255,.08);box-shadow:0 0 0 4px rgba(124,92,255,.13)}
+  input.preenchido-ia, textarea.preenchido-ia{animation:flashFill 1.1s ease}
+  @keyframes flashFill{0%{background:rgba(255,181,71,.28);border-color:rgba(255,181,71,.6)}100%{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.09)}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip-opt{padding:9px 14px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--card-brd);transition:.2s}
+  .chip-opt:hover{color:#fff;background:rgba(255,255,255,.09)}
+  .chip-opt.on{background:linear-gradient(135deg,#7c5cff,#5b3df5);color:#fff;border-color:transparent;box-shadow:0 8px 22px -8px rgba(124,92,255,.95)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:420px){.grid2{grid-template-columns:1fr}}
+
+  .switch{display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:15px;border:1px solid var(--card-brd);background:rgba(255,255,255,.035);cursor:pointer;transition:.2s}
+  .switch:hover{background:rgba(255,255,255,.06)}
+  .switch.on{border-color:rgba(124,92,255,.55);background:rgba(124,92,255,.1)}
+  .switch .toggle{width:44px;height:25px;flex:0 0 44px;border-radius:99px;position:relative;background:rgba(255,255,255,.15);transition:.25s}
+  .switch .toggle::after{content:'';position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.25s cubic-bezier(.2,.9,.3,1)}
+  .switch.on .toggle{background:linear-gradient(135deg,#7c5cff,#5b3df5)}
+  .switch.on .toggle::after{transform:translateX(19px)}
+  .switch .txt{flex:1}
+  .switch .txt strong{display:block;font-size:14px;font-weight:600}
+  .switch .txt small{font-size:12px;color:var(--muted)}
+  #campoHora{overflow:hidden;max-height:0;opacity:0;transition:.3s ease}
+  #campoHora.on{max-height:130px;opacity:1;margin-top:13px}
+
+  .acoes{display:flex;gap:11px;margin-top:26px}
+  .btn{flex:1;padding:15px;border-radius:15px;border:1px solid var(--card-brd);background:rgba(255,255,255,.05);color:var(--txt);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+  .btn:hover{background:rgba(255,255,255,.1)}
+  .btn.prim{border:none;color:#fff;background:linear-gradient(135deg,#7c5cff,#5b3df5);box-shadow:0 12px 30px -10px rgba(124,92,255,.95)}
+  .btn.prim:hover{filter:brightness(1.1)}
+  .btn.zap{border:none;color:#fff;background:linear-gradient(135deg,#25d366,#128c4a);box-shadow:0 12px 30px -10px rgba(37,211,102,.9)}
+  .btn.zap:hover{filter:brightness(1.1)}
+  .btn.perigo{border:none;color:#fff;background:linear-gradient(135deg,#ff5c7c,#e0437d);box-shadow:0 12px 30px -10px rgba(255,92,124,.95)}
+  .btn.perigo:hover{filter:brightness(1.1)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+
+  .form-ia-status{display:none;align-items:center;gap:10px;padding:11px 13px;border-radius:12px;margin-bottom:14px;font-size:12.5px;font-weight:600;line-height:1.4}
+  .form-ia-status.on{display:flex}
+  .form-ia-status .spinner{width:15px;height:15px;flex:0 0 15px;border-radius:50%;border:2px solid rgba(255,181,71,.25);border-top-color:#ffb547;animation:gira .8s linear infinite}
+  .form-ia-status.ok{background:rgba(46,230,168,.08);border:1px solid rgba(46,230,168,.35);color:#5ff0bd}
+  .form-ia-status.ok .spinner{display:none}
+  .form-ia-status.erro{background:rgba(255,92,124,.08);border:1px solid rgba(255,92,124,.35);color:#ff9db2}
+  .form-ia-status.erro .spinner{display:none}
+  @keyframes gira{to{transform:rotate(360deg)}}
+
+  .overlay.voz{align-items:center;padding:14px}
+  .voz-box{width:100%;max-width:460px;max-height:94vh;overflow-y:auto;background:linear-gradient(180deg,#151a2c,#0e1120);border:1px solid rgba(255,255,255,.11);border-radius:30px;padding:24px 22px 18px;box-shadow:0 34px 90px -22px rgba(0,0,0,.95),0 0 0 1px rgba(124,92,255,.14);transform:scale(.92);transition:transform .34s cubic-bezier(.2,.9,.3,1)}
+  .overlay.voz.on .voz-box{transform:scale(1)}
+  .voz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+  .voz-header h2{font-size:17px;font-weight:800;letter-spacing:-.3px}
+  .voz-header .fechar{width:34px;height:34px;border-radius:11px;border:1px solid var(--card-brd);background:rgba(255,255,255,.04);color:var(--muted);font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.2s;font-family:inherit}
+  .voz-header .fechar:hover{background:rgba(255,92,124,.16);color:#ff8098;border-color:rgba(255,92,124,.3)}
+  .voz-aviso{padding:14px 16px;border-radius:14px;margin-bottom:14px;background:rgba(255,181,71,.10);border:1px solid rgba(255,181,71,.28);color:#ffc46e;font-size:13px;line-height:1.6;display:none}
+  .voz-aviso.on{display:block}
+  .voz-aviso strong{display:block;font-weight:700;margin-bottom:6px;font-size:13.5px}
+  .voz-area-mic{text-align:center;padding:8px 0 18px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:16px}
+  .voz-status{font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--muted);margin-bottom:16px;min-height:18px;display:flex;align-items:center;justify-content:center;gap:8px;line-height:1.4;padding:0 6px}
+  .voz-status .ponto{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:0 0 7px;transition:.3s}
+  .voz-status.ouvindo{color:#5ff0bd}
+  .voz-status.ouvindo .ponto{background:var(--ok);animation:pulsa 1.5s infinite}
+  .voz-status.erro{color:#ff9db2}
+  .voz-status.erro .ponto{background:#ff5c7c}
+  .voz-mic{width:96px;height:96px;border-radius:50%;border:none;background:linear-gradient(135deg,#7c5cff,#5b3df5);color:#fff;font-size:36px;cursor:pointer;display:grid;place-items:center;margin:0 auto;position:relative;box-shadow:0 16px 44px -10px rgba(124,92,255,.95);transition:transform .22s,background .22s,box-shadow .22s,opacity .22s}
+  .voz-mic:hover:not(:disabled){transform:scale(1.05)}
+  .voz-mic:active:not(:disabled){transform:scale(.96)}
+  .voz-mic:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.6);background:rgba(255,255,255,.06);box-shadow:none}
+  .voz-mic .anel{position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(124,92,255,.55);opacity:0;pointer-events:none}
+  .voz-mic.listening .anel{animation:pulsaAnel 2.1s ease-out infinite}
+  .voz-mic.listening .anel:nth-child(2){animation-delay:1.05s}
+  .voz-mic.listening{background:linear-gradient(135deg,#ff5c7c,#e0437d);box-shadow:0 16px 44px -8px rgba(255,92,124,.9)}
+  .voz-mic.listening .anel{border-color:rgba(255,92,124,.55)}
+  @keyframes pulsaAnel{0%{transform:scale(.88);opacity:.95}100%{transform:scale(1.55);opacity:0}}
+  .voz-transcript{font-size:15.5px;font-weight:500;line-height:1.5;color:#c9cfe0;min-height:44px;padding:12px 6px 0;margin-bottom:4px;display:flex;align-items:center;justify-content:center;word-break:break-word;text-align:center}
+  .voz-transcript.vazio{color:#5a6279;font-style:italic;font-size:13.5px}
+  .voz-digitar{margin-top:14px}
+  .dig-divisor{display:flex;align-items:center;gap:12px;margin:14px 0 12px;color:#5c6479;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+  .dig-divisor::before,.dig-divisor::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.09)}
+  .dig-input-group{display:flex;gap:8px}
+  .voz-digitar input{flex:1;text-align:left;font-size:14.5px;padding:13px 15px}
+  .voz-digitar .btn-enviar{flex:0 0 auto;padding:0 18px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#7c5cff,#5b3df5);color:#fff;font-size:18px;font-weight:700;font-family:inherit;display:grid;place-items:center;transition:.2s;box-shadow:0 8px 20px -8px rgba(124,92,255,.9)}
+  .voz-digitar .btn-enviar:hover{filter:brightness(1.1)}
+  .voz-digitar .btn-enviar:active{transform:scale(.96)}
+  .dig-dica{font-size:11.5px;color:#5c6479;margin-top:8px;line-height:1.55;padding:0 2px}
+  .dig-dica em{color:#8b93a8;font-style:normal;font-weight:600}
+  .voz-preview{text-align:left;padding:16px;border-radius:16px;background:rgba(46,230,168,.06);border:1px solid rgba(46,230,168,.28);margin-top:14px;animation:entra .3s ease both}
+  .voz-preview[hidden]{display:none}
+  .pv-linha{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .pv-titulo{font-size:15.5px;font-weight:600;letter-spacing:-.2px;line-height:1.5;word-break:break-word;white-space:pre-wrap}
+  .pv-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+  .voz-acoes{display:flex;gap:9px;margin-top:14px}
+  .voz-acoes[hidden]{display:none}
+  .voz-acoes .btn{font-size:14px;padding:13px}
+
+  .overlay.foto{align-items:center;padding:14px}
+  .foto-box{width:100%;max-width:520px;max-height:94vh;overflow-y:auto;background:linear-gradient(180deg,#1a1620,#0e0b14);border:1px solid rgba(255,181,71,.25);border-radius:30px;padding:18px 20px 18px;box-shadow:0 34px 90px -22px rgba(0,0,0,.95),0 0 0 1px rgba(255,181,71,.1);transform:scale(.92);transition:transform .34s cubic-bezier(.2,.9,.3,1)}
+  .overlay.foto.on .foto-box{transform:scale(1)}
+  .foto-box::-webkit-scrollbar{width:5px}
+  .foto-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:9px}
+  .foto-fechar-row{display:flex;justify-content:flex-end;margin-bottom:10px}
+  .foto-header-close{width:36px;height:36px;border-radius:12px;border:1px solid var(--card-brd);background:rgba(255,255,255,.04);color:var(--muted);font-size:15px;cursor:pointer;display:grid;place-items:center;transition:.2s;font-family:inherit}
+  .foto-header-close:hover{background:rgba(255,92,124,.16);color:#ff8098;border-color:rgba(255,92,124,.3)}
+
+  .foto-modo{display:flex;gap:8px;padding:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;margin-bottom:14px}
+  .foto-modo button{flex:1;padding:11px 8px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--muted);background:transparent;transition:.2s}
+  .foto-modo button:hover{color:#fff}
+  .foto-modo button.on{background:linear-gradient(135deg,#ffb547,#e6930f);color:#0b0d17;box-shadow:0 8px 22px -10px rgba(255,181,71,.95)}
+
+  .foto-guia{padding:14px;border-radius:18px;margin-bottom:14px;background:linear-gradient(135deg,rgba(255,181,71,.08),rgba(124,92,255,.06));border:1px solid rgba(255,181,71,.22)}
+  .foto-guia-titulo{font-size:12px;font-weight:800;color:#ffc46e;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .foto-guia-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .guia-item{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:#c9cfe0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);line-height:1.3}
+  .guia-item .em{font-size:14px;flex:0 0 auto}
+  .guia-item.destacado{background:rgba(61,220,255,.08);border-color:rgba(61,220,255,.25);color:#7ee6ff}
+  .guia-item.destacado2{background:rgba(255,92,124,.08);border-color:rgba(255,92,124,.22);color:#ff9db2}
+
+  .foto-dica-camera{padding:11px 13px;border-radius:12px;margin-bottom:14px;background:rgba(61,220,255,.08);border:1px solid rgba(61,220,255,.22);color:#7ee6ff;font-size:12px;line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .foto-dica-camera .em{font-size:15px;flex:0 0 auto;line-height:1.2}
+
+  .foto-erro{padding:14px 16px;border-radius:14px;margin-bottom:14px;background:rgba(255,92,124,.10);border:1px solid rgba(255,92,124,.3);color:#ff9db2;font-size:13px;line-height:1.6;display:none}
+  .foto-erro.on{display:block}
+  .foto-erro strong{display:block;font-weight:700;margin-bottom:5px;font-size:13.5px;color:#ff8098}
+
+  .camera-btn{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;padding:24px 20px;border-radius:22px;cursor:pointer;font-family:inherit;color:#fff;background:linear-gradient(135deg,#ffb547,#e6930f);box-shadow:0 16px 40px -10px rgba(255,181,71,.9), 0 0 0 1px rgba(255,255,255,.14) inset;border:none;transition:transform .22s cubic-bezier(.2,.9,.3,1),box-shadow .22s,filter .2s;margin-bottom:12px}
+  .camera-btn:hover{transform:translateY(-3px);box-shadow:0 20px 50px -10px rgba(255,181,71,1);filter:brightness(1.05)}
+  .camera-btn:active{transform:scale(.98)}
+  .camera-btn .camera-emoji{font-size:44px;line-height:1}
+  .camera-btn .camera-titulo{font-size:16px;font-weight:800;letter-spacing:-.3px}
+  .camera-btn .camera-sub{font-size:12.5px;font-weight:600;color:rgba(11,13,23,.72)}
+
+  .foto-abertura-aviso{display:flex;align-items:center;gap:10px;justify-content:center;padding:11px 13px;border-radius:12px;margin-top:2px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#8b93a8;line-height:1.45;text-align:center}
+
+  .foto-preview{border-radius:18px;overflow:hidden;margin-bottom:14px;background:#000;border:1px solid rgba(255,255,255,.09);max-height:240px;display:flex;align-items:center;justify-content:center}
+  .foto-preview img{max-width:100%;max-height:240px;display:block;object-fit:contain}
+  .foto-preview[hidden]{display:none}
+
+  .foto-status{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:13px;margin-bottom:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);font-size:13px;font-weight:600;color:#c9cfe0;line-height:1.4}
+  .foto-status[hidden]{display:none}
+  .foto-status .spinner{width:16px;height:16px;flex:0 0 16px;border-radius:50%;border:2px solid rgba(124,92,255,.25);border-top-color:#7c5cff;animation:gira .8s linear infinite}
+  .foto-status.ok{border-color:rgba(46,230,168,.35);background:rgba(46,230,168,.08);color:#5ff0bd}
+  .foto-status.ok .spinner{display:none}
+  .foto-status.erro{border-color:rgba(255,92,124,.35);background:rgba(255,92,124,.08);color:#ff9db2}
+  .foto-status.erro .spinner{display:none}
+  .foto-prog{height:4px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:14px}
+  .foto-prog[hidden]{display:none}
+  .foto-prog-bar{height:100%;width:0%;background:linear-gradient(90deg,#7c5cff,#3ddcff);border-radius:9px;transition:width .3s ease}
+
+  .rev-painel{animation:entra .35s ease both}
+  .rev-painel[hidden]{display:none}
+  .rev-cabec{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;margin-bottom:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)}
+  .rev-cabec.status-verde{background:rgba(46,230,168,.1);border-color:rgba(46,230,168,.4)}
+  .rev-cabec.status-amarelo{background:rgba(255,181,71,.1);border-color:rgba(255,181,71,.42)}
+  .rev-cabec.status-vermelho{background:rgba(255,92,124,.1);border-color:rgba(255,92,124,.45)}
+  .rev-cabec.status-cinza{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+  .rev-cabec-icone{width:52px;height:52px;flex:0 0 52px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:rgba(255,255,255,.06)}
+  .rev-cabec.status-verde .rev-cabec-icone{background:linear-gradient(135deg,#2ee6a8,#12b981)}
+  .rev-cabec.status-amarelo .rev-cabec-icone{background:linear-gradient(135deg,#ffb547,#e6930f)}
+  .rev-cabec.status-vermelho .rev-cabec-icone{background:linear-gradient(135deg,#ff5c7c,#e0437d)}
+  .rev-cabec-txt{flex:1;min-width:0}
+  .rev-cabec-titulo{font-size:15.5px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
+  .rev-cabec-sub{font-size:12.5px;color:#a9b0c4;margin-top:3px;font-weight:500;line-height:1.4}
+  .rev-cabec-status{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 10px;border-radius:9px;border:1px solid;white-space:nowrap;flex:0 0 auto}
+  .rev-cabec.status-verde .rev-cabec-status{background:rgba(46,230,168,.2);color:#5ff0bd;border-color:rgba(46,230,168,.5)}
+  .rev-cabec.status-amarelo .rev-cabec-status{background:rgba(255,181,71,.2);color:#ffc46e;border-color:rgba(255,181,71,.5)}
+  .rev-cabec.status-vermelho .rev-cabec-status{background:rgba(255,92,124,.2);color:#ff9db2;border-color:rgba(255,92,124,.55)}
+  .rev-cabec.status-cinza .rev-cabec-status{background:rgba(139,147,168,.16);color:#9aa2b8;border-color:rgba(139,147,168,.3)}
+
+  .rev-titulo-sec{font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:#8b93a8;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .rev-titulo-sec::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+
+  .rev-campos{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
+  @media(max-width:420px){.rev-campos{grid-template-columns:1fr}}
+  .rev-campo{padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);transition:.2s}
+  .rev-campo.destaque{grid-column:1 / -1;border-color:rgba(61,220,255,.4);background:rgba(61,220,255,.06)}
+  .rev-campo.destaque2{grid-column:1 / -1;border-color:rgba(255,92,124,.4);background:rgba(255,92,124,.06)}
+  .rev-campo.vazio{border-color:rgba(255,181,71,.5);background:rgba(255,181,71,.06);animation:pulsaAviso 1.8s infinite}
+  @keyframes pulsaAviso{0%,100%{box-shadow:0 0 0 0 rgba(255,181,71,0)}50%{box-shadow:0 0 0 6px rgba(255,181,71,.13)}}
+  .rev-campo .rc-lbl{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#8b93a8;margin-bottom:6px}
+  .rev-campo.destaque .rc-lbl{color:#7ee6ff}
+  .rev-campo.destaque2 .rc-lbl{color:#ff9db2}
+  .rev-campo.vazio .rc-lbl{color:#ffc46e}
+  .rev-campo .rc-lbl .em{font-size:12px}
+  .rev-campo input{background:transparent;border:none;padding:0;font-size:14.5px;font-weight:600;color:#eef1f8;outline:none;width:100%;font-family:inherit;font-variant-numeric:tabular-nums}
+  .rev-campo input:focus{color:#fff}
+  .rev-campo input::placeholder{color:#4a5065;font-weight:500;font-style:italic}
+
+  .rev-chips-local{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.1)}
+  .rev-chips-local .rc-lbl-mini{font-size:9.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#5c6479;width:100%;margin-bottom:2px}
+  .rev-chips-local button{padding:6px 10px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:11.5px;font-weight:600;color:#a9b0c4;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);transition:.15s}
+  .rev-chips-local button:hover{color:#fff;background:rgba(124,92,255,.18);border-color:rgba(124,92,255,.45);transform:translateY(-1px)}
+  .rev-chips-local button:active{transform:scale(.96)}
+  .rev-chips-local button.on{background:linear-gradient(135deg,#7c5cff,#5b3df5);color:#fff;border-color:transparent}
+
+  .rev-datas-aviso{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:12px;margin-bottom:16px;background:rgba(61,220,255,.07);border:1px solid rgba(61,220,255,.2);color:#7ee6ff;font-size:12px;line-height:1.5}
+  .rev-datas-aviso .em{font-size:15px;flex:0 0 auto}
+
+  .rev-texto-box{margin-bottom:14px;border-radius:13px;overflow:hidden;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07)}
+  .rev-texto-box summary{padding:11px 14px;cursor:pointer;list-style:none;font-size:12.5px;font-weight:700;color:#a9b0c4;display:flex;align-items:center;gap:8px;transition:.2s}
+  .rev-texto-box summary:hover{color:#fff;background:rgba(255,255,255,.03)}
+  .rev-texto-box summary::-webkit-details-marker{display:none}
+  .rev-texto-box summary::after{content:'▾';margin-left:auto;transition:.2s;opacity:.6}
+  .rev-texto-box[open] summary::after{transform:rotate(180deg)}
+  .rev-texto-box .rev-texto-conteudo{padding:0 12px 12px}
+  .rev-texto-box textarea{min-height:80px;max-height:180px;font-family:'SF Mono',Consolas,Monaco,monospace;font-size:11.5px;line-height:1.55;background:rgba(255,255,255,.035)}
+
+  .rev-acoes{display:flex;gap:9px;margin-top:6px}
+  .rev-acoes .btn{font-size:14px;padding:14px}
+
+  .overlay.relatorio{align-items:center;padding:14px;z-index:75}
+  .rel-box{width:100%;max-width:540px;max-height:94vh;overflow-y:auto;background:linear-gradient(180deg,#0f1a16,#0a1310);border:1px solid rgba(37,211,102,.25);border-radius:30px;padding:22px 20px 18px;box-shadow:0 34px 90px -22px rgba(0,0,0,.95),0 0 0 1px rgba(37,211,102,.1);transform:scale(.92);transition:transform .34s cubic-bezier(.2,.9,.3,1)}
+  .overlay.relatorio.on .rel-box{transform:scale(1)}
+  .rel-box::-webkit-scrollbar{width:5px}
+  .rel-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:9px}
+  .rel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
+  .rel-header h2{font-size:17px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:9px}
+  .rel-header .fechar{width:34px;height:34px;border-radius:11px;border:1px solid var(--card-brd);background:rgba(255,255,255,.04);color:var(--muted);font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.2s;font-family:inherit}
+  .rel-header .fechar:hover{background:rgba(255,92,124,.16);color:#ff8098;border-color:rgba(255,92,124,.3)}
+  .rel-intro{font-size:12.5px;color:#8b93a8;line-height:1.55;margin-bottom:14px;padding:0 2px}
+  .rel-intro strong{color:#5fdc94;font-weight:700}
+  .rel-secao{margin-bottom:16px}
+  .rel-secao > label{display:block;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:9px}
+  .rel-opcoes{display:flex;flex-wrap:wrap;gap:7px}
+  .rel-opc{padding:8px 13px;border-radius:11px;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--card-brd);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+  .rel-opc:hover{color:#fff;background:rgba(255,255,255,.09)}
+  .rel-opc.on{background:linear-gradient(135deg,#25d366,#128c4a);color:#fff;border-color:transparent;box-shadow:0 8px 20px -8px rgba(37,211,102,.9)}
+  .rel-preview-box{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:14px;position:relative}
+  .rel-preview-box .contador{position:absolute;top:10px;right:12px;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:7px;background:rgba(37,211,102,.14);color:#5fdc94;border:1px solid rgba(37,211,102,.3);font-variant-numeric:tabular-nums}
+  .rel-preview{width:100%;background:transparent;border:none;color:#d8e6dc;font-family:'SF Mono',Consolas,Monaco,monospace;font-size:12px;line-height:1.6;outline:none;resize:vertical;min-height:200px;max-height:320px;padding:2px 0;white-space:pre-wrap;word-break:break-word}
+  .rel-aviso{padding:10px 12px;border-radius:11px;margin-top:10px;background:rgba(255,181,71,.10);border:1px solid rgba(255,181,71,.3);color:#ffc46e;font-size:12px;line-height:1.5}
+  .rel-aviso[hidden]{display:none}
+  .rel-aviso strong{font-weight:700;display:block;margin-bottom:3px}
+
+  .rel-acoes{display:flex;flex-direction:column;gap:9px}
+  .rel-acoes .linha{display:flex;gap:9px}
+  .rel-acoes .btn{font-size:14px;padding:14px}
+  .rel-btn-zap{padding:16px;border-radius:16px;border:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:800;color:#fff;background:linear-gradient(135deg,#25d366,#128c4a);box-shadow:0 14px 34px -10px rgba(37,211,102,.95),0 0 0 1px rgba(255,255,255,.12) inset;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
+  .rel-btn-zap:hover{filter:brightness(1.1);transform:translateY(-2px)}
+  .rel-btn-zap:active{transform:scale(.98)}
+  .rel-btn-zap svg{width:22px;height:22px}
+
+  .rel-contatos-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+  .rel-contatos-head > label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+  .rel-btn-add-contato{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:10px;border:1px solid rgba(37,211,102,.35);background:rgba(37,211,102,.1);color:#5fdc94;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;transition:.2s}
+  .rel-btn-add-contato:hover{background:rgba(37,211,102,.22);color:#7ceba9;border-color:rgba(37,211,102,.55)}
+  .rel-contatos{display:flex;flex-wrap:wrap;gap:7px;min-height:32px}
+  .contato-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 10px 8px 12px;border-radius:11px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.04);color:#c9cfe0;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;max-width:100%}
+  .contato-chip:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#fff}
+  .contato-chip.on{background:linear-gradient(135deg,#25d366,#128c4a);color:#fff;border-color:transparent;box-shadow:0 8px 20px -8px rgba(37,211,102,.9)}
+  .contato-chip .contato-avatar{width:22px;height:22px;border-radius:50%;flex:0 0 22px;background:linear-gradient(135deg,#25d366,#128c4a);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800}
+  .contato-chip.on .contato-avatar{background:rgba(255,255,255,.24)}
+  .contato-chip .contato-nome{font-weight:700;letter-spacing:-.1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px}
+  .contato-chip .contato-x{width:20px;height:20px;border-radius:7px;border:none;background:rgba(255,255,255,.08);color:#8b93a8;font-size:11px;cursor:pointer;display:grid;place-items:center;transition:.15s;flex:0 0 20px;font-family:inherit}
+  .contato-chip .contato-x:hover{background:rgba(255,92,124,.22);color:#ff9db2}
+  .contato-chip.on .contato-x{background:rgba(255,255,255,.14);color:#fff}
+  .contato-chip.on .contato-x:hover{background:rgba(0,0,0,.24);color:#fff}
+  .contato-vazio{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.12);font-size:12px;color:#7b8296;line-height:1.4}
+  .contato-vazio .em{font-size:14px}
+
+  .overlay.contato{align-items:center;padding:20px;z-index:85}
+  .contato-box{width:100%;max-width:380px;background:linear-gradient(180deg,#0f1f16,#0a140f);border:1px solid rgba(37,211,102,.28);border-radius:26px;padding:24px 20px 20px;box-shadow:0 34px 90px -22px rgba(0,0,0,.95),0 0 0 1px rgba(37,211,102,.12);transform:scale(.9);transition:transform .34s cubic-bezier(.2,.9,.3,1)}
+  .overlay.contato.on .contato-box{transform:scale(1)}
+  .contato-box h3{font-size:16.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  .contato-box .contato-sub{font-size:12.5px;color:#8b93a8;line-height:1.5;margin-bottom:18px}
+  .contato-box .campo{margin-bottom:14px}
+  .contato-box .campo label{display:block;font-size:10.5px;font-weight:800;color:#8b93a8;letter-spacing:.8px;text-transform:uppercase;margin-bottom:7px}
+  .contato-box .campo input{width:100%;padding:12px 14px;border-radius:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);color:#eef1f8;font:inherit;font-size:15px;outline:none;transition:.2s}
+  .contato-box .campo input:focus{border-color:rgba(37,211,102,.75);background:rgba(37,211,102,.08);box-shadow:0 0 0 4px rgba(37,211,102,.13)}
+  .contato-box .campo input::placeholder{color:#5c6479}
+  .contato-box .campo .dica{font-size:11px;color:#6b7384;margin-top:6px;line-height:1.5}
+  .contato-acoes{display:flex;gap:9px;margin-top:18px}
+  .contato-acoes .btn{font-size:14px;padding:13px}
+
+  .toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-140%);z-index:90;padding:14px 22px;border-radius:15px;font-size:14px;font-weight:600;background:#161a2b;border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 44px -14px rgba(0,0,0,.95);transition:transform .38s cubic-bezier(.2,.9,.3,1);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+  .toast.on{transform:translate(-50%,0)}
+
+  .overlay.confirmar{align-items:center;padding:20px;z-index:80}
+  .conf-box{width:100%;max-width:400px;background:linear-gradient(180deg,#1a1220,#100a15);border:1px solid rgba(255,92,124,.28);border-radius:26px;padding:28px 22px 22px;box-shadow:0 34px 90px -22px rgba(0,0,0,.95),0 0 0 1px rgba(255,92,124,.12);transform:scale(.9);transition:transform .34s cubic-bezier(.2,.9,.3,1);text-align:center}
+  .overlay.confirmar.on .conf-box{transform:scale(1)}
+  .conf-icone{width:64px;height:64px;margin:0 auto 16px;border-radius:20px;background:rgba(255,92,124,.14);border:1px solid rgba(255,92,124,.35);display:grid;place-items:center;font-size:28px}
+  .conf-box h3{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px}
+  .conf-box p{font-size:14px;color:#a9b0c4;line-height:1.6;margin-bottom:6px}
+  .conf-box .destaque{display:-webkit-box;margin:12px 0 20px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);font-size:13.5px;font-weight:600;color:#eef1f8;text-align:left;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+  .conf-acoes{display:flex;gap:10px}
+  .conf-acoes .btn{font-size:14.5px;padding:14px}
+
+  @keyframes entra{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:none}}
+  @keyframes pulsa{0%{box-shadow:0 0 0 0 rgba(46,230,168,.65)}70%{box-shadow:0 0 0 9px rgba(46,230,168,0)}100%{box-shadow:0 0 0 0 rgba(46,230,168,0)}}
+
+  @media(min-width:700px){.overlay{align-items:center;padding:24px}.sheet{border-radius:28px;max-height:88vh}.handle{display:none}}
+  @media(max-width:400px){.fab{padding:14px 16px;font-size:13px}.acao-circ{width:52px;height:52px;flex:0 0 52px;font-size:20px}.voz-mic{width:84px;height:84px;font-size:32px}.acao-btn{font-size:12px;padding:8px 10px}.ext-info{grid-template-columns:1fr}.ext-grid{grid-template-columns:1fr 1fr 1fr;gap:6px}.ext-stat .n{font-size:18px}.icone-btn{width:40px;height:40px;flex:0 0 40px;font-size:16px}.rev-campos{grid-template-columns:1fr}.foto-guia-grid{grid-template-columns:1fr}.contato-chip .contato-nome{max-width:100px}.camera-btn .camera-emoji{font-size:38px}.camera-btn .camera-titulo{font-size:15px}.camera-form-btn{padding:9px 11px;font-size:12px}}
+
+  .boot{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);transition:opacity .4s ease}
+  .boot.off{opacity:0;pointer-events:none}
+  .boot-inner{text-align:center;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.6px}
+  .boot-ico{width:60px;height:60px;margin:0 auto 16px;border-radius:18px;background:linear-gradient(135deg,#7c5cff,#3ddcff);display:grid;place-items:center;font-size:26px;animation:bootPulse 1.4s ease-in-out infinite}
+  @keyframes bootPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.9);opacity:.7}}
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Cabeçalho de Alto Destaque -->
-    <header class="header-destaque">
-      <span class="header-icon">💄✨</span>
-      <h1>Ceiça Prado</h1>
-      <p>Maquiagem & Penteado</p>
-    </header>
+<div class="boot" id="boot">
+  <div class="boot-inner">
+    <div class="boot-ico">◈</div>
+    <div id="bootTxt">Iniciando banco de dados…</div>
+  </div>
+</div>
 
-    <!-- Resumo Financeiro -->
-    <div class="finance-card">
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">◈</div>
       <div>
-        <div class="finance-title">Faturamento Agendado</div>
-        <div id="totalFinanceiro" class="finance-value">R$ 0,00</div>
-      </div>
-      <div style="font-size: 32px;">💰</div>
-    </div>
-
-    <form id="agendamentoForm">
-      <input type="hidden" id="agendamentoId">
-
-      <div class="form-group">
-        <label for="cliente">Nome da Cliente</label>
-        <input type="text" id="cliente" placeholder="Digite o nome da cliente" required>
-      </div>
-
-      <div class="form-group">
-        <label for="celular">Celular / WhatsApp (Com DDD)</label>
-        <input type="tel" id="celular" placeholder="(88) 99999-9999">
-      </div>
-
-      <div class="form-group">
-        <label>Serviços (Selecione um ou mais)</label>
-        <div class="checkbox-group">
-          <label class="checkbox-item">
-            <input type="checkbox" name="servicos" value="Maquiagem" data-valor="80"> Maquiagem (R$ 80,00)
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="servicos" value="Penteado" data-valor="80"> Penteado (R$ 80,00)
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="servicos" value="Waves" data-valor="50"> Waves (R$ 50,00)
-          </label>
-        </div>
-        <div id="valorCalculadoPreview" class="valor-preview">
-          <span id="textoValorTotal">Valor total selecionado: R$ 0,00</span>
-          <span id="textoDesconto" class="desconto-tag"></span>
-        </div>
-      </div>
-
-      <div class="form-group" style="display: flex; gap: 10px;">
-        <div style="flex: 1;">
-          <label for="data">Data</label>
-          <input type="date" id="data" required>
-        </div>
-        <div style="flex: 1;">
-          <label>Horário</label>
-          <div style="display: flex; gap: 4px;">
-            <select id="hora_h" style="flex: 1;" required>
-              <option value="">Hora</option>
-              <option value="05">05h</option>
-              <option value="06">06h</option>
-              <option value="07">07h</option>
-              <option value="08">08h</option>
-              <option value="09">09h</option>
-              <option value="10">10h</option>
-              <option value="11">11h</option>
-              <option value="12">12h</option>
-              <option value="13">13h</option>
-              <option value="14">14h</option>
-              <option value="15">15h</option>
-              <option value="16">16h</option>
-              <option value="17">17h</option>
-              <option value="18">18h</option>
-              <option value="19">19h</option>
-              <option value="20">20h</option>
-              <option value="21">21h</option>
-            </select>
-            <select id="hora_m" style="flex: 1;" required>
-              <option value="00">:00</option>
-              <option value="15">:15</option>
-              <option value="30">:30</option>
-              <option value="45">:45</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <button type="submit" id="btnSalvar" class="btn-submit">Agendar Horário</button>
-    </form>
-
-    <!-- CALENDÁRIO VISUAL MENSAL -->
-    <div class="calendar-container">
-      <h3>📅 Visão Geral do Mês</h3>
-      <div id="calendar"></div>
-    </div>
-
-    <!-- SEÇÃO DE SALVAR E RESTAURAR DADOS PARA TROCAR DE CELULAR -->
-    <div class="backup-section">
-      <h3>💾 Troca de Celular / Backup dos Agendamentos</h3>
-      <p>Salve a lista em um arquivo no seu celular atual e abra no novo celular sem perder nenhum agendamento!</p>
-      <div class="backup-buttons">
-        <button type="button" class="btn-backup" onclick="exportarDados()">📥 Salvar Backup (Baixar)</button>
-        <label class="btn-restore">
-          📤 Restaurar Backup
-          <input type="file" id="importFile" accept=".json" onchange="importarDados(event)" style="display: none;">
-        </label>
+        <h1>Rotina de Trabalho</h1>
+        <p id="dataHoje">—</p>
       </div>
     </div>
+    <div class="header-acoes">
+      <button class="icone-btn" id="btnNotif" title="Ativar notificações">🔔</button>
+      <button class="icone-btn report" id="btnRelatorio" title="Gerar relatório">📋</button>
+      <button class="icone-btn" id="btnDb" title="Banco de dados">🗄️<span class="db-dot" id="dbDot"></span></button>
+    </div>
+  </header>
 
-    <div class="agenda-section">
-      <h2>Meus Agendamentos</h2>
-      
-      <div class="search-container">
-        <input type="text" id="inputPesquisa" class="search-input" placeholder="🔍 Pesquisar por nome ou data (ex: Maria ou 25/08)...">
+  <section class="ext-panel" id="extPanel" hidden>
+    <div class="ext-panel-top"><h2>🧯 Status dos extintores</h2></div>
+    <div class="ext-grid">
+      <div class="ext-stat verde"><div class="n" id="extOk">0</div><div class="l">OK</div></div>
+      <div class="ext-stat amarelo"><div class="n" id="extAviso">0</div><div class="l">Vencem logo</div></div>
+      <div class="ext-stat vermelho"><div class="n" id="extVenc">0</div><div class="l">Vencidos</div></div>
+    </div>
+  </section>
+
+  <section class="painel" id="painel" hidden></section>
+
+  <div class="filtros" id="filtros">
+    <button class="filtro on" data-f="todas">Todas</button>
+    <button class="filtro ext" data-f="extintores">🧯 Extintores</button>
+    <button class="filtro" data-f="hoje">Hoje</button>
+    <button class="filtro" data-f="pendentes">Pendentes</button>
+    <button class="filtro" data-f="concluidas">Concluídas</button>
+  </div>
+
+  <div class="lista" id="lista"></div>
+</div>
+
+<div class="dock">
+  <button class="acao-circ" id="btnFalar" title="Registrar por voz">🎤</button>
+  <button class="fab" id="btnNova">+ Nova tarefa</button>
+</div>
+
+<!-- FORM MODAL — sem título, só descrição -->
+<div class="overlay" id="overlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="form-header">
+      <h2 id="tituloModal">Nova tarefa</h2>
+      <button class="camera-form-btn" id="btnCameraForm" type="button" title="Tirar foto e preencher">
+        <span class="em">📷</span>
+        <span class="txt">Tirar foto</span>
+      </button>
+    </div>
+
+    <div class="form-ia-status" id="formIaStatus">
+      <span class="spinner"></span>
+      <span id="formIaStatusTxt">Analisando foto…</span>
+    </div>
+
+    <div class="field">
+      <label for="fDesc">Descrição *</label>
+      <textarea id="fDesc" placeholder="Escreva o que precisa ser feito…" maxlength="800" autocomplete="off"></textarea>
+    </div>
+    <div class="field"><label>Categoria</label><div class="chips" id="chipsCat"></div></div>
+    <div class="field"><label>Prioridade</label><div class="chips" id="chipsPrio"></div></div>
+    <div class="field grid2">
+      <div><label for="fData">Data</label><input id="fData" type="date"></div>
+      <div><label for="fHora">Hora</label><input id="fHora" type="time"></div>
+    </div>
+    <div class="field">
+      <div class="switch" id="swLembrete"><div class="toggle"></div><div class="txt"><strong>⏰ Criar lembrete</strong><small>Me avise neste dia</small></div></div>
+      <div id="campoHora">
+        <label style="display:block;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin:13px 0 9px">Hora do lembrete</label>
+        <input id="fHoraLembrete" type="time" value="09:00">
       </div>
+    </div>
+    <div class="acoes">
+      <button class="btn" id="btnCancelar">Cancelar</button>
+      <button class="btn prim" id="btnSalvar">Salvar</button>
+    </div>
 
-      <div id="listaAgendamentos" class="agendamentos-list">
-        <!-- Os agendamentos aparecerão aqui -->
+    <input type="file" id="inputCameraForm" accept="image/*" capture="environment" hidden>
+  </div>
+</div>
+
+<div class="overlay voz" id="overlayVoz">
+  <div class="voz-box">
+    <div class="voz-header"><h2>🎤 Registrar por voz</h2><button class="fechar" id="vozFechar">✕</button></div>
+    <div class="voz-aviso" id="vozAviso"></div>
+    <div class="voz-area-mic">
+      <div class="voz-status" id="vozStatus"><span class="ponto"></span><span id="vozStatusTxt">Toque no microfone para falar</span></div>
+      <button class="voz-mic" id="vozMic"><span class="anel"></span><span class="anel"></span><span id="vozMicIcone">🎤</span></button>
+      <div class="voz-transcript vazio" id="vozTranscript">Toque no microfone e fale…</div>
+    </div>
+    <div class="voz-digitar">
+      <div class="dig-divisor"><span>ou digite a frase</span></div>
+      <div class="dig-input-group">
+        <input id="vozInput" type="text" placeholder="Ex: Extintor 12 PQS vence 15/03/2026" maxlength="200" autocomplete="off">
+        <button class="btn-enviar" id="vozInputBtn">↵</button>
+      </div>
+      <div class="dig-dica">Dicas: <em>hoje</em>, <em>amanhã</em>, <em>às 14h</em>, <em>urgente</em>, <em>extintor</em>…</div>
+    </div>
+    <div class="voz-preview" id="vozPreview" hidden></div>
+    <div class="voz-acoes" id="vozAcoes" hidden>
+      <button class="btn" id="vozRepetir">↻ Limpar</button>
+      <button class="btn prim" id="vozSalvar">✓ Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay foto" id="overlayFoto">
+  <div class="foto-box">
+    <div class="foto-fechar-row">
+      <button class="foto-header-close" id="fotoFechar">✕</button>
+    </div>
+    <div id="fotoEtapa1">
+      <div class="foto-modo">
+        <button data-modo="extintor" class="on">🧯 Extintor</button>
+        <button data-modo="auto">🤖 Outros</button>
+      </div>
+      <div class="foto-guia" id="fotoGuia">
+        <div class="foto-guia-titulo"><span class="em">🎯</span> A IA vai procurar na etiqueta:</div>
+        <div class="foto-guia-grid">
+          <span class="guia-item"><span class="em">🔢</span>Nº do extintor</span>
+          <span class="guia-item"><span class="em">🧪</span>Tipo (PQS / CO₂ / Água)</span>
+          <span class="guia-item"><span class="em">⚖️</span>Capacidade (4kg / 6L)</span>
+          <span class="guia-item destacado"><span class="em">📍</span>Local / Setor / Andar</span>
+          <span class="guia-item"><span class="em">🔧</span>Fabricação</span>
+          <span class="guia-item destacado2"><span class="em">📅</span>Validade / Vencimento</span>
+          <span class="guia-item"><span class="em">♻️</span>Última recarga</span>
+          <span class="guia-item"><span class="em">🏷️</span>Classe (A / B / C)</span>
+        </div>
+      </div>
+      <div class="foto-dica-camera"><span class="em">💡</span><span>Enquadre <b>só a etiqueta</b>, com boa luz, sem reflexo e sem tremer.</span></div>
+      <div class="foto-erro" id="fotoErro"></div>
+      <button class="camera-btn" id="btnAbrirCamera" type="button">
+        <span class="camera-emoji">📸</span>
+        <span class="camera-titulo">Abrir câmera e tirar foto</span>
+        <span class="camera-sub">Use a câmera para registrar a foto</span>
+      </button>
+      <div class="foto-abertura-aviso">
+        <span>📱</span>
+        <span>A câmera abre direto no seu celular ou webcam do computador.</span>
+      </div>
+      <input type="file" id="inputCamera" accept="image/*" capture="environment" hidden>
+    </div>
+    <div id="fotoEtapa2" hidden>
+      <div class="foto-preview" id="fotoPreview"><img id="fotoImg" alt="Pré-visualização"></div>
+      <div class="foto-prog" id="fotoProg" hidden><div class="foto-prog-bar" id="fotoProgBar"></div></div>
+      <div class="foto-status" id="fotoStatus" hidden><span class="spinner"></span><span id="fotoStatusTxt">Preparando…</span></div>
+    </div>
+    <div id="fotoEtapa3" class="rev-painel" hidden>
+      <div class="rev-cabec" id="revCabec">
+        <div class="rev-cabec-icone" id="revIcone">🧯</div>
+        <div class="rev-cabec-txt">
+          <div class="rev-cabec-titulo" id="revTitulo">Extintor</div>
+          <div class="rev-cabec-sub" id="revSub">Confira os dados abaixo</div>
+        </div>
+        <span class="rev-cabec-status" id="revStatus">—</span>
+      </div>
+      <div class="rev-titulo-sec">📋 Dados extraídos <span style="opacity:.6;font-weight:600;letter-spacing:0;text-transform:none">— toque para editar</span></div>
+      <div class="rev-campos" id="revCampos"></div>
+      <div class="rev-datas-aviso"><span class="em">💡</span><span>O status <b>verde / amarelo / vermelho</b> é recalculado automaticamente pela <b>Validade</b>. Se o local veio errado, use os <b>atalhos rápidos</b>.</span></div>
+      <details class="rev-texto-box">
+        <summary>📝 Ver texto completo reconhecido pela IA</summary>
+        <div class="rev-texto-conteudo">
+          <textarea id="fotoTexto" placeholder="Texto lido da imagem…" maxlength="2000"></textarea>
+          <button class="btn" id="fotoReanalisar" style="margin-top:8px;width:100%;font-size:13px;padding:11px">🔍 Reinterpretar este texto</button>
+        </div>
+      </details>
+      <div class="rev-acoes">
+        <button class="btn" id="fotoNova">📷 Tirar outra</button>
+        <button class="btn prim" id="fotoSalvar">✓ Salvar extintor</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    const PRECOS_SERVICOS = {
-      'Maquiagem': 80,
-      'Penteado': 80,
-      'Waves': 50
+<div class="overlay relatorio" id="overlayRel">
+  <div class="rel-box" id="relBox">
+    <div class="rel-header">
+      <h2>📋 Gerar relatório</h2>
+      <button class="fechar" id="relFechar">✕</button>
+    </div>
+    <div class="rel-intro">Monte o relatório e envie direto pelo <strong>WhatsApp</strong> 🟢</div>
+
+    <div class="rel-secao">
+      <label>O que incluir</label>
+      <div class="rel-opcoes" id="relEscopo">
+        <button class="rel-opc on" data-escopo="tudo">📦 Tudo</button>
+        <button class="rel-opc" data-escopo="extintores">🧯 Só extintores</button>
+        <button class="rel-opc" data-escopo="pendentes">📌 Só pendentes</button>
+        <button class="rel-opc" data-escopo="hoje">📅 Só hoje</button>
+      </div>
+    </div>
+
+    <div class="rel-secao">
+      <label>Formato</label>
+      <div class="rel-opcoes" id="relFormato">
+        <button class="rel-opc on" data-formato="detalhado">📖 Detalhado</button>
+        <button class="rel-opc" data-formato="resumido">⚡ Resumido</button>
+      </div>
+    </div>
+
+    <div class="rel-secao">
+      <div class="switch" id="relConcluidas">
+        <div class="toggle"></div>
+        <div class="txt">
+          <strong>Incluir concluídas</strong>
+          <small>Mostra o que já foi feito</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="rel-secao">
+      <div class="rel-contatos-head">
+        <label>Enviar para</label>
+        <button class="rel-btn-add-contato" id="relAddContato">+ Novo contato</button>
+      </div>
+      <div class="rel-contatos" id="relContatos"></div>
+    </div>
+
+    <div class="rel-secao">
+      <label>Pré-visualização</label>
+      <div class="rel-preview-box">
+        <span class="contador" id="relContador">0 caracteres</span>
+        <textarea class="rel-preview" id="relPreview" spellcheck="false"></textarea>
+      </div>
+      <div class="rel-aviso" id="relAviso" hidden>
+        <strong>⚠️ Relatório muito grande</strong>
+        Você pode enviar mesmo assim, mas o WhatsApp pode demorar a abrir. Se não abrir, use "Copiar" e cole manualmente.
+      </div>
+    </div>
+
+    <div class="rel-acoes">
+      <button class="rel-btn-zap" id="relEnviarZap">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span id="relEnviarZapTxt">Enviar pelo WhatsApp</span>
+      </button>
+      <div class="linha">
+        <button class="btn" id="relCopiar">📋 Copiar</button>
+        <button class="btn" id="relBaixar">💾 Baixar .txt</button>
+      </div>
+      <div class="linha">
+        <button class="btn" id="relRegenerar">↻ Regerar</button>
+        <button class="btn prim" id="relFechar2">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay contato" id="overlayContato">
+  <div class="contato-box">
+    <h3>👤 Novo contato</h3>
+    <div class="contato-sub">Salve um número para enviar o relatório direto.</div>
+    <div class="campo">
+      <label for="cNome">Nome</label>
+      <input id="cNome" type="text" placeholder="Ex: Supervisor, Segurança…" maxlength="30" autocomplete="off">
+    </div>
+    <div class="campo">
+      <label for="cTelefone">WhatsApp (com DDD)</label>
+      <input id="cTelefone" type="tel" placeholder="(11) 99999-9999" maxlength="20" autocomplete="off" inputmode="tel">
+      <div class="dica">Digite com DDD. Se for de outro país, inclua o código (ex: +55 11 9…).</div>
+    </div>
+    <div class="contato-acoes">
+      <button class="btn" id="contatoCancelar">Cancelar</button>
+      <button class="btn prim" id="contatoSalvar">Salvar contato</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayDb">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>🗄️ Banco de dados</h2>
+    <div id="dbInfo"></div>
+    <div class="acoes" style="flex-wrap:wrap">
+      <button class="btn" id="dbExportar">📤 Exportar JSON</button>
+      <button class="btn" id="dbImportar">📥 Importar JSON</button>
+    </div>
+    <div class="acoes">
+      <button class="btn" id="dbRelatorio">📋 Gerar relatório</button>
+      <button class="btn perigo" id="dbLimpar">🗑️ Apagar tudo</button>
+    </div>
+    <div class="acoes"><button class="btn" id="dbFechar">Fechar</button></div>
+    <input type="file" id="dbArquivo" accept="application/json,.json" hidden>
+  </div>
+</div>
+
+<div class="overlay confirmar" id="overlayConf">
+  <div class="conf-box">
+    <div class="conf-icone" id="confIcone">🗑️</div>
+    <h3 id="confTitulo">Excluir?</h3>
+    <p id="confTexto">Esta ação não pode ser desfeita.</p>
+    <span class="destaque" id="confDestaque"></span>
+    <div class="conf-acoes">
+      <button class="btn" id="confCancelar">Cancelar</button>
+      <button class="btn perigo" id="confConfirmar">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   BANCO
+============================================================ */
+const DB_NAME = 'rotina_trabalho_db';
+const DB_VERSION = 1;
+const STORE = 'tarefas';
+const LEGACY_DB = 'app_ocorrencias_db';
+const CONTATOS_KEY = 'rotina_whatsapp_contatos_v1';
+let db = null;
+
+function abrirDB(){
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if(!d.objectStoreNames.contains(STORE)){
+        const store = d.createObjectStore(STORE, { keyPath: 'id' });
+        store.createIndex('data', 'data', { unique: false });
+        store.createIndex('concluido', 'concluido', { unique: false });
+        store.createIndex('lembrete', 'lembrete', { unique: false });
+        store.createIndex('categoria', 'categoria', { unique: false });
+      }
     };
-
-    const form = document.getElementById('agendamentoForm');
-    const listaAgendamentos = document.getElementById('listaAgendamentos');
-    const agendamentoIdInput = document.getElementById('agendamentoId');
-    const btnSalvar = document.getElementById('btnSalvar');
-    const inputPesquisa = document.getElementById('inputPesquisa');
-    const totalFinanceiroEl = document.getElementById('totalFinanceiro');
-    const textoValorTotal = document.getElementById('textoValorTotal');
-    const textoDesconto = document.getElementById('textoDesconto');
-    let calendarObj = null;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      inicializarCalendario();
-      carregarAgendamentos();
-      atualizarPreviewValor();
-    });
-
-    inputPesquisa.addEventListener('input', carregarAgendamentos);
-
-    document.querySelectorAll('input[name="servicos"]').forEach(cb => {
-      cb.addEventListener('change', atualizarPreviewValor);
-    });
-
-    function inicializarCalendario() {
-      const calendarEl = document.getElementById('calendar');
-      calendarObj = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'today'
-        },
-        buttonText: {
-          today: 'Hoje'
-        },
-        eventClick: function(info) {
-          const cardEl = document.getElementById(`card-${info.event.id}`);
-          if (cardEl) {
-            cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            cardEl.style.boxShadow = '0 0 15px var(--pink-main)';
-            setTimeout(() => cardEl.style.boxShadow = '', 2000);
-          }
-        }
-      });
-      calendarObj.render();
-    }
-
-    function atualizarEventosCalendario(agendamentos) {
-      if (!calendarObj) return;
-      calendarObj.removeAllEvents();
-
-      agendamentos.forEach(item => {
-        const servicosTexto = Array.isArray(item.servicos) ? item.servicos.join(', ') : item.servico;
-        const corEvento = item.concluido ? '#2e7d32' : '#ff69b4';
-
-        calendarObj.addEvent({
-          id: item.id.toString(),
-          title: `${item.hora} - ${item.cliente} (${servicosTexto})`,
-          start: `${item.data}T${item.hora}:00`,
-          color: corEvento,
-          textColor: '#ffffff'
-        });
-      });
-    }
-
-    function calcularValorDosServicos(servicos) {
-      if (!servicos || servicos.length === 0) return 0;
-      let soma = servicos.reduce((acc, s) => acc + (PRECOS_SERVICOS[s] || 0), 0);
-      if (servicos.length > 1) soma -= 10;
-      return soma;
-    }
-
-    function atualizarPreviewValor() {
-      const checkboxes = document.querySelectorAll('input[name="servicos"]:checked');
-      const servicos = Array.from(checkboxes).map(cb => cb.value);
-      const valorTotal = calcularValorDosServicos(servicos);
-      
-      textoValorTotal.textContent = `Valor total selecionado: ${formatarMoeda(valorTotal)}`;
-      if (servicos.length > 1) {
-        textoDesconto.textContent = "💖 Desconto de R$ 10,00 aplicado com carinho pelo seu combo!";
-      } else {
-        textoDesconto.textContent = "";
-      }
-    }
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const id = agendamentoIdInput.value;
-      const cliente = document.getElementById('cliente').value;
-      const celular = document.getElementById('celular').value;
-      const data = document.getElementById('data').value;
-      
-      const horaH = document.getElementById('hora_h').value;
-      const horaM = document.getElementById('hora_m').value;
-      if (!horaH) {
-        alert('Por favor, escolha a hora!');
-        return;
-      }
-      const hora = `${horaH}:${horaM}`;
-
-      const checkboxes = document.querySelectorAll('input[name="servicos"]:checked');
-      const servicos = Array.from(checkboxes).map(cb => cb.value);
-
-      if (servicos.length === 0) {
-        alert('Por favor, selecione pelo menos um serviço!');
-        return;
-      }
-
-      const valor = calcularValorDosServicos(servicos);
-      let agendamentos = obterAgendamentos();
-
-      if (id) {
-        agendamentos = agendamentos.map(item => {
-          if (item.id === Number(id)) {
-            return { ...item, cliente, celular, valor, servicos, data, hora };
-          }
-          return item;
-        });
-        agendamentoIdInput.value = '';
-        btnSalvar.textContent = 'Agendar Horário';
-      } else {
-        const novoAgendamento = {
-          id: Date.now(),
-          cliente,
-          celular,
-          valor,
-          servicos,
-          data,
-          hora,
-          concluido: false
+    req.onsuccess = (e) => { db = e.target.result; resolve(db); };
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+function txStore(mode='readonly'){ return db.transaction(STORE, mode).objectStore(STORE); }
+function reqToPromise(req){ return new Promise((res,rej)=>{ req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error); }); }
+const DB = {
+  listarTodos: () => reqToPromise(txStore().getAll()),
+  obter: (id) => reqToPromise(txStore().get(id)),
+  criar: (item) => reqToPromise(txStore('readwrite').add(item)),
+  atualizar: (item) => reqToPromise(txStore('readwrite').put(item)),
+  remover: (id) => reqToPromise(txStore('readwrite').delete(id)),
+  limpar: () => reqToPromise(txStore('readwrite').clear()),
+  contar: () => reqToPromise(txStore().count()),
+  criarVarios: (lista) => new Promise((res,rej)=>{
+    const tx = db.transaction(STORE,'readwrite'); const store = tx.objectStore(STORE);
+    lista.forEach(i=>store.put(i));
+    tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error);
+  })
+};
+async function migrarDoBancoAntigo(){
+  return new Promise(resolve=>{
+    try{
+      const req = indexedDB.open(LEGACY_DB);
+      req.onsuccess = async (e)=>{
+        const oldDb = e.target.result;
+        if(!oldDb.objectStoreNames.contains('ocorrencias')){ oldDb.close(); resolve(0); return; }
+        const tx = oldDb.transaction('ocorrencias','readonly');
+        const store = tx.objectStore('ocorrencias');
+        const all = store.getAll();
+        all.onsuccess = async ()=>{
+          const lista = all.result || [];
+          oldDb.close();
+          if(lista.length === 0){ resolve(0); return; }
+          const total = await DB.contar();
+          if(total > 0){ resolve(0); return; }
+          const convertidos = lista.map(i=>({ ...i, id: i.id || uid() }));
+          await DB.criarVarios(convertidos);
+          resolve(convertidos.length);
         };
-        agendamentos.push(novoAgendamento);
-      }
-
-      agendamentos.sort((a, b) => new Date(`${a.data}T${a.hora}`) - new Date(`${b.data}T${b.hora}`));
-      localStorage.setItem('ceica_prado_agendamentos', JSON.stringify(agendamentos));
-
-      form.reset();
-      atualizarPreviewValor();
-      carregarAgendamentos();
-    });
-
-    function obterAgendamentos() {
-      const agendamentos = localStorage.getItem('ceica_prado_agendamentos');
-      return agendamentos ? JSON.parse(agendamentos) : [];
-    }
-
-    function alternarStatusConcluido(id) {
-      let agendamentos = obterAgendamentos();
-      agendamentos = agendamentos.map(item => {
-        if (item.id === id) {
-          return { ...item, concluido: !item.concluido };
-        }
-        return item;
-      });
-      localStorage.setItem('ceica_prado_agendamentos', JSON.stringify(agendamentos));
-      carregarAgendamentos();
-    }
-
-    function editarAgendamento(id) {
-      const agendamentos = obterAgendamentos();
-      const item = agendamentos.find(a => a.id === id);
-
-      if (item) {
-        agendamentoIdInput.value = item.id;
-        document.getElementById('cliente').value = item.cliente;
-        document.getElementById('celular').value = item.celular || '';
-        document.getElementById('data').value = item.data;
-        
-        if (item.hora && item.hora.includes(':')) {
-          const [h, m] = item.hora.split(':');
-          document.getElementById('hora_h').value = h;
-          document.getElementById('hora_m').value = m;
-        }
-
-        document.querySelectorAll('input[name="servicos"]').forEach(cb => cb.checked = false);
-
-        const servicosSalvos = Array.isArray(item.servicos) ? item.servicos : [item.servico];
-        servicosSalvos.forEach(s => {
-          const checkbox = document.querySelector(`input[name="servicos"][value="${s}"]`);
-          if (checkbox) checkbox.checked = true;
-        });
-
-        atualizarPreviewValor();
-        btnSalvar.textContent = 'Atualizar Agendamento';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    function deletarAgendamento(id) {
-      let agendamentos = obterAgendamentos();
-      agendamentos = agendamentos.filter(item => item.id !== id);
-      localStorage.setItem('ceica_prado_agendamentos', JSON.stringify(agendamentos));
-      carregarAgendamentos();
-    }
-
-    function formatarData(dataString) {
-      const [ano, mes, dia] = dataString.split('-');
-      return `${dia}/${mes}/${ano}`;
-    }
-
-    function formatarMoeda(valor) {
-      return (valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    function abrirWhatsappURL(celular, mensagem) {
-      let url = '';
-      if (celular && celular.trim() !== '') {
-        let numLimpo = celular.replace(/\D/g, '');
-        if (!numLimpo.startsWith('55')) {
-          numLimpo = '55' + numLimpo;
-        }
-        url = `https://api.whatsapp.com/send?phone=${numLimpo}&text=${mensagem}`;
-      } else {
-        url = `https://api.whatsapp.com/send?text=${mensagem}`;
-      }
-      window.open(url, '_blank');
-    }
-
-    function enviarWhatsApp(id) {
-      const agendamentos = obterAgendamentos();
-      const item = agendamentos.find(a => a.id === id);
-      if (!item) return;
-
-      const dataFormatada = formatarData(item.data);
-      const servicosLista = Array.isArray(item.servicos) ? item.servicos : [item.servico];
-
-      let servicosTexto = servicosLista.length === 1 
-        ? servicosLista[0] 
-        : '%0A' + servicosLista.map(s => `  ✨ ${s}`).join('%0A');
-
-      const mensagem = `Olá, ${item.cliente}! 💕✨%0A%0AÉ um prazer ter você conosco! Confirmando o seu agendamento em *Ceiça Prado - Maquiagem %26 Penteado*:%0A%0A💄 *Serviço(s):* ${servicosTexto}%0A🗓️ *Data:* ${dataFormatada}%0A⏰ *Horário:* ${item.hora}%0A📍 *Endereço:* Rua Sancho Canafistula, nº 114, Bairro Alto do Cristo%0A%0AEstou preparando tudo para te deixar ainda mais linda! Se precisar de algo, é só avisar. Até logo! 💖👑`;
-
-      abrirWhatsappURL(item.celular, mensagem);
-    }
-
-    function enviarLembreteWhatsApp(id) {
-      const agendamentos = obterAgendamentos();
-      const item = agendamentos.find(a => a.id === id);
-      if (!item) return;
-
-      const dataFormatada = formatarData(item.data);
-      const servicosLista = Array.isArray(item.servicos) ? item.servicos : [item.servico];
-
-      let servicosTexto = servicosLista.length === 1 
-        ? servicosLista[0] 
-        : '%0A' + servicosLista.map(s => `  ✨ ${s}`).join('%0A');
-
-      const mensagem = `Olá, ${item.cliente}! 💕✨%0A%0APassando para lembrar do seu agendamento em *Ceiça Prado - Maquiagem %26 Penteado*:%0A%0A💄 *Serviço(s):* ${servicosTexto}%0A🗓️ *Data:* ${dataFormatada}%0A⏰ *Horário:* ${item.hora}%0A📍 *Endereço:* Rua Sancho Canafistula, nº 114, Bairro Alto do Cristo%0A%0AQualquer dúvida ou imprevisto, é só me avisar aqui. Estou te esperando para te deixar ainda mais maravilhosa! 💖👑`;
-
-      abrirWhatsappURL(item.celular, mensagem);
-    }
-
-    function calcularTotalFinanceiro(agendamentos) {
-      const total = agendamentos.reduce((acc, item) => {
-        const v = item.valor !== undefined ? item.valor : calcularValorDosServicos(item.servicos || []);
-        return acc + (parseFloat(v) || 0);
-      }, 0);
-      totalFinanceiroEl.textContent = formatarMoeda(total);
-    }
-
-    function carregarAgendamentos() {
-      const agendamentos = obterAgendamentos();
-      const termo = inputPesquisa ? inputPesquisa.value.toLowerCase().trim() : '';
-      listaAgendamentos.innerHTML = '';
-
-      calcularTotalFinanceiro(agendamentos);
-      atualizarEventosCalendario(agendamentos);
-
-      const agendamentosFiltrados = agendamentos.filter(item => {
-        const nomeCliente = item.cliente.toLowerCase();
-        const dataFormatada = formatarData(item.data);
-        const dataOriginal = item.data;
-
-        return nomeCliente.includes(termo) || 
-               dataFormatada.includes(termo) || 
-               dataOriginal.includes(termo);
-      });
-
-      if (agendamentosFiltrados.length === 0) {
-        if (termo !== '') {
-          listaAgendamentos.innerHTML = '<p class="empty-msg">Nenhum agendamento encontrado para esta pesquisa.</p>';
-        } else {
-          listaAgendamentos.innerHTML = '<p class="empty-msg">Nenhum agendamento marcado ainda.</p>';
-        }
-        return;
-      }
-
-      agendamentosFiltrados.forEach(item => {
-        const card = document.createElement('div');
-        const estaConcluido = item.concluido ? 'concluido' : '';
-        card.className = `card ${estaConcluido}`;
-        card.id = `card-${item.id}`;
-
-        const celularDisplay = item.celular && item.celular.trim() !== '' 
-          ? `<span class="card-data">📱 ${item.celular}</span>` 
-          : '';
-
-        const servicosLista = Array.isArray(item.servicos) ? item.servicos : [item.servico];
-        const servicosHTML = servicosLista.map(s => `<span class="card-servico">${s}</span>`).join('');
-        const textoBtnConcluir = item.concluido ? '✓ Realizado' : 'Marcar Concluído';
-        const valorCard = item.valor !== undefined ? item.valor : calcularValorDosServicos(servicosLista);
-
-        const temDesconto = servicosLista.length > 1;
-        const tagDescontoHTML = temDesconto 
-          ? `<span class="card-desconto-tag">💖 Desconto Combo R$ 10,00 aplicado</span>` 
-          : '';
-
-        card.innerHTML = `
-          <div class="card-info">
-            <span class="card-cliente">${item.cliente}</span>
-            <div class="card-servicos-container">
-              ${servicosHTML}
-            </div>
-            <span class="card-data">🗓️ ${formatarData(item.data)} às ⏰ ${item.hora}</span>
-            <span class="card-valor">💵 ${formatarMoeda(valorCard)}</span>
-            ${tagDescontoHTML}
-            ${celularDisplay}
-          </div>
-          <div class="card-actions">
-            <button class="btn-concluir" onclick="alternarStatusConcluido(${item.id})">${textoBtnConcluir}</button>
-            <button class="btn-whatsapp" onclick="enviarWhatsApp(${item.id})">📲 Agendamento</button>
-            <button class="btn-lembrete" onclick="enviarLembreteWhatsApp(${item.id})">🔔 Lembrete Dia</button>
-            <button class="btn-editar" onclick="editarAgendamento(${item.id})">Editar</button>
-            <button class="btn-deletar" onclick="deletarAgendamento(${item.id})">Cancelar</button>
-          </div>
-        `;
-        listaAgendamentos.appendChild(card);
-      });
-    }
-
-    function exportarDados() {
-      const agendamentos = obterAgendamentos();
-      if (agendamentos.length === 0) {
-        alert('Não há agendamentos salvos para exportar!');
-        return;
-      }
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(agendamentos, null, 2));
-      const downloadAnchor = document.createElement('a');
-      const hoje = new Date().toISOString().split('T')[0];
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `backup_ceica_prado_${hoje}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-    }
-
-    function importarDados(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const dados = JSON.parse(e.target.result);
-          if (Array.isArray(dados)) {
-            if (confirm(`Deseja importar ${dados.length} agendamento(s)? Isso atualizará sua lista atual.`)) {
-              localStorage.setItem('ceica_prado_agendamentos', JSON.stringify(dados));
-              carregarAgendamentos();
-              alert('✨ Agendamentos restaurados com sucesso!');
-            }
-          } else {
-            alert('Arquivo inválido! Certifique-se de escolher o arquivo de backup gerado pelo aplicativo.');
-          }
-        } catch (err) {
-          alert('Erro ao ler o arquivo de backup!');
-        }
+        all.onerror = ()=>{ oldDb.close(); resolve(0); };
       };
-      reader.readAsText(file);
+      req.onerror = ()=>resolve(0); req.onblocked = ()=>resolve(0);
+    }catch(e){ resolve(0); }
+  });
+}
+async function migrarLocalStorageSePreciso(){
+  const LEGACY = 'app_ocorrencias_v1';
+  const raw = localStorage.getItem(LEGACY);
+  if(!raw) return 0;
+  try{
+    const antigos = JSON.parse(raw);
+    if(!Array.isArray(antigos) || antigos.length === 0){ localStorage.removeItem(LEGACY); return 0; }
+    const total = await DB.contar(); if(total > 0) return 0;
+    const convertidos = antigos.map(i=>({ ...i, id: i.id || uid() }));
+    await DB.criarVarios(convertidos); localStorage.removeItem(LEGACY);
+    return convertidos.length;
+  }catch(e){ return 0; }
+}
+
+/* ============================================================
+   CONTATOS WHATSAPP
+============================================================ */
+let contatos = [];
+let contatoSelecionado = null;
+
+function carregarContatos(){
+  try{ const raw = localStorage.getItem(CONTATOS_KEY); contatos = raw ? JSON.parse(raw) : []; if(!Array.isArray(contatos)) contatos = []; }catch(e){ contatos = []; }
+}
+function salvarContatosLS(){ try{ localStorage.setItem(CONTATOS_KEY, JSON.stringify(contatos)); }catch(e){} }
+function renderContatos(){
+  const el = document.getElementById('relContatos'); if(!el) return;
+  if(contatos.length === 0){ el.innerHTML = `<div class="contato-vazio"><span class="em">💡</span><span>Nenhum contato salvo. Toque em <b>+ Novo contato</b> para enviar direto a um número, ou apenas envie e escolha no WhatsApp.</span></div>`; return; }
+  let html = `<button type="button" class="contato-chip ${contatoSelecionado === null ? 'on' : ''}" data-contato="__geral__"><span class="contato-avatar">💬</span><span class="contato-nome">Escolher no WhatsApp</span></button>`;
+  contatos.forEach(c => {
+    const on = contatoSelecionado && contatoSelecionado.id === c.id;
+    const inicial = (c.nome || '?').trim().charAt(0).toUpperCase();
+    html += `<span class="contato-chip ${on ? 'on' : ''}" data-contato="${c.id}"><span class="contato-avatar">${inicial}</span><span class="contato-nome">${escapar(c.nome || 'Sem nome')}</span><button type="button" class="contato-x" data-remover="${c.id}" title="Remover">✕</button></span>`;
+  });
+  el.innerHTML = html;
+}
+document.getElementById('relContatos').addEventListener('click', (e) => {
+  const x = e.target.closest('[data-remover]');
+  if(x){
+    e.stopPropagation();
+    const id = x.dataset.remover;
+    const contato = contatos.find(c => c.id === id);
+    abrirConfirmacao({ titulo: 'Remover contato?', texto: 'Você poderá adicioná-lo de novo depois.', destaque: contato?.nome || '', icone: '👤', botao: 'Remover', perigo: true,
+      onConfirmar: () => { contatos = contatos.filter(c => c.id !== id); if(contatoSelecionado && contatoSelecionado.id === id) contatoSelecionado = null; salvarContatosLS(); renderContatos(); atualizarTextoBotaoZap(); toast('👤 Contato removido'); } });
+    return;
+  }
+  const chip = e.target.closest('[data-contato]'); if(!chip) return;
+  const val = chip.dataset.contato;
+  if(val === '__geral__'){ contatoSelecionado = null; } else { contatoSelecionado = contatos.find(c => c.id === val) || null; }
+  renderContatos(); atualizarTextoBotaoZap();
+});
+function atualizarTextoBotaoZap(){
+  const el = document.getElementById('relEnviarZapTxt'); if(!el) return;
+  if(contatoSelecionado){ el.textContent = `Enviar para ${contatoSelecionado.nome}`; } else { el.textContent = 'Enviar pelo WhatsApp'; }
+}
+const overlayContato = document.getElementById('overlayContato');
+function abrirModalContato(){ document.getElementById('cNome').value = ''; document.getElementById('cTelefone').value = ''; overlayContato.classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(() => document.getElementById('cNome').focus(), 250); }
+function fecharModalContato(){ overlayContato.classList.remove('on'); document.body.style.overflow = ''; }
+document.getElementById('relAddContato').addEventListener('click', abrirModalContato);
+document.getElementById('contatoCancelar').addEventListener('click', fecharModalContato);
+overlayContato.addEventListener('click', e => { if(e.target === overlayContato) fecharModalContato(); });
+document.getElementById('cTelefone').addEventListener('input', (e) => {
+  let v = e.target.value.replace(/\D/g,'').slice(0, 13);
+  if(v.length === 0){ e.target.value = ''; return; }
+  if(v.startsWith('55') && v.length > 10){
+    const resto = v.slice(2);
+    if(resto.length <= 2) e.target.value = '+55 ' + resto;
+    else if(resto.length <= 6) e.target.value = '+55 ' + resto.slice(0,2) + ' ' + resto.slice(2);
+    else if(resto.length <= 10) e.target.value = '+55 (' + resto.slice(0,2) + ') ' + resto.slice(2,6) + '-' + resto.slice(6);
+    else e.target.value = '+55 (' + resto.slice(0,2) + ') ' + resto.slice(2,7) + '-' + resto.slice(7);
+  } else {
+    if(v.length <= 2) e.target.value = v;
+    else if(v.length <= 6) e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    else if(v.length <= 10) e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6);
+    else e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  }
+});
+document.getElementById('contatoSalvar').addEventListener('click', () => {
+  const nome = document.getElementById('cNome').value.trim();
+  const telRaw = document.getElementById('cTelefone').value.trim();
+  if(!nome){ toast('⚠️ Informe o nome'); document.getElementById('cNome').focus(); return; }
+  const telDigitos = telRaw.replace(/\D/g,'');
+  if(telDigitos.length < 10){ toast('⚠️ Telefone inválido — inclua o DDD'); document.getElementById('cTelefone').focus(); return; }
+  if(contatos.some(c => c.nome.toLowerCase() === nome.toLowerCase())){ toast('⚠️ Já existe um contato com esse nome'); return; }
+  let numeroFinal = telDigitos;
+  if(!numeroFinal.startsWith('55') || numeroFinal.length < 12){ numeroFinal = '55' + numeroFinal; }
+  const novo = { id: uid(), nome, telefone: numeroFinal };
+  contatos.push(novo); salvarContatosLS();
+  contatoSelecionado = novo;
+  renderContatos(); atualizarTextoBotaoZap();
+  fecharModalContato(); toast('✓ Contato salvo');
+});
+document.getElementById('cNome').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('cTelefone').focus(); } });
+document.getElementById('cTelefone').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('contatoSalvar').click(); } });
+
+/* ============================================================
+   ESTADO
+============================================================ */
+let items = [];
+let filtro = 'todas';
+let editandoId = null;
+let catSel = 'trabalho';
+let prioSel = 'media';
+let lembreteOn = false;
+let modoFoto = 'extintor';
+let relEscopo = 'tudo';
+let relFormato = 'detalhado';
+let relIncluirConcluidas = false;
+let itemFoto = null;
+let tesseractCarregado = false;
+let imgUrlAtual = null;
+let processandoFoto = false;
+
+const CATS = {
+  trabalho:  { icon:'💼', label:'Trabalho',   cor:'#7c5cff' },
+  pessoal:   { icon:'🏠', label:'Pessoal',    cor:'#3ddcff' },
+  estudo:    { icon:'📚', label:'Estudo',     cor:'#2ee6a8' },
+  saude:     { icon:'💚', label:'Saúde',      cor:'#ff8fb1' },
+  financeiro:{ icon:'💰', label:'Financeiro', cor:'#ffb547' },
+  extintor:  { icon:'🧯', label:'Extintor',   cor:'#ff5c7c' },
+  outro:     { icon:'📌', label:'Outro',      cor:'#8b93a8' }
+};
+const PRIOS = { baixa:{label:'Baixa'}, media:{label:'Média'}, alta:{label:'Alta'} };
+const DIAS_AVISO = 30;
+const LOCAIS_SUGERIDOS = ['Recepção','Portaria','Garagem','Subsolo','Térreo','1º Andar','2º Andar','3º Andar','Corredor','Produção','Almoxarifado','Refeitório','Cozinha','Vestiário','Doca','Escritório','Sala de Reunião','Diretoria','Guarita','Depósito','Pátio','Área Externa','Laboratório','Oficina','Estoque'];
+
+/* ============================================================
+   UTIL
+============================================================ */
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function hojeISO(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function isoDe(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function dataBR(iso){ if(!iso) return ''; const p = iso.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; }
+function brParaISO(br){
+  if(!br) return '';
+  const m = String(br).match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+  if(!m) return '';
+  const dia = parseInt(m[1]), mes = parseInt(m[2]);
+  let ano = parseInt(m[3]); if(ano < 100) ano += 2000;
+  if(dia < 1 || dia > 31 || mes < 1 || mes > 12) return '';
+  return isoDe(new Date(ano, mes-1, dia));
+}
+function fmtData(iso){
+  if(!iso) return '';
+  const [y,m,d]=iso.split('-').map(Number);
+  const dt = new Date(y,m-1,d);
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const diff = Math.round((dt - hoje)/86400000);
+  if(diff===0) return 'Hoje'; if(diff===1) return 'Amanhã'; if(diff===-1) return 'Ontem'; if(diff===2) return 'Depois de amanhã';
+  return dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'});
+}
+function escapar(s){ return String(s ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+let toastTimer;
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('on'), 2800);
+}
+function atualizarRelogio(){
+  const d = new Date();
+  const data = d.toLocaleDateString('pt-BR',{weekday:'short',day:'numeric',month:'short'});
+  const hora = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('dataHoje').innerHTML = `${data} <span class="sep">·</span> <span class="hora">${hora}</span>`;
+}
+
+/* Retorna o "conteúdo principal" (descrição, ou título como fallback de dados antigos) */
+function conteudoDe(i){
+  return (i.descricao && i.descricao.trim()) || (i.titulo && i.titulo.trim()) || 'Sem descrição';
+}
+
+/* ============================================================
+   STATUS EXTINTOR
+============================================================ */
+function statusExtintor(validadeISO){
+  if(!validadeISO) return { cor:'cinza', label:'SEM VALIDADE', dias:null, texto:'Sem data de validade', emoji:'⚪' };
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const venc = new Date(validadeISO + 'T00:00:00');
+  const dias = Math.ceil((venc - hoje) / 86400000);
+  if(dias < 0) return { cor:'vermelho', label:'VENCIDO', dias, texto: dias === -1 ? 'Venceu ontem' : `Vencido há ${Math.abs(dias)} dias`, emoji:'🚨' };
+  if(dias === 0) return { cor:'vermelho', label:'VENCE HOJE', dias, texto:'Vence HOJE!', emoji:'🚨' };
+  if(dias <= DIAS_AVISO) return { cor:'amarelo', label:'VENCE LOGO', dias, texto: dias === 1 ? 'Vence amanhã' : `Vence em ${dias} dias`, emoji:'⚠️' };
+  return { cor:'verde', label:'OK', dias, texto: `Vence em ${dias} dias`, emoji:'✓' };
+}
+
+/* ============================================================
+   PARSER EXTINTOR
+============================================================ */
+function ehExtintor(t){ return /extintor|extintores|pqs|p[óo]\s*qu[íi]mico|g[áa]s\s*carb[ôo]nico|\bco2\b|classe\s*[abc]\b|recarga|hidrost[áa]tico|extintor\s*de\s*inc[êe]ndio/i.test(t); }
+function normalizarData(s){
+  if(!s) return '';
+  const m = String(s).match(/(\d{1,2})[\/\-\.](\d{1,2})(?:[\/\-\.](\d{2,4}))?/);
+  if(!m) return '';
+  const dia = parseInt(m[1]), mes = parseInt(m[2]) - 1;
+  let ano = m[3] ? parseInt(m[3]) : new Date().getFullYear();
+  if(ano < 100) ano += 2000;
+  if(dia < 1 || dia > 31 || mes < 0 || mes > 11) return '';
+  return isoDe(new Date(ano, mes, dia));
+}
+function extrairTodasDatas(texto){
+  const out = [];
+  const re = /\b(\d{1,2})[\/\-\.](\d{1,2})(?:[\/\-\.](\d{2,4}))?\b/g;
+  let m;
+  while((m = re.exec(texto)) !== null){
+    const dia = parseInt(m[1]);
+    const mes = parseInt(m[2]) - 1;
+    let ano = m[3] ? parseInt(m[3]) : null;
+    if(ano !== null && ano < 100) ano += 2000;
+    if(dia >= 1 && dia <= 31 && mes >= 0 && mes <= 11){
+      const anoFinal = ano || new Date().getFullYear();
+      out.push({ iso: isoDe(new Date(anoFinal, mes, dia)), pos: m.index, tinhaAno: ano !== null });
     }
-  </script>
+  }
+  return out;
+}
+function extrairLocal(orig){
+  let local = '';
+  const KW = 'local(?:iza[çc][ãa]o)?|setor|ambiente|sala|andar|pavimento|piso|n[íi]vel|bloco|torre|ala|corredor|dep[óo]sito|almoxarifado|garagem|subsolo|t[ée]rreo|recep[çc][ãa]o|portaria|guarita|cozinha|refeit[óo]rio|vesti[áa]rio|estoque|produ[çc][ãa]o|manuten[çc][ãa]o|oficina|laborat[óo]rio|audit[óo]rio|escrit[óo]rio|diretoria|financeiro|compras|vendas|marketing|servidor|doca|p[áa]tio|[áa]rea\\s*externa|fundos|frente|entrada|sa[íi]da|rampa|mezanino|sot[ãa]o|telhado|cobertura|jardim|quintal|hall';
+  let m = orig.match(new RegExp('(?:' + KW + ')\\s*[:\\-]\\s*([^\\n|]{2,70})', 'i'));
+  if(m){ local = limparLocal(m[1]); if(local.length >= 2 && !localEhLixo(local)) return local; local = ''; }
+  m = orig.match(new RegExp('\\b(LOCAL|SETOR|SALA|ANDAR|PAVIMENTO|PISO|N[ÍI]VEL|BLOCO|TORRE|ALA|CORREDOR|DEP[ÓO]SITO|ALMOXARIFADO|GARAGEM|SUBSOLO|T[ÉE]RREO|RECEP[ÇC][ÃA]O|PORTARIA|GUARITA|COZINHA|REFEIT[ÓO]RIO|VESTI[ÁA]RIO|ESTOQUE|PRODU[ÇC][ÃA]O|MANUTEN[ÇC][ÃA]O|OFICINA|LABORAT[ÓO]RIO|AUDIT[ÓO]RIO|ESCRIT[ÓO]RIO|DIRETORIA)\\s+([A-Z0-9][^\\n|]{1,60})', 'i'));
+  if(m){ local = limparLocal((m[1] + ' ' + m[2]).trim()); if(local.length >= 3 && !localEhLixo(local)) return local; local = ''; }
+  const linhas = orig.split(/\n+/).map(l => l.trim()).filter(l => l.length >= 3 && l.length <= 90);
+  const chaveForte = /\b(andar|pavimento|piso|n[íi]vel|bloco\s*[a-z0-9]|torre\s*[a-z0-9]|ala\s*[a-z0-9]|corredor|recep[çc][ãa]o|portaria|guarita|cozinha|refeit[óo]rio|vesti[áa]rio|almoxarifado|dep[óo]sito|garagem|subsolo|t[ée]rreo|mezanino|sot[ãa]o|doca|p[áa]tio|[áa]rea\s*externa|primeiro|segundo|terceiro|quarto|quinto|sexto|s[ée]timo|oitavo|nono|d[ée]cimo)\b/i;
+  const chaveMedia = /\b([1-9]º|[1-9]o\b|[1-9]ª|produ[çc][ãa]o|manuten[çc][ãa]o|oficina|laborat[óo]rio|audit[óo]rio|escrit[óo]rio|diretoria|estoque|expedi[çc][ãa]o|faturamento|contabilidade|marketing|comercial|financeiro|compras|vendas|rh\b|departamento|setor\s+\w|sala\s+\d|sala\s+[a-z])\b/i;
+  const lixoLinha = /extintor|pqs|co2|co₂|g[áa]s\s*carb|classe\s*[abc]|recarga|fabric|validade|venc|hidrost|cnpj|cpf|tel[\.:]|telefone|www\.|http|\.com\b|\.br\b|cep\b|rua\b|avenida|\bav\.\s*\d|\bn[º°]\s*\d|kg\b|litros?\b|abc\b|bc\b|data\s*de|emiss[ãa]o|fabricante|ltda|s\.a\.|eireli|mei\b/i;
+  for(const l of linhas){ if(lixoLinha.test(l)) continue; if(chaveForte.test(l)){ local = limparLocal(l); if(local.length >= 3 && local.length <= 70 && !localEhLixo(local)) return local; } }
+  for(const l of linhas){
+    if(lixoLinha.test(l)) continue;
+    if(/^\d+[.,]?\d*\s*(kg|l\b)?$/i.test(l)) continue;
+    if(/^[\d\s,.\-\/º°]+$/.test(l)) continue;
+    if(!/[A-Za-zÀ-ú]{3,}/.test(l)) continue;
+    if(chaveMedia.test(l)){ local = limparLocal(l); if(local.length >= 3 && local.length <= 60 && !localEhLixo(local)) return local; }
+  }
+  for(const l of linhas){
+    if(lixoLinha.test(l)) continue;
+    if(/^[\d\s,.\-\/º°]+$/.test(l)) continue;
+    if(l.length < 4 || l.length > 50) continue;
+    if(!/[A-Za-zÀ-ú]{3,}/.test(l)) continue;
+    if(/^\s*(pqs|co2|abc|bc|água|espuma)/i.test(l)) continue;
+    local = limparLocal(l);
+    if(local.length >= 3 && !localEhLixo(local)) return local;
+  }
+  return '';
+}
+function limparLocal(s){ return String(s||'').replace(/[|_=\-–—]{2,}/g,' ').replace(/\s{2,}/g,' ').replace(/^[\s,.:;\-–—|_=]+/,'').replace(/[\s,.:;\-–—|_=]+$/,'').replace(/^(?:local|localiza[çc][ãa]o|setor|sala|andar|pavimento|piso|n[íi]vel|bloco|torre|ala|corredor|dep[óo]sito|almoxarifado|garagem|subsolo|t[ée]rreo|recep[çc][ãa]o|portaria|guarita|cozinha|refeit[óo]rio|vesti[áa]rio|estoque|produ[çc][ãa]o|manuten[çc][ãa]o|oficina|laborat[óo]rio|audit[óo]rio|escrit[óo]rio|diretoria)\s*[:\-]?\s*/i,'').replace(/\s+$/,'').trim(); }
+function localEhLixo(s){
+  if(!s) return true;
+  if(s.length < 3) return true;
+  if(/^[\d\s\-\.\/º°]+$/.test(s)) return true;
+  if(/\d{2}\.?\d{3}\.?\d{3}\/?\d{4}/.test(s)) return true;
+  if(/\(?\d{2}\)?\s*\d{4,5}[\-\s]?\d{4}/.test(s)) return true;
+  if(/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/.test(s)) return true;
+  if(/^r?\$?\s*\d+[.,]?\d*$/i.test(s)) return true;
+  if(/^(pqs|co2|co₂|abc|bc)\b/i.test(s) && s.length < 8) return true;
+  return false;
+}
+function parseExtintor(texto){
+  const t = ' ' + texto.toLowerCase() + ' ';
+  const orig = texto;
+  let numero = '';
+  let m = orig.match(/(?:extintor|n[º°o]\.?|n[úu]mero|etiqueta|tag|c[óo]digo|patrim[ôo]nio)\s*[:\-nº°]?\s*([A-Z0-9\-\.\/]{1,20})/i);
+  if(m){ const val = m[1].trim(); if(!/^(de|do|da|em|no|na)$/i.test(val)) numero = val; }
+  if(!numero){ m = orig.match(/\b([A-Z]{1,3}[\-\/]?\d{1,4})\b/); if(m && !/^\d{4}$/.test(m[1])) numero = m[1]; }
+  let tipo = '';
+  if(/pqs|p[óo]\s*qu[íi]mico\s*seco|p[óo]\s*qu[íi]mico|abc/i.test(t)) tipo = 'PQS (ABC)';
+  else if(/co2|co₂|g[áa]s\s*carb[ôo]nico|bc\b/i.test(t)) tipo = 'CO₂ (BC)';
+  else if(/[áa]gua\s*pressurizada|[áa]gua\s*g[áa]s|\bap\b/i.test(t)) tipo = 'Água Pressurizada';
+  else if(/espuma\s*mec[âa]nica|espuma/i.test(t)) tipo = 'Espuma Mecânica';
+  let capacidade = '';
+  m = orig.match(/(\d+(?:[.,]\d+)?)\s*(kg|quilos?|litros?|l\b)/i);
+  if(m){ const num = m[1].replace(',','.'); const un = /l/i.test(m[2]) && !/kg/i.test(m[2]) ? 'L' : 'kg'; capacidade = num + ' ' + un; }
+  const local = extrairLocal(orig);
+  let fabricacao = '', validade = '', recarga = '';
+  m = orig.match(/(?:fabric[aç][ãa]o|fabricado|data\s*de\s*fab|fab\.?|fabric\.?)\s*[:\-]?\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i);
+  if(m) fabricacao = normalizarData(m[1]);
+  m = orig.match(/(?:validade|vence|vencimento|venc\.?|v[°º]\.?|pr[óo]xima\s*(?:recarga|inspe[çc][ãa]o)|at[ée])\s*[:\-]?\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i);
+  if(m) validade = normalizarData(m[1]);
+  m = orig.match(/(?:recarga|recarregado|rec\.?|[úu]ltima\s*recarga|data\s*da\s*recarga)\s*[:\-]?\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i);
+  if(m) recarga = normalizarData(m[1]);
+  if(!fabricacao && !validade && !recarga){
+    const datas = extrairTodasDatas(orig);
+    if(datas.length > 0){
+      datas.sort((a,b) => a.iso.localeCompare(b.iso));
+      if(datas.length === 1){ validade = datas[0].iso; }
+      else { fabricacao = datas[0].iso; validade = datas[datas.length - 1].iso; if(datas.length >= 3) recarga = datas[1].iso; }
+    }
+  }
+  if(!validade && recarga){ const d = new Date(recarga + 'T00:00:00'); d.setFullYear(d.getFullYear() + 1); validade = isoDe(d); }
+  if(!validade && fabricacao){ const d = new Date(fabricacao + 'T00:00:00'); d.setFullYear(d.getFullYear() + 1); validade = isoDe(d); }
+  const partes = [];
+  if(numero) partes.push('Nº ' + numero);
+  if(tipo) partes.push(tipo);
+  if(capacidade) partes.push(capacidade);
+  /* Descrição rica para extintores */
+  const descPartes = [];
+  const cabec = '🧯 Extintor' + (partes.length ? ' ' + partes.join(' · ') : '');
+  descPartes.push(cabec);
+  if(local) descPartes.push('📍 Local: ' + local);
+  if(fabricacao) descPartes.push('🔧 Fabricação: ' + dataBR(fabricacao));
+  if(recarga) descPartes.push('♻️ Recarga: ' + dataBR(recarga));
+  if(validade) descPartes.push('📅 Validade: ' + dataBR(validade));
+  const descricao = descPartes.join('\n');
+  const st = statusExtintor(validade);
+  return {
+    isExtintor: true, tipoItem: 'extintor', numero, tipo: tipo || '', capacidade, local,
+    fabricacao, validade, recarga,
+    titulo: '', /* título removido */
+    descricao,
+    categoria: 'extintor',
+    prioridade: st.cor === 'vermelho' ? 'alta' : st.cor === 'amarelo' ? 'media' : 'baixa',
+    data: validade || hojeISO(), hora: '', lembrete: !!validade, horaLembrete: '09:00'
+  };
+}
+
+/* ============================================================
+   PARSER GERAL
+============================================================ */
+function parseFala(texto, forcarModo){
+  const original = String(texto || '').trim();
+  const t = ' ' + original.toLowerCase() + ' ';
+  if(forcarModo === 'extintor' || (forcarModo !== 'tarefa' && ehExtintor(t))){ return parseExtintor(original); }
+  let conteudo = original;
+  const remover = [];
+  let categoria = 'trabalho';
+  const catRegras = [
+    ['financeiro', /r\$|reais|valor|pagamento|pagar|conta|banco|boleto|imposto|dinheiro|financeiro|fatura|pix|sal[áa]rio|comprovante|nota fiscal|nf\b|total/i],
+    ['saude',      /m[ée]dico|consulta|dentista|rem[ée]dio|academia|exame|sa[úu]de|vacina|terapia|hospital|m[ée]dica|receita/i],
+    ['estudo',     /prova|estudar|aula|curso|faculdade|semin[áa]rio|leitura|mat[ée]ria/i],
+    ['trabalho',   /reuni[ãa]o|trabalho|cliente|projeto|chefe|escrit[óo]rio|apresenta[çc][ãa]o|relat[óo]rio|equipe|empresa|contrato|prazo|or[çc]amento|proposta/i],
+    ['pessoal',    /casa|fam[íi]lia|mercado|compras|anivers[áa]rio|pessoal|amigo|encontro/i]
+  ];
+  for(const [k, re] of catRegras){ if(re.test(t)){ categoria = k; break; } }
+  let prioridade = 'media';
+  if(/urgente|important[íi]ssimo|muito importante|prioridade alta|cr[íi]tico|para agora|imediat/i.test(t)) prioridade = 'alta';
+  else if(/quando puder|sem pressa|qualquer hora|prioridade baixa|tranquilo/i.test(t)) prioridade = 'baixa';
+  const agora = new Date();
+  let data = '';
+  if(/depois de amanh[ãa]/i.test(t)){ const d=new Date(agora); d.setDate(d.getDate()+2); data=isoDe(d); remover.push(/depois de amanh[ãa]/gi); }
+  else if(/\bamanh[ãa]\b/i.test(t)){ const d=new Date(agora); d.setDate(d.getDate()+1); data=isoDe(d); remover.push(/\bamanh[ãa]\b/gi); }
+  else if(/\bhoje\b/i.test(t)){ data=isoDe(agora); remover.push(/\bhoje\b/gi); }
+  else {
+    let m = t.match(/\b(\d{1,2})[\/\-\.](\d{1,2})(?:[\/\-\.](\d{2,4}))?\b/);
+    if(m){
+      const dia=parseInt(m[1]); const mes=parseInt(m[2])-1;
+      let ano=m[3]?parseInt(m[3]):agora.getFullYear(); if(ano<100) ano+=2000;
+      if(dia>=1&&dia<=31&&mes>=0&&mes<=11){ data=isoDe(new Date(ano,mes,dia)); remover.push(new RegExp(escRegex(m[0]),'gi')); }
+    }
+    if(!data) data = isoDe(agora);
+  }
+  let h=null,mm=0,periodo=null,matchedHora=null;
+  if(/meio[- ]dia/i.test(t)){ h=12; matchedHora='meio dia'; remover.push(/meio[- ]dia/gi); }
+  else if(/meia[- ]noite/i.test(t)){ h=0; matchedHora='meia noite'; remover.push(/meia[- ]noite/gi); }
+  else {
+    let m = t.match(/(?:[àa]s?\s+)?\b(\d{1,2})\s*(?:[:h]\s*(\d{2})|horas?\b|h\b)/);
+    if(m){ h=parseInt(m[1]); if(m[2]) mm=parseInt(m[2]); matchedHora=m[0]; }
+    else { m = t.match(/(?:[àa]s?\s+)(\d{1,2})(?:\s*(?:da|de)\s*(manh[ãa]|tarde|noite))?/); if(m){ h=parseInt(m[1]); if(m[2]) periodo=m[2].toLowerCase(); matchedHora=m[0]; } }
+  }
+  if(periodo && h!==null){ if((periodo==='tarde'||periodo==='noite')&&h<12) h+=12; if(periodo==='manhã'&&h===12) h=0; }
+  let hora = '';
+  if(h!==null && h>=0 && h<=23){ hora = String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0'); if(matchedHora) remover.push(new RegExp(escRegex(matchedHora),'gi')); }
+  /* Limpa o texto removendo as partes já extraídas (data/hora) do conteúdo */
+  remover.forEach(re => { conteudo = conteudo.replace(re,' '); });
+  conteudo = conteudo.replace(/[|_=\-\.]{3,}/g,' ').replace(/\s+/g,' ').replace(/^[\s,.:;\-–—]+|[\s,.:;\-–—]+$/g,'').trim();
+  if(!conteudo) conteudo = original;
+  /* Capitaliza primeira letra */
+  if(conteudo) conteudo = conteudo.charAt(0).toUpperCase() + conteudo.slice(1);
+  return {
+    titulo: '', /* sem título */
+    descricao: conteudo,
+    categoria, prioridade, data, hora,
+    lembrete: !!hora, horaLembrete: hora || '09:00',
+    isExtintor: false, tipoItem: 'tarefa'
+  };
+}
+
+/* ============================================================
+   CONFIRMAÇÃO
+============================================================ */
+const overlayConf = document.getElementById('overlayConf');
+let acaoConfirmada = null;
+function abrirConfirmacao(opts){
+  document.getElementById('confTitulo').textContent = opts.titulo || 'Confirmar?';
+  document.getElementById('confTexto').textContent = opts.texto || '';
+  document.getElementById('confDestaque').textContent = opts.destaque || '';
+  document.getElementById('confDestaque').style.display = opts.destaque ? '-webkit-box' : 'none';
+  document.getElementById('confIcone').textContent = opts.icone || '⚠️';
+  const cb = document.getElementById('confConfirmar');
+  cb.textContent = opts.botao || 'Confirmar';
+  cb.className = 'btn ' + (opts.perigo === false ? 'prim' : 'perigo');
+  acaoConfirmada = opts.onConfirmar;
+  overlayConf.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function fecharConfirmacao(){ overlayConf.classList.remove('on'); document.body.style.overflow=''; acaoConfirmada=null; }
+document.getElementById('confCancelar').addEventListener('click', fecharConfirmacao);
+overlayConf.addEventListener('click', e=>{ if(e.target===overlayConf) fecharConfirmacao(); });
+document.getElementById('confConfirmar').addEventListener('click', async ()=>{
+  if(acaoConfirmada){ const fn = acaoConfirmada; fecharConfirmacao(); await fn(); }
+});
+
+/* ============================================================
+   RENDER
+============================================================ */
+function renderExtPanel(){
+  const painel = document.getElementById('extPanel');
+  const exts = items.filter(i => i.isExtintor);
+  if(exts.length === 0){ painel.hidden = true; return; }
+  let ok=0, aviso=0, venc=0;
+  exts.forEach(i => { const s = statusExtintor(i.validade); if(s.cor === 'verde') ok++; else if(s.cor === 'amarelo') aviso++; else if(s.cor === 'vermelho') venc++; });
+  document.getElementById('extOk').textContent = ok;
+  document.getElementById('extAviso').textContent = aviso;
+  document.getElementById('extVenc').textContent = venc;
+  painel.hidden = false;
+}
+function renderPainel(){
+  const painel = document.getElementById('painel');
+  const hoje = hojeISO();
+  const lembretes = items.filter(i => i.lembrete && i.data === hoje && !i.concluido && !i.isExtintor);
+  const atrasados = items.filter(i => i.data && i.data < hoje && !i.concluido && !i.isExtintor);
+  const extAlerta = items.filter(i => i.isExtintor && !i.concluido).filter(i => { const s = statusExtintor(i.validade); return s.cor === 'vermelho' || s.cor === 'amarelo'; }).sort((a,b)=>{ const sa = statusExtintor(a.validade).dias ?? 9999; const sb = statusExtintor(b.validade).dias ?? 9999; return sa - sb; });
+  if(lembretes.length === 0 && atrasados.length === 0 && extAlerta.length === 0){ painel.hidden = true; return; }
+  let html = `<div class="painel-top"><span class="dot"></span><h2>Rotina de hoje</h2></div>`;
+  extAlerta.slice(0,4).forEach(i => {
+    const s = statusExtintor(i.validade);
+    const cor = s.cor === 'vermelho' ? '#ff5c7c' : '#ffb547';
+    const label = s.cor === 'vermelho' ? 'VENCIDO' : 'VENCE LOGO';
+    const localTxt = i.local ? ' · ' + escapar(i.local) : '';
+    html += `<div class="painel-item"><span class="status-dot" style="background:${cor}"></span><span class="hora" style="background:${cor}22;color:${cor}">${label}</span><span class="txt">${escapar(i.numero ? 'Nº '+i.numero : conteudoDe(i))}${localTxt}</span></div>`;
+  });
+  lembretes.sort((a,b)=>(a.horaLembrete||'99:99').localeCompare(b.horaLembrete||'99:99')).forEach(i => {
+    html += `<div class="painel-item"><span class="hora">${i.horaLembrete||'--:--'}</span><span class="txt">${escapar(conteudoDe(i))}</span></div>`;
+  });
+  atrasados.slice(0,4).forEach(i => {
+    html += `<div class="painel-item atras"><span class="hora">Atrasado</span><span class="txt">${escapar(conteudoDe(i))} · ${fmtData(i.data)}</span></div>`;
+  });
+  painel.innerHTML = html;
+  painel.hidden = false;
+}
+function renderCardExtintor(i, idx){
+  const s = statusExtintor(i.validade);
+  const fabricacaoBR = i.fabricacao ? dataBR(i.fabricacao) : '—';
+  const validadeBR = i.validade ? dataBR(i.validade) : '—';
+  return `
+    <article class="card extintor status-${s.cor} ${i.concluido?'done':''}" data-id="${i.id}" style="animation-delay:${Math.min(idx*38,300)}ms">
+      <button class="check" data-acao="toggle" data-id="${i.id}" title="Concluir">✓</button>
+      <div class="ext-header">
+        <div class="ext-icone">🧯</div>
+        <div class="ext-titulo-box">
+          <div class="ext-titulo">${escapar(i.numero ? 'Nº ' + i.numero : 'Extintor')}</div>
+          <div class="ext-sub">${escapar([i.tipo, i.capacidade].filter(Boolean).join(' · ') || 'Tipo não identificado')}</div>
+        </div>
+        <span class="status-badge">${s.label}</span>
+      </div>
+      <div class="ext-info">
+        ${i.local ? `<div class="ext-info-item destaque"><div class="lbl">📍 Local</div><div class="val">${escapar(i.local)}</div></div>` : `<div class="ext-info-item destaque" style="background:rgba(255,181,71,.08);border-color:rgba(255,181,71,.3)"><div class="lbl" style="color:#ffc46e">📍 Local</div><div class="val" style="color:#ffc46e">⚠️ Não identificado — edite e preencha</div></div>`}
+        <div class="ext-info-item"><div class="lbl">Fabricação</div><div class="val">${fabricacaoBR}</div></div>
+        <div class="ext-info-item"><div class="lbl">Validade</div><div class="val">${validadeBR}</div></div>
+        <div class="ext-dias ${s.cor}" style="grid-column:1 / -1"><span class="emoji">${s.emoji || ''}</span><span>${s.texto}</span></div>
+      </div>
+      <div class="card-acoes">
+        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
+        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
+      </div>
+    </article>
+  `;
+}
+function renderCardTarefa(i, idx){
+  const cat = CATS[i.categoria] || CATS.outro;
+  const atrasado = i.data && i.data < hojeISO() && !i.concluido;
+  const ehHoje = i.data === hojeISO();
+  let tags = '';
+  if(i.data) tags += `<span class="tag ${ehHoje ? 'hoje' : (atrasado ? 'atras' : '')}">📅 ${fmtData(i.data)}</span>`;
+  if(i.hora) tags += `<span class="tag">🕐 ${i.hora}</span>`;
+  if(i.lembrete) tags += `<span class="tag lembrete">⏰ Lembrete ${i.horaLembrete || ''}</span>`;
+  if(i.porVoz) tags += `<span class="tag voz">🎤 Voz</span>`;
+  if(i.porFoto) tags += `<span class="tag foto">📷 Foto</span>`;
+  const conteudo = conteudoDe(i);
+  return `
+    <article class="card ${i.concluido ? 'done' : ''}" style="--c:${cat.cor};animation-delay:${Math.min(idx*38,300)}ms" data-id="${i.id}">
+      <button class="check" data-acao="toggle" data-id="${i.id}" title="Concluir">✓</button>
+      <div class="corpo">
+        <div class="linha1"><span class="cat">${cat.icon} ${cat.label}</span><span class="prio ${i.prioridade}">${PRIOS[i.prioridade]?.label || ''}</span></div>
+        <h3>${escapar(conteudo)}</h3>
+        ${tags ? `<div class="meta">${tags}</div>` : ''}
+      </div>
+      <div class="card-acoes">
+        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
+        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
+      </div>
+    </article>
+  `;
+}
+function renderLista(){
+  const lista = document.getElementById('lista');
+  const hoje = hojeISO();
+  let arr = [...items];
+  if(filtro === 'extintores') arr = arr.filter(i => i.isExtintor);
+  else if(filtro === 'hoje')      arr = arr.filter(i => i.data === hoje);
+  else if(filtro === 'pendentes') arr = arr.filter(i => !i.concluido);
+  else if(filtro === 'concluidas')arr = arr.filter(i => i.concluido);
+  arr.sort((a,b) => {
+    if(a.concluido !== b.concluido) return a.concluido ? 1 : -1;
+    if(a.isExtintor && b.isExtintor){ const sa = statusExtintor(a.validade).dias ?? 9999; const sb = statusExtintor(b.validade).dias ?? 9999; return sa - sb; }
+    const da = a.data || '9999-99-99';
+    const db2 = b.data || '9999-99-99';
+    if(da !== db2) return da.localeCompare(db2);
+    return (b.criadoEm || 0) - (a.criadoEm || 0);
+  });
+  if(arr.length === 0){
+    const msgs = {
+      todas:      ['🗂️','Nada por aqui','Toque em “+ Nova tarefa” ou use o microfone para adicionar.'],
+      extintores: ['🧯','Nenhum extintor registrado','Tire uma foto da etiqueta para cadastrar automaticamente.'],
+      hoje:       ['☀️','Nada para hoje','Nenhuma tarefa agendada para hoje.'],
+      pendentes:  ['🎉','Tudo em dia!','Você não tem nada pendente.'],
+      concluidas: ['📭','Nada concluído','Marque algo como feito para vê-lo aqui.']
+    };
+    const [ico,t,p] = msgs[filtro];
+    lista.innerHTML = `<div class="vazio"><div class="ico">${ico}</div><h3>${t}</h3><p>${p}</p></div>`;
+    return;
+  }
+  lista.innerHTML = arr.map((i, idx) => i.isExtintor ? renderCardExtintor(i, idx) : renderCardTarefa(i, idx)).join('');
+}
+function renderTudo(){ renderExtPanel(); renderPainel(); renderLista(); }
+async function recarregarDoBanco(){ items = await DB.listarTodos(); renderTudo(); }
+
+/* ============================================================
+   MODAL FORM — sem título, só descrição
+============================================================ */
+const overlay = document.getElementById('overlay');
+const inputCameraForm = document.getElementById('inputCameraForm');
+const btnCameraForm = document.getElementById('btnCameraForm');
+const formIaStatus = document.getElementById('formIaStatus');
+const formIaStatusTxt = document.getElementById('formIaStatusTxt');
+
+function abrirModal(item = null){
+  editandoId = item ? item.id : null;
+  document.getElementById('tituloModal').textContent = item ? '✏️ Editar' : 'Nova tarefa';
+  document.getElementById('fDesc').value = item ? (item.descricao || item.titulo || '') : '';
+  document.getElementById('fData').value = item ? (item.data || '') : hojeISO();
+  document.getElementById('fHora').value = item ? (item.hora || '') : '';
+  catSel = item ? item.categoria : 'trabalho';
+  prioSel = item ? item.prioridade : 'media';
+  lembreteOn = item ? !!item.lembrete : false;
+  document.getElementById('fHoraLembrete').value = item?.horaLembrete || '09:00';
+  sincronizarChips(); sincronizarLembrete();
+  btnCameraForm.style.display = item ? 'none' : 'inline-flex';
+  formIaStatus.classList.remove('on','ok','erro');
+  formIaStatusTxt.textContent = 'Analisando foto…';
+  inputCameraForm.value = '';
+  overlay.classList.add('on');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('fDesc').focus(), 320);
+}
+function fecharModal(){ overlay.classList.remove('on'); document.body.style.overflow=''; editandoId=null; }
+function sincronizarChips(){
+  document.querySelectorAll('#chipsCat .chip-opt').forEach(b => b.classList.toggle('on', b.dataset.v === catSel));
+  document.querySelectorAll('#chipsPrio .chip-opt').forEach(b => b.classList.toggle('on', b.dataset.v === prioSel));
+}
+function sincronizarLembrete(){
+  document.getElementById('swLembrete').classList.toggle('on', lembreteOn);
+  document.getElementById('campoHora').classList.toggle('on', lembreteOn);
+}
+function piscarCampo(el){
+  el.classList.remove('preenchido-ia');
+  void el.offsetWidth;
+  el.classList.add('preenchido-ia');
+  setTimeout(() => el.classList.remove('preenchido-ia'), 1300);
+}
+async function processarFotoNoForm(file){
+  if(!file) return;
+  formIaStatus.classList.remove('erro','ok');
+  formIaStatus.classList.add('on');
+  formIaStatusTxt.textContent = 'Carregando IA…';
+  btnCameraForm.classList.add('busy');
+  try { await garantirTesseract(); }
+  catch(e){
+    formIaStatus.classList.remove('on','ok');
+    formIaStatus.classList.add('on','erro');
+    formIaStatusTxt.textContent = '⚠️ Sem internet para carregar a IA';
+    btnCameraForm.classList.remove('busy');
+    return;
+  }
+  formIaStatusTxt.textContent = 'Lendo a foto…';
+  let arquivo = file;
+  try { arquivo = await preprocessarImagem(file); } catch(e){}
+  try{
+    const resultado = await window.Tesseract.recognize(arquivo, 'por', {
+      logger: (m)=>{
+        if(m.status === 'recognizing text'){
+          const p = Math.round((m.progress || 0) * 100);
+          formIaStatusTxt.textContent = `Lendo… ${p}%`;
+        }
+      }
+    });
+    const texto = (resultado?.data?.text || '').trim();
+    if(!texto || texto.length < 3){
+      formIaStatus.classList.remove('on','ok');
+      formIaStatus.classList.add('on','erro');
+      formIaStatusTxt.textContent = '⚠️ Não consegui ler a imagem. Tente de novo, mais perto e com boa luz.';
+      btnCameraForm.classList.remove('busy');
+      return;
+    }
+    const detectouExt = ehExtintor(' ' + texto.toLowerCase() + ' ');
+    const dados = parseFala(texto, detectouExt ? 'extintor' : undefined);
+    const fDesc = document.getElementById('fDesc');
+    const fData = document.getElementById('fData');
+    const fHora = document.getElementById('fHora');
+    const fHoraLembrete = document.getElementById('fHoraLembrete');
+    if(dados.descricao){ fDesc.value = dados.descricao; piscarCampo(fDesc); }
+    if(dados.data){ fData.value = dados.data; piscarCampo(fData); }
+    if(dados.hora){ fHora.value = dados.hora; piscarCampo(fHora); }
+    if(dados.lembrete && dados.horaLembrete){ lembreteOn = true; fHoraLembrete.value = dados.horaLembrete; sincronizarLembrete(); piscarCampo(fHoraLembrete); }
+    if(dados.categoria && CATS[dados.categoria]){ catSel = dados.categoria; }
+    if(dados.prioridade && PRIOS[dados.prioridade]){ prioSel = dados.prioridade; }
+    sincronizarChips();
+    formIaStatus.classList.remove('on','erro');
+    formIaStatus.classList.add('on','ok');
+    formIaStatusTxt.textContent = detectouExt
+      ? '✓ Extintor detectado e campos preenchidos! Revise e salve.'
+      : '✓ Campos preenchidos automaticamente! Revise e salve.';
+    setTimeout(() => formIaStatus.classList.remove('on'), 6000);
+  }catch(err){
+    console.error('OCR (form) falhou:', err);
+    formIaStatus.classList.remove('on','ok');
+    formIaStatus.classList.add('on','erro');
+    formIaStatusTxt.textContent = '⚠️ Erro ao analisar a imagem. Tente novamente.';
+    setTimeout(() => formIaStatus.classList.remove('on'), 6000);
+  }finally{
+    btnCameraForm.classList.remove('busy');
+    inputCameraForm.value = '';
+  }
+}
+btnCameraForm.addEventListener('click', () => inputCameraForm.click());
+inputCameraForm.addEventListener('change', e => {
+  const f = e.target.files?.[0];
+  if(f) processarFotoNoForm(f);
+});
+async function salvarItem(){
+  const descricao = document.getElementById('fDesc').value.trim();
+  if(!descricao){ toast('⚠️ Preencha a descrição'); document.getElementById('fDesc').focus(); return; }
+  const dados = {
+    titulo: '', /* nunca mais usado */
+    descricao,
+    categoria: catSel, prioridade: prioSel,
+    data: document.getElementById('fData').value || '',
+    hora: document.getElementById('fHora').value || '',
+    lembrete: lembreteOn,
+    horaLembrete: lembreteOn ? (document.getElementById('fHoraLembrete').value || '09:00') : ''
+  };
+  /* Extintor detectado: mantém isExtintor */
+  if(/^🧯\s*extintor/i.test(descricao) || catSel === 'extintor'){
+    dados.isExtintor = true;
+    dados.tipoItem = 'extintor';
+    dados.categoria = 'extintor';
+  }
+  try{
+    if(editandoId){
+      const atual = await DB.obter(editandoId);
+      await DB.atualizar({ ...atual, ...dados });
+      toast('✏️ Atualizado');
+    } else {
+      await DB.criar({ id: uid(), ...dados, concluido: false, criadoEm: Date.now(), tipoItem: dados.tipoItem || 'tarefa' });
+      toast(dados.isExtintor ? '🧯 Extintor registrado!' : '✓ Adicionado');
+    }
+    await recarregarDoBanco(); fecharModal();
+  }catch(e){ console.error(e); toast('⚠️ Erro ao salvar'); }
+}
+
+/* ============================================================
+   AÇÕES LISTA
+============================================================ */
+document.getElementById('lista').addEventListener('click', async e => {
+  const btn = e.target.closest('[data-acao]');
+  if(!btn) return;
+  const id = btn.dataset.id;
+  const acao = btn.dataset.acao;
+  try{
+    if(acao === 'toggle'){
+      const item = await DB.obter(id); if(!item) return;
+      item.concluido = !item.concluido;
+      await DB.atualizar(item); await recarregarDoBanco();
+      if(item.concluido) toast('✓ Concluído!');
+      return;
+    }
+    if(acao === 'editar'){ const item = await DB.obter(id); if(item) abrirModal(item); return; }
+    if(acao === 'del'){
+      const item = await DB.obter(id); if(!item) return;
+      abrirConfirmacao({ titulo: item.isExtintor ? 'Excluir extintor?' : 'Excluir tarefa?', texto: 'Esta ação não pode ser desfeita.', destaque: conteudoDe(item).slice(0,80), icone: item.isExtintor ? '🧯' : '🗑️', botao: 'Excluir', perigo: true,
+        onConfirmar: async () => { await DB.remover(id); await recarregarDoBanco(); toast('🗑️ Excluído'); } });
+    }
+  }catch(err){ console.error(err); toast('⚠️ Erro'); }
+});
+document.getElementById('filtros').addEventListener('click', e => {
+  const b = e.target.closest('.filtro'); if(!b) return;
+  filtro = b.dataset.f;
+  document.querySelectorAll('.filtro').forEach(x => x.classList.toggle('on', x === b));
+  renderLista();
+});
+
+/* ============================================================
+   NOTIFICAÇÕES
+============================================================ */
+const btnNotif = document.getElementById('btnNotif');
+function atualizarSino(){
+  if(!('Notification' in window)){ btnNotif.style.display='none'; return; }
+  btnNotif.classList.toggle('on', Notification.permission === 'granted');
+}
+btnNotif.addEventListener('click', async () => {
+  if(!('Notification' in window)){ toast('Navegador sem suporte'); return; }
+  if(Notification.permission === 'granted'){ new Notification('🔔 Notificações ativas'); return; }
+  const p = await Notification.requestPermission();
+  atualizarSino();
+  toast(p === 'granted' ? '🔔 Notificações ativadas' : 'Notificações bloqueadas');
+});
+function dispararLembretes(){
+  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+  const hoje = hojeISO();
+  const nT = items.filter(i => i.lembrete && i.data === hoje && !i.concluido && !i.isExtintor).length;
+  const nE = items.filter(i => i.isExtintor && !i.concluido).filter(i => { const s = statusExtintor(i.validade); return s.cor === 'vermelho' || s.cor === 'amarelo'; }).length;
+  if(nT + nE > 0){
+    setTimeout(() => {
+      const partes = [];
+      if(nE > 0) partes.push(`${nE} extintor${nE>1?'es':''} vencido${nE>1?'s':''}/vencendo`);
+      if(nT > 0) partes.push(`${nT} lembrete${nT>1?'s':''} hoje`);
+      new Notification('⏰ Atenção', { body: partes.join(' · ') });
+    }, 900);
+  }
+}
+
+/* ============================================================
+   VOZ
+============================================================ */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const temSR = !!SR;
+const overlayVoz = document.getElementById('overlayVoz');
+const vozAviso = document.getElementById('vozAviso');
+const vozStatus = document.getElementById('vozStatus');
+const vozStatusTxt = document.getElementById('vozStatusTxt');
+const vozMic = document.getElementById('vozMic');
+const vozMicIcone = document.getElementById('vozMicIcone');
+const vozTxt = document.getElementById('vozTranscript');
+const vozInput = document.getElementById('vozInput');
+const vozInputBtn = document.getElementById('vozInputBtn');
+const vozPreview = document.getElementById('vozPreview');
+const vozAcoes = document.getElementById('vozAcoes');
+const vozSalvar = document.getElementById('vozSalvar');
+const vozRepetir = document.getElementById('vozRepetir');
+let rec = null, ouvindo = false, itemVoz = null;
+
+function setStatus(txt, tipo){ vozStatusTxt.textContent = txt; vozStatus.className = 'voz-status' + (tipo ? ' ' + tipo : ''); }
+function setAviso(msg){ if(msg){ vozAviso.innerHTML = msg; vozAviso.classList.add('on'); } else { vozAviso.classList.remove('on'); vozAviso.innerHTML = ''; } }
+function resetUI(){
+  itemVoz = null;
+  vozPreview.hidden = true; vozPreview.innerHTML = '';
+  vozAcoes.hidden = true;
+  vozTxt.textContent = 'Toque no microfone e fale…'; vozTxt.classList.add('vazio');
+  vozInput.value = '';
+  vozMic.classList.remove('listening'); vozMicIcone.textContent = '🎤';
+}
+function abrirVoz(){
+  resetUI(); setAviso(null);
+  overlayVoz.classList.add('on'); document.body.style.overflow = 'hidden';
+  if(!temSR){
+    setStatus('Voz não suportada', 'erro');
+    setAviso('<strong>⚠️ Voz não suportada</strong>Use o campo de texto abaixo.');
+    vozMic.disabled = true; setTimeout(()=>vozInput.focus(),300); return;
+  }
+  vozMic.disabled = false;
+  setStatus('Toque no microfone para falar', '');
+  setTimeout(()=>{ if(!ouvindo) vozInput.focus(); }, 400);
+}
+function fecharVoz(){ pararEscuta(); overlayVoz.classList.remove('on'); document.body.style.overflow=''; }
+function pararEscuta(){
+  ouvindo = false;
+  if(rec){ try { rec.onend=null; rec.onerror=null; rec.abort(); } catch(e){} rec=null; }
+  vozMic.classList.remove('listening'); vozMicIcone.textContent = '🎤';
+}
+function iniciarEscuta(){
+  if(!temSR) return;
+  if(ouvindo){ pararEscuta(); setStatus('Parado. Toque para falar.', ''); return; }
+  resetUI(); setAviso(null);
+  if(rec){ try { rec.onend=null; rec.onerror=null; rec.abort(); } catch(e){} rec=null; }
+  try { rec = new SR(); }
+  catch(err){ setStatus('Erro ao iniciar', 'erro'); setAviso('<strong>⚠️ Falha ao iniciar</strong>Use o campo de texto abaixo.'); return; }
+  rec.lang = 'pt-BR'; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 1;
+  let finalTxt = '', iniciou = false, encerrou = false;
+  rec.onstart = ()=>{ iniciou = true; ouvindo = true; vozMic.classList.add('listening'); vozMicIcone.textContent = '⏺'; setStatus('Ouvindo… fale agora', 'ouvindo'); vozTxt.textContent = 'Fale agora…'; vozTxt.classList.add('vazio'); };
+  rec.onresult = (e)=>{
+    let interim = '';
+    for(let i=e.resultIndex;i<e.results.length;i++){ const txt = e.results[i][0].transcript; if(e.results[i].isFinal) finalTxt += ' '+txt; else interim += txt; }
+    const mostrar = (finalTxt+' '+interim).trim(); if(mostrar){ vozTxt.textContent = mostrar; vozTxt.classList.remove('vazio'); }
+  };
+  rec.onerror = (e)=>{
+    const err = e.error; if(err === 'aborted') return;
+    const msgs = { 'no-speech':'Nada captado.','audio-capture':'Microfone não encontrado.','not-allowed':'Permissão bloqueada.','service-not-allowed':'Serviço indisponível.','network':'Sem conexão.','bad-grammar':'Não entendi.','language-not-supported':'Idioma não suportado.' };
+    const m = msgs[err] || ('Erro: '+err);
+    setStatus(m, 'erro'); setAviso('<strong>⚠️ '+m+'</strong>Use o campo de texto abaixo.');
+  };
+  rec.onend = ()=>{
+    encerrou = true; ouvindo = false;
+    vozMic.classList.remove('listening'); vozMicIcone.textContent = '🎤';
+    const txt = (finalTxt||'').trim();
+    if(txt){ processarTextoVoz(txt); }
+    else if(iniciou){ setStatus('Nada captado. Tente novamente.', 'erro'); setTimeout(()=>vozInput.focus(),200); }
+  };
+  setStatus('Iniciando microfone…', '');
+  try { rec.start();
+    setTimeout(()=>{ if(!iniciou && !encerrou && !ouvindo){ setStatus('Sem resposta.', 'erro'); setAviso('<strong>⏱️ Sem resposta</strong>Digite abaixo.'); try { rec.abort(); } catch(e){} } }, 4000);
+  } catch(err){ setStatus('Erro ao iniciar', 'erro'); setAviso('<strong>⚠️ '+(err.message||'Falha')+'</strong>Digite abaixo.'); }
+}
+function renderPreviewTarefa(el, item){
+  if(item.isExtintor){
+    const s = statusExtintor(item.validade);
+    el.className = 'voz-preview';
+    el.style.background = s.cor === 'vermelho' ? 'rgba(255,92,124,.08)' : s.cor === 'amarelo' ? 'rgba(255,181,71,.08)' : s.cor === 'verde' ? 'rgba(46,230,168,.08)' : 'rgba(255,255,255,.04)';
+    el.style.borderColor = s.cor === 'vermelho' ? 'rgba(255,92,124,.4)' : s.cor === 'amarelo' ? 'rgba(255,181,71,.4)' : s.cor === 'verde' ? 'rgba(46,230,168,.4)' : 'rgba(255,255,255,.14)';
+    el.innerHTML = `
+      <div class="pv-linha"><span class="cat" style="--c:#ff5c7c">🧯 Extintor</span><span class="status-badge" style="background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.15)">${s.label}</span></div>
+      <div class="pv-titulo">${escapar(conteudoDe(item))}</div>
+      <div class="pv-meta">${item.validade ? `<span class="tag hoje">📅 Validade ${dataBR(item.validade)}</span>` : ''}<span class="tag">${s.emoji || ''} ${s.texto}</span></div>
+    `;
+    el.hidden = false; return;
+  }
+  el.className = 'voz-preview'; el.style.background = 'rgba(46,230,168,.06)'; el.style.borderColor = 'rgba(46,230,168,.28)';
+  const cat = CATS[item.categoria] || CATS.outro;
+  el.innerHTML = `
+    <div class="pv-linha"><span class="cat" style="--c:${cat.cor}">${cat.icon} ${cat.label}</span><span class="prio ${item.prioridade}">${PRIOS[item.prioridade].label}</span></div>
+    <div class="pv-titulo">${escapar(conteudoDe(item))}</div>
+    <div class="pv-meta">${item.data ? `<span class="tag hoje">📅 ${fmtData(item.data)}</span>` : ''}${item.hora ? `<span class="tag">🕐 ${item.hora}</span>` : ''}${item.lembrete ? `<span class="tag lembrete">⏰ Lembrete ${item.horaLembrete}</span>` : ''}</div>
+  `;
+  el.hidden = false;
+}
+function processarTextoVoz(txt){
+  itemVoz = parseFala(txt);
+  itemVoz.porVoz = !itemVoz.isExtintor; itemVoz.porFoto = !!itemVoz.isExtintor;
+  vozTxt.textContent = `“${txt}”`; vozTxt.classList.remove('vazio');
+  setStatus(itemVoz.isExtintor ? '🧯 Extintor detectado! Confira.' : 'Entendi! Confira e salve.', '');
+  renderPreviewTarefa(vozPreview, itemVoz);
+  vozAcoes.hidden = false;
+  setTimeout(()=>vozPreview.scrollIntoView({behavior:'smooth',block:'nearest'}),120);
+}
+async function salvarVoz(){
+  if(!itemVoz) return;
+  try{
+    const base = {
+      id: uid(), titulo: '', descricao: itemVoz.descricao,
+      categoria: itemVoz.categoria, prioridade: itemVoz.prioridade,
+      data: itemVoz.data, hora: itemVoz.hora,
+      lembrete: itemVoz.lembrete, horaLembrete: itemVoz.horaLembrete,
+      concluido: false, criadoEm: Date.now(),
+      isExtintor: !!itemVoz.isExtintor, tipoItem: itemVoz.tipoItem || 'tarefa',
+      porVoz: !!itemVoz.porVoz, porFoto: !!itemVoz.porFoto
+    };
+    if(itemVoz.isExtintor) Object.assign(base, { numero: itemVoz.numero, tipo: itemVoz.tipo, capacidade: itemVoz.capacidade, local: itemVoz.local, fabricacao: itemVoz.fabricacao, validade: itemVoz.validade, recarga: itemVoz.recarga });
+    await DB.criar(base);
+    await recarregarDoBanco(); fecharVoz();
+    toast(itemVoz.isExtintor ? '🧯 Extintor registrado!' : (itemVoz.lembrete ? '⏰ Tarefa criada!' : '✓ Tarefa adicionada!'));
+  }catch(e){ console.error(e); toast('⚠️ Erro ao salvar'); }
+}
+document.getElementById('btnFalar').addEventListener('click', abrirVoz);
+vozMic.addEventListener('click', iniciarEscuta);
+vozSalvar.addEventListener('click', salvarVoz);
+vozRepetir.addEventListener('click', ()=>{ resetUI(); setStatus('Pronto. Toque no microfone ou digite abaixo.', ''); setAviso(null); setTimeout(()=>vozInput.focus(),150); });
+document.getElementById('vozFechar').addEventListener('click', fecharVoz);
+overlayVoz.addEventListener('click', e=>{ if(e.target===overlayVoz) fecharVoz(); });
+vozInputBtn.addEventListener('click', ()=>{ const txt = vozInput.value.trim(); if(!txt){ toast('Digite algo primeiro'); vozInput.focus(); return; } processarTextoVoz(txt); });
+vozInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); vozInputBtn.click(); } });
+
+/* ============================================================
+   FOTO / OCR (modal independente de extintor)
+============================================================ */
+const overlayFoto = document.getElementById('overlayFoto');
+const fotoEtapa1 = document.getElementById('fotoEtapa1');
+const fotoEtapa2 = document.getElementById('fotoEtapa2');
+const fotoEtapa3 = document.getElementById('fotoEtapa3');
+const fotoGuia = document.getElementById('fotoGuia');
+const fotoPreview = document.getElementById('fotoPreview');
+const fotoImg = document.getElementById('fotoImg');
+const fotoProg = document.getElementById('fotoProg');
+const fotoProgBar = document.getElementById('fotoProgBar');
+const fotoStatus = document.getElementById('fotoStatus');
+const fotoStatusTxt = document.getElementById('fotoStatusTxt');
+const fotoErro = document.getElementById('fotoErro');
+const fotoTexto = document.getElementById('fotoTexto');
+const inputCamera = document.getElementById('inputCamera');
+const revCampos = document.getElementById('revCampos');
+const revCabec = document.getElementById('revCabec');
+const revIcone = document.getElementById('revIcone');
+const revTitulo = document.getElementById('revTitulo');
+const revSub = document.getElementById('revSub');
+const revStatus = document.getElementById('revStatus');
+
+function carregarScript(src){
+  return new Promise((res, rej)=>{
+    const s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = ()=>res();
+    s.onerror = ()=>rej(new Error('Falha ao carregar '+src));
+    document.head.appendChild(s);
+  });
+}
+async function garantirTesseract(){
+  if(tesseractCarregado && window.Tesseract) return;
+  if(!window.Tesseract){ await carregarScript('https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js'); }
+  tesseractCarregado = true;
+}
+function setFotoStatus(tipo, texto){ fotoStatus.hidden = false; fotoStatus.className = 'foto-status' + (tipo ? ' '+tipo : ''); fotoStatusTxt.textContent = texto; }
+function setFotoErro(msg){ if(!msg){ fotoErro.classList.remove('on'); fotoErro.innerHTML=''; return; } fotoErro.innerHTML = msg; fotoErro.classList.add('on'); }
+function resetFoto(){
+  if(imgUrlAtual){ URL.revokeObjectURL(imgUrlAtual); imgUrlAtual = null; }
+  itemFoto = null;
+  fotoImg.removeAttribute('src');
+  fotoEtapa1.hidden = false; fotoEtapa2.hidden = true; fotoEtapa3.hidden = true;
+  fotoPreview.hidden = true;
+  fotoProg.hidden = true; fotoProgBar.style.width = '0%';
+  fotoStatus.hidden = true; fotoStatus.className = 'foto-status';
+  fotoTexto.value = '';
+  setFotoErro(null);
+  inputCamera.value = '';
+  processandoFoto = false;
+}
+function atualizarModoFoto(){ fotoGuia.hidden = modoFoto !== 'extintor'; }
+function abrirFoto(){ resetFoto(); overlayFoto.classList.add('on'); document.body.style.overflow = 'hidden'; atualizarModoFoto(); }
+function fecharFoto(){ resetFoto(); overlayFoto.classList.remove('on'); document.body.style.overflow = ''; }
+async function preprocessarImagem(file){
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      try{
+        const MIN = 1000;
+        const escala = img.width < MIN ? Math.min(2, MIN / img.width) : 1;
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * escala);
+        canvas.height = Math.round(img.height * escala);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = id.data;
+        for(let i = 0; i < data.length; i += 4){
+          const gray = 0.299*data[i] + 0.587*data[i+1] + 0.114*data[i+2];
+          const c = (gray - 128) * 1.35 + 128;
+          const v = c < 0 ? 0 : c > 255 ? 255 : c;
+          data[i] = data[i+1] = data[i+2] = v;
+        }
+        ctx.putImageData(id, 0, 0);
+        canvas.toBlob(b => resolve(b || file), 'image/jpeg', 0.9);
+      }catch(e){ resolve(file); }
+    };
+    img.onerror = () => resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
+}
+async function processarFoto(file){
+  if(!file || processandoFoto) return;
+  processandoFoto = true;
+  setFotoErro(null);
+  fotoEtapa1.hidden = true; fotoEtapa2.hidden = false; fotoEtapa3.hidden = true;
+  if(imgUrlAtual) URL.revokeObjectURL(imgUrlAtual);
+  imgUrlAtual = URL.createObjectURL(file);
+  fotoImg.src = imgUrlAtual;
+  fotoPreview.hidden = false;
+  fotoProg.hidden = false; fotoProgBar.style.width = '5%';
+  setFotoStatus('', 'Carregando IA de leitura…');
+  try { await garantirTesseract(); }
+  catch(e){
+    setFotoStatus('erro', 'Falha ao carregar a IA');
+    setFotoErro('<strong>📡 Sem conexão com a IA</strong>Não foi possível carregar o leitor. Verifique a internet.');
+    processandoFoto = false; return;
+  }
+  fotoProgBar.style.width = '15%';
+  setFotoStatus('', 'Melhorando imagem…');
+  let arquivo = file;
+  try { arquivo = await preprocessarImagem(file); } catch(e){}
+  fotoProgBar.style.width = '20%';
+  setFotoStatus('', 'Lendo o texto da etiqueta…');
+  try{
+    const resultado = await window.Tesseract.recognize(arquivo, 'por', {
+      logger: (m)=>{
+        if(m.status === 'loading tesseract core') setFotoStatus('', 'Preparando IA…');
+        else if(m.status === 'initializing tesseract') setFotoStatus('', 'Inicializando IA…');
+        else if(m.status === 'loading language traineddata') setFotoStatus('', 'Carregando idioma português…');
+        else if(m.status === 'initializing api') setFotoStatus('', 'Iniciando análise…');
+        else if(m.status === 'recognizing text'){
+          const p = Math.round((m.progress || 0) * 100);
+          fotoProgBar.style.width = (20 + p * 0.8) + '%';
+          setFotoStatus('', `Lendo etiqueta… ${p}%`);
+        }
+      }
+    });
+    fotoProgBar.style.width = '100%';
+    const texto = (resultado?.data?.text || '').trim();
+    if(!texto || texto.length < 3){
+      setFotoStatus('erro', 'Não encontrei texto na imagem');
+      setFotoErro('<strong>📷 Sem texto legível</strong>Aproxime mais da etiqueta, melhore a luz e evite reflexos. Depois tente de novo.');
+      fotoEtapa1.hidden = false; fotoEtapa2.hidden = true;
+      processandoFoto = false; return;
+    }
+    setFotoStatus('ok', '✓ Etiqueta lida com sucesso!');
+    fotoTexto.value = texto;
+    setTimeout(() => { fotoEtapa2.hidden = true; mostrarRevisao(texto); }, 500);
+  }catch(err){
+    console.error('OCR falhou:', err);
+    setFotoStatus('erro', 'Erro ao analisar');
+    setFotoErro('<strong>⚠️ Não foi possível analisar</strong>'+(err.message||'')+'<br>Tente tirar outra foto.');
+    fotoEtapa1.hidden = false; fotoEtapa2.hidden = true;
+  }finally{ processandoFoto = false; }
+}
+function mostrarRevisao(textoBruto){
+  const texto = String(textoBruto||'').trim();
+  if(!texto){ return; }
+  itemFoto = parseFala(texto, modoFoto === 'extintor' ? 'extintor' : undefined);
+  itemFoto.porFoto = true; itemFoto.porVoz = false;
+  fotoTexto.value = texto;
+  atualizarRevisao();
+  fotoEtapa3.hidden = false;
+}
+function atualizarRevisao(){
+  if(!itemFoto) return;
+  const isExt = itemFoto.isExtintor;
+  if(isExt){
+    const s = statusExtintor(itemFoto.validade);
+    revCabec.className = 'rev-cabec status-' + s.cor;
+    revIcone.textContent = '🧯';
+    revTitulo.textContent = itemFoto.numero ? `Extintor Nº ${itemFoto.numero}` : 'Extintor';
+    revSub.textContent = [itemFoto.tipo, itemFoto.capacidade, itemFoto.local].filter(Boolean).join(' · ') || 'Preencha os dados abaixo';
+    revStatus.textContent = s.label;
+  } else {
+    revCabec.className = 'rev-cabec status-cinza';
+    revIcone.textContent = '📌';
+    revTitulo.textContent = 'Tarefa detectada';
+    revSub.textContent = 'Confira os dados abaixo';
+    revStatus.textContent = 'TAREFA';
+  }
+  if(isExt){
+    const chipsLocal = LOCAIS_SUGERIDOS.map(l => `<button type="button" data-local="${l}">${l}</button>`).join('');
+    revCampos.innerHTML = `
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">🔢</span>Nº do extintor</div><input type="text" data-campo="numero" value="${escapar(itemFoto.numero||'')}" placeholder="Ex: 12"></div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">⚖️</span>Capacidade</div><input type="text" data-campo="capacidade" value="${escapar(itemFoto.capacidade||'')}" placeholder="Ex: 4 kg"></div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">🧪</span>Tipo</div><input type="text" data-campo="tipo" value="${escapar(itemFoto.tipo||'')}" placeholder="Ex: PQS (ABC)"></div>
+      <div class="rev-campo ${!itemFoto.local ? 'vazio destaque' : 'destaque'}">
+        <div class="rc-lbl"><span class="em">📍</span>Local / Setor / Andar ${!itemFoto.local ? '— preencher' : ''}</div>
+        <input type="text" data-campo="local" value="${escapar(itemFoto.local||'')}" placeholder="Ex: Corredor 2º andar / Recepção">
+        <div class="rev-chips-local" id="revChipsLocal"><span class="rc-lbl-mini">Toque rápido:</span>${chipsLocal}</div>
+      </div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">🔧</span>Fabricação</div><input type="text" data-campo="fabricacao" value="${itemFoto.fabricacao ? dataBR(itemFoto.fabricacao) : ''}" placeholder="dd/mm/aaaa"></div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">♻️</span>Última recarga</div><input type="text" data-campo="recarga" value="${itemFoto.recarga ? dataBR(itemFoto.recarga) : ''}" placeholder="dd/mm/aaaa"></div>
+      <div class="rev-campo ${statusExtintor(itemFoto.validade).cor === 'vermelho' ? 'destaque2' : 'destaque'}">
+        <div class="rc-lbl"><span class="em">📅</span>Validade / Vencimento</div>
+        <input type="text" data-campo="validade" value="${itemFoto.validade ? dataBR(itemFoto.validade) : ''}" placeholder="dd/mm/aaaa">
+      </div>
+    `;
+    const chipsLocalEl = document.getElementById('revChipsLocal');
+    if(chipsLocalEl){
+      chipsLocalEl.querySelectorAll('button[data-local]').forEach(b => {
+        if(itemFoto.local && itemFoto.local.toLowerCase().includes(b.dataset.local.toLowerCase())){ b.classList.add('on'); }
+        b.addEventListener('click', () => {
+          const valor = b.dataset.local;
+          const inp = revCampos.querySelector('input[data-campo="local"]');
+          if(!inp) return;
+          const atual = inp.value.trim();
+          if(atual){
+            if(!atual.toLowerCase().includes(valor.toLowerCase())){ inp.value = atual + ' · ' + valor; }
+            else { const partes = atual.split(/\s*·\s*/).filter(p => p.toLowerCase() !== valor.toLowerCase()); inp.value = partes.join(' · '); }
+          } else { inp.value = valor; }
+          inp.dispatchEvent(new Event('input'));
+          const novos = inp.value.split(/\s*·\s*/).map(p=>p.toLowerCase());
+          chipsLocalEl.querySelectorAll('button[data-local]').forEach(x => { x.classList.toggle('on', novos.includes(x.dataset.local.toLowerCase())); });
+        });
+      });
+    }
+  } else {
+    revCampos.innerHTML = `
+      <div class="rev-campo" style="grid-column:1/-1"><div class="rc-lbl"><span class="em">📝</span>Descrição</div><input type="text" data-campo="descricao" value="${escapar(itemFoto.descricao||'')}" placeholder="Descrição da tarefa"></div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">📅</span>Data</div><input type="text" data-campo="data" value="${itemFoto.data ? dataBR(itemFoto.data) : ''}" placeholder="dd/mm/aaaa"></div>
+      <div class="rev-campo"><div class="rc-lbl"><span class="em">🕐</span>Hora</div><input type="text" data-campo="hora" value="${itemFoto.hora||''}" placeholder="hh:mm"></div>
+    `;
+  }
+  revCampos.querySelectorAll('input[data-campo]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const campo = inp.dataset.campo;
+      const valor = inp.value.trim();
+      if(campo === 'numero' || campo === 'capacidade' || campo === 'tipo' || campo === 'local'){
+        itemFoto[campo] = valor;
+        if(campo === 'local'){ const box = inp.closest('.rev-campo'); if(valor){ box.classList.remove('vazio'); } else { box.classList.add('vazio'); } }
+        if(campo === 'local' || campo === 'numero' || campo === 'tipo' || campo === 'capacidade'){ reconstruirDescricaoExt(); }
+      } else if(campo === 'fabricacao' || campo === 'recarga' || campo === 'validade'){
+        itemFoto[campo] = valor ? (brParaISO(valor) || '') : '';
+        reconstruirDescricaoExt();
+      } else if(campo === 'data'){
+        itemFoto.data = valor ? (brParaISO(valor) || '') : '';
+      } else if(campo === 'descricao' || campo === 'hora'){
+        itemFoto[campo] = valor;
+      }
+      atualizarCabec();
+      if(campo === 'validade'){
+        const s = statusExtintor(itemFoto.validade);
+        const el = inp.closest('.rev-campo');
+        el.classList.remove('destaque','destaque2');
+        el.classList.add(s.cor === 'vermelho' ? 'destaque2' : 'destaque');
+        itemFoto.prioridade = s.cor === 'vermelho' ? 'alta' : s.cor === 'amarelo' ? 'media' : 'baixa';
+        itemFoto.data = itemFoto.validade || hojeISO();
+      }
+    });
+    if(['fabricacao','recarga','validade','data'].includes(inp.dataset.campo)){
+      inp.addEventListener('blur', ()=>{
+        const limpo = inp.value.replace(/\D/g,'');
+        if(limpo.length === 8){ inp.value = limpo.slice(0,2)+'/'+limpo.slice(2,4)+'/'+limpo.slice(4); inp.dispatchEvent(new Event('input')); }
+        else if(limpo.length === 6){ inp.value = limpo.slice(0,2)+'/'+limpo.slice(2,4)+'/'+limpo.slice(4); inp.dispatchEvent(new Event('input')); }
+      });
+    }
+  });
+}
+function reconstruirDescricaoExt(){
+  if(!itemFoto || !itemFoto.isExtintor) return;
+  const partes = [];
+  if(itemFoto.numero) partes.push('Nº ' + itemFoto.numero);
+  if(itemFoto.tipo) partes.push(itemFoto.tipo);
+  if(itemFoto.capacidade) partes.push(itemFoto.capacidade);
+  const L = [];
+  L.push('🧯 Extintor' + (partes.length ? ' ' + partes.join(' · ') : ''));
+  if(itemFoto.local) L.push('📍 Local: ' + itemFoto.local);
+  if(itemFoto.fabricacao) L.push('🔧 Fabricação: ' + dataBR(itemFoto.fabricacao));
+  if(itemFoto.recarga) L.push('♻️ Recarga: ' + dataBR(itemFoto.recarga));
+  if(itemFoto.validade) L.push('📅 Validade: ' + dataBR(itemFoto.validade));
+  itemFoto.descricao = L.join('\n');
+}
+function atualizarCabec(){
+  if(!itemFoto) return;
+  if(itemFoto.isExtintor){
+    const s = statusExtintor(itemFoto.validade);
+    revCabec.className = 'rev-cabec status-' + s.cor;
+    revTitulo.textContent = itemFoto.numero ? `Extintor Nº ${itemFoto.numero}` : 'Extintor';
+    revSub.textContent = [itemFoto.tipo, itemFoto.capacidade, itemFoto.local].filter(Boolean).join(' · ') || 'Preencha os dados abaixo';
+    revStatus.textContent = s.label;
+  }
+}
+async function salvarFoto(){
+  if(!itemFoto){ toast('Nada para salvar'); return; }
+  const avisos = [];
+  if(itemFoto.isExtintor){
+    if(!itemFoto.validade) avisos.push('validade não preenchida');
+    if(!itemFoto.local) avisos.push('local não identificado');
+  }
+  if(avisos.length > 0){
+    abrirConfirmacao({ titulo: 'Faltam informações', texto: 'Atenção: ' + avisos.join(' e ') + '.', destaque: 'Você pode salvar mesmo assim e completar depois em Editar.', icone: '⚠️', botao: 'Salvar mesmo assim', perigo: false, onConfirmar: async () => { await executarSalvarFoto(); } });
+    return;
+  }
+  await executarSalvarFoto();
+}
+async function executarSalvarFoto(){
+  try{
+    const base = {
+      id: uid(), titulo: '', descricao: itemFoto.descricao,
+      categoria: itemFoto.categoria, prioridade: itemFoto.prioridade,
+      data: itemFoto.data, hora: itemFoto.hora,
+      lembrete: itemFoto.lembrete, horaLembrete: itemFoto.horaLembrete,
+      concluido: false, criadoEm: Date.now(),
+      isExtintor: !!itemFoto.isExtintor, tipoItem: itemFoto.tipoItem || 'tarefa', porFoto: true
+    };
+    if(itemFoto.isExtintor) Object.assign(base, { numero: itemFoto.numero, tipo: itemFoto.tipo, capacidade: itemFoto.capacidade, local: itemFoto.local, fabricacao: itemFoto.fabricacao, validade: itemFoto.validade, recarga: itemFoto.recarga });
+    await DB.criar(base);
+    await recarregarDoBanco(); fecharFoto();
+    toast(itemFoto.isExtintor ? '🧯 Extintor registrado!' : '📷 Tarefa adicionada!');
+  }catch(e){ console.error(e); toast('⚠️ Erro ao salvar'); }
+}
+document.getElementById('btnAbrirCamera').addEventListener('click', () => { inputCamera.click(); });
+inputCamera.addEventListener('change', e => { const f = e.target.files?.[0]; if(f) processarFoto(f); });
+document.getElementById('fotoFechar').addEventListener('click', fecharFoto);
+overlayFoto.addEventListener('click', e=>{ if(e.target===overlayFoto) fecharFoto(); });
+document.getElementById('fotoNova').addEventListener('click', ()=>{ resetFoto(); });
+document.getElementById('fotoReanalisar').addEventListener('click', ()=>{ const t = fotoTexto.value.trim(); if(!t){ toast('Sem texto para analisar'); return; } mostrarRevisao(t); toast('🔍 Reinterpretado!'); });
+document.getElementById('fotoSalvar').addEventListener('click', salvarFoto);
+document.querySelectorAll('.foto-modo button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.foto-modo button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on'); modoFoto = b.dataset.modo; atualizarModoFoto();
+    if(itemFoto && fotoTexto.value.trim()) mostrarRevisao(fotoTexto.value);
+  });
+});
+
+/* ============================================================
+   RELATÓRIO
+============================================================ */
+const overlayRel = document.getElementById('overlayRel');
+const relPreview = document.getElementById('relPreview');
+const relContador = document.getElementById('relContador');
+const relAviso = document.getElementById('relAviso');
+const relBox = document.getElementById('relBox');
+
+function gerarRelatorio(escopo, formato, incluirConcluidas){
+  const agora = new Date();
+  const dataHora = agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  const hoje = hojeISO();
+  const L = [];
+  let base = [...items];
+  if(escopo === 'extintores') base = base.filter(i => i.isExtintor);
+  else if(escopo === 'pendentes') base = base.filter(i => !i.concluido);
+  else if(escopo === 'hoje') base = base.filter(i => i.data === hoje || (i.isExtintor && statusExtintor(i.validade).cor !== 'verde'));
+  if(!incluirConcluidas) base = base.filter(i => !i.concluido);
+  const exts = base.filter(i => i.isExtintor);
+  const tarefas = base.filter(i => !i.isExtintor);
+
+  L.push('📋 *RELATÓRIO - ROTINA DE TRABALHO*');
+  L.push(`_${dataHora}_`);
+  L.push('');
+  L.push('📊 *RESUMO*');
+  if(exts.length > 0){
+    let venc=0, aviso=0, ok=0, cinza=0, semLocal=0;
+    exts.forEach(i => { const c = statusExtintor(i.validade).cor; if(c === 'vermelho') venc++; else if(c === 'amarelo') aviso++; else if(c === 'verde') ok++; else cinza++; if(!i.local) semLocal++; });
+    L.push(`🧯 Extintores: ${exts.length}`);
+    if(venc > 0) L.push(`   🔴 ${venc} vencido${venc>1?'s':''}`);
+    if(aviso > 0) L.push(`   🟡 ${aviso} vencendo (≤${DIAS_AVISO} dias)`);
+    if(ok > 0) L.push(`   🟢 ${ok} OK`);
+    if(cinza > 0) L.push(`   ⚪ ${cinza} sem validade`);
+    if(semLocal > 0) L.push(`   📍 ${semLocal} sem local informado`);
+  }
+  if(tarefas.length > 0){
+    const pend = tarefas.filter(i => !i.concluido).length;
+    const conc = tarefas.filter(i => i.concluido).length;
+    const atras = tarefas.filter(i => !i.concluido && i.data && i.data < hoje).length;
+    L.push(`📌 Tarefas: ${tarefas.length}${atras > 0 ? ` (⚠️ ${atras} atrasada${atras>1?'s':''})` : ''}`);
+    if(pend > 0) L.push(`   ⏳ Pendentes: ${pend}`);
+    if(conc > 0 && incluirConcluidas) L.push(`   ✅ Concluídas: ${conc}`);
+  }
+  if(exts.length === 0 && tarefas.length === 0){ L.push('_Nada para reportar._'); }
+  L.push('');
+
+  if(exts.length > 0){
+    L.push('━━━━━━━━━━━━━━━━━━━');
+    L.push('🧯 *EXTINTORES*');
+    L.push('');
+    const grupos = { vermelho: [], amarelo: [], verde: [], cinza: [] };
+    exts.forEach(i => grupos[statusExtintor(i.validade).cor].push(i));
+    const ordem = [['vermelho','🔴 VENCIDOS'],['amarelo','🟡 VENCENDO EM BREVE'],['verde','🟢 OK (válidos)'],['cinza','⚪ SEM VALIDADE']];
+    ordem.forEach(([cor, titulo]) => {
+      const lista = grupos[cor];
+      if(lista.length === 0) return;
+      lista.sort((a,b) => { const sa = statusExtintor(a.validade).dias ?? 9999; const sb = statusExtintor(b.validade).dias ?? 9999; return sa - sb; });
+      L.push(`*${titulo}*`); L.push('');
+      lista.forEach(i => {
+        const s = statusExtintor(i.validade);
+        if(formato === 'resumido'){
+          const partes = [];
+          if(i.numero) partes.push(`Nº ${i.numero}`);
+          if(i.tipo) partes.push(i.tipo);
+          if(i.capacidade) partes.push(i.capacidade);
+          let linha = `• ${partes.join(' · ') || 'Extintor'}`;
+          linha += ` — 📍 ${i.local || '⚠️ local não informado'}`;
+          if(i.validade) linha += ` — 📅 ${dataBR(i.validade)}`;
+          linha += ` ${s.emoji}`;
+          L.push(linha);
+        } else {
+          const partes = [];
+          if(i.numero) partes.push(`Nº ${i.numero}`);
+          if(i.tipo) partes.push(i.tipo);
+          if(i.capacidade) partes.push(i.capacidade);
+          L.push(`• *${partes.join(' · ') || 'Extintor'}*`);
+          L.push(`  📍 *Local: ${i.local || '⚠️ não informado'}*`);
+          if(i.fabricacao) L.push(`  🔧 Fabricação: ${dataBR(i.fabricacao)}`);
+          if(i.recarga) L.push(`  ♻️ Última recarga: ${dataBR(i.recarga)}`);
+          if(i.validade) L.push(`  📅 *Validade: ${dataBR(i.validade)}*`);
+          L.push(`  ${s.emoji} ${s.texto}`);
+          L.push('');
+        }
+      });
+      L.push('');
+    });
+  }
+
+  if(tarefas.length > 0){
+    L.push('━━━━━━━━━━━━━━━━━━━');
+    L.push('📌 *TAREFAS*');
+    L.push('');
+    const atrasadas = tarefas.filter(i => !i.concluido && i.data && i.data < hoje);
+    const deHoje    = tarefas.filter(i => !i.concluido && i.data === hoje);
+    const futuras   = tarefas.filter(i => !i.concluido && (!i.data || i.data > hoje));
+    const concluidas= tarefas.filter(i => i.concluido);
+    function renderGrupo(lista, titulo){
+      if(lista.length === 0) return;
+      L.push(`*${titulo}*`); L.push('');
+      lista.forEach(i => {
+        const c = conteudoDe(i);
+        if(formato === 'resumido'){
+          let linha = `• ${c}`;
+          if(i.data) linha += ` — 📅 ${fmtData(i.data)}`;
+          if(i.hora) linha += ` 🕐${i.hora}`;
+          L.push(linha);
+        } else {
+          L.push(`• *${c}*`);
+          if(i.data) L.push(`  📅 ${fmtData(i.data)}${i.hora ? ' às ' + i.hora : ''}`);
+          if(i.lembrete && i.horaLembrete) L.push(`  ⏰ Lembrete: ${i.horaLembrete}`);
+          L.push('');
+        }
+      });
+      L.push('');
+    }
+    renderGrupo(atrasadas.sort((a,b) => (a.data||'').localeCompare(b.data||'')), '⚠️ ATRASADAS');
+    renderGrupo(deHoje.sort((a,b) => (a.hora||'99:99').localeCompare(b.hora||'99:99')), '📅 HOJE');
+    renderGrupo(futuras.sort((a,b) => (a.data||'9999').localeCompare(b.data||'9999')), '📆 PRÓXIMAS');
+    if(incluirConcluidas && concluidas.length > 0){
+      L.push(`*✅ CONCLUÍDAS (${concluidas.length})*`); L.push('');
+      concluidas.forEach(i => { L.push(formato === 'resumido' ? `• ~~${conteudoDe(i)}~~` : `• ✅ ${conteudoDe(i)}`); });
+      L.push('');
+    }
+  }
+  L.push('━━━━━━━━━━━━━━━━━━━');
+  L.push('_Gerado automaticamente • Rotina de Trabalho_');
+  return L.join('\n');
+}
+function atualizarPreviewRelatorio(){
+  const txt = gerarRelatorio(relEscopo, relFormato, relIncluirConcluidas);
+  relPreview.value = txt;
+  relContador.textContent = `${txt.length} caracteres`;
+  relAviso.hidden = txt.length < 3500;
+}
+function abrirRelatorio(){
+  if(items.length === 0){ toast('Nada para incluir no relatório'); return; }
+  atualizarPreviewRelatorio(); renderContatos(); atualizarTextoBotaoZap();
+  overlayRel.classList.add('on'); document.body.style.overflow = 'hidden';
+}
+function fecharRelatorio(){ overlayRel.classList.remove('on'); document.body.style.overflow = ''; }
+document.getElementById('btnRelatorio').addEventListener('click', abrirRelatorio);
+document.getElementById('relFechar').addEventListener('click', fecharRelatorio);
+document.getElementById('relFechar2').addEventListener('click', fecharRelatorio);
+overlayRel.addEventListener('click', e => { if(e.target === overlayRel) fecharRelatorio(); });
+document.getElementById('relEscopo').addEventListener('click', e => { const b = e.target.closest('.rel-opc'); if(!b) return; document.querySelectorAll('#relEscopo .rel-opc').forEach(x => x.classList.remove('on')); b.classList.add('on'); relEscopo = b.dataset.escopo; atualizarPreviewRelatorio(); });
+document.getElementById('relFormato').addEventListener('click', e => { const b = e.target.closest('.rel-opc'); if(!b) return; document.querySelectorAll('#relFormato .rel-opc').forEach(x => x.classList.remove('on')); b.classList.add('on'); relFormato = b.dataset.formato; atualizarPreviewRelatorio(); });
+document.getElementById('relConcluidas').addEventListener('click', () => { relIncluirConcluidas = !relIncluirConcluidas; document.getElementById('relConcluidas').classList.toggle('on', relIncluirConcluidas); atualizarPreviewRelatorio(); });
+document.getElementById('relRegenerar').addEventListener('click', () => { atualizarPreviewRelatorio(); toast('↻ Regenerado'); });
+
+async function enviarZap(){
+  const txt = (relPreview.value || '').trim();
+  if(!txt){ toast('Relatório vazio'); return; }
+  const destino = contatoSelecionado;
+  const usarGeral = !destino;
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile && navigator.share){
+    try{ await navigator.share({ title: 'Relatório - Rotina de Trabalho', text: txt }); toast('📱 Compartilhado!'); return; }
+    catch(err){ if(err && err.name === 'AbortError'){ return; } }
+  }
+  if(txt.length > 6000){ toast('⚠️ Muito grande — copiado no lugar'); await copiarRelatorio(); return; }
+  const encoded = encodeURIComponent(txt);
+  let url;
+  if(usarGeral){ url = 'https://wa.me/?text=' + encoded; } else { url = 'https://wa.me/' + destino.telefone + '?text=' + encoded; }
+  const win = window.open(url, '_blank', 'noopener,noreferrer');
+  if(!win){ await copiarRelatorio(); toast('⚠️ Pop-up bloqueado — relatório copiado'); return; }
+  toast(usarGeral ? '📱 Abrindo WhatsApp…' : `📱 Enviando para ${destino.nome}…`);
+}
+document.getElementById('relEnviarZap').addEventListener('click', enviarZap);
+async function copiarRelatorio(){
+  const txt = (relPreview.value || '').trim();
+  if(!txt){ toast('Relatório vazio'); return; }
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(txt); toast('📋 Copiado!'); }
+    else { relPreview.select(); document.execCommand('copy'); window.getSelection()?.removeAllRanges(); toast('📋 Copiado!'); }
+  }catch(e){ relPreview.select(); try { document.execCommand('copy'); toast('📋 Copiado!'); } catch(err){ toast('⚠️ Selecione e copie'); } }
+}
+document.getElementById('relCopiar').addEventListener('click', copiarRelatorio);
+document.getElementById('relBaixar').addEventListener('click', () => {
+  const txt = (relPreview.value || '').trim();
+  if(!txt){ toast('Relatório vazio'); return; }
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `relatorio_${hojeISO()}.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  toast('💾 Baixado');
+});
+document.getElementById('dbRelatorio').addEventListener('click', () => { fecharDb(); setTimeout(abrirRelatorio, 250); });
+
+/* ============================================================
+   DB PAINEL
+============================================================ */
+const overlayDb = document.getElementById('overlayDb');
+const dbInfo = document.getElementById('dbInfo');
+const dbArquivo = document.getElementById('dbArquivo');
+async function atualizarInfoBanco(){
+  const total = await DB.contar();
+  const pend = items.filter(i => !i.concluido).length;
+  const conc = items.filter(i => i.concluido).length;
+  const lem  = items.filter(i => i.lembrete).length;
+  const voz  = items.filter(i => i.porVoz).length;
+  const foto = items.filter(i => i.porFoto).length;
+  const exts = items.filter(i => i.isExtintor).length;
+  let tamanho = '—';
+  try{ const est = await navigator.storage?.estimate?.(); if(est?.usage != null) tamanho = (est.usage/1024).toFixed(1) + ' KB'; }catch(e){}
+  dbInfo.innerHTML = `
+    <div class="field"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)"><div style="font-size:11.5px;color:#8b93a8;font-weight:700">TOTAL</div><div style="font-size:22px;font-weight:800;margin-top:4px">${total}</div></div>
+      <div style="padding:14px;border-radius:14px;background:rgba(255,92,124,.10);border:1px solid rgba(255,92,124,.22)"><div style="font-size:11.5px;color:#ff9db2;font-weight:700">EXTINTORES</div><div style="font-size:22px;font-weight:800;margin-top:4px;color:#ff9db2">${exts}</div></div>
+      <div style="padding:14px;border-radius:14px;background:rgba(255,181,71,.10);border:1px solid rgba(255,181,71,.22)"><div style="font-size:11.5px;color:#ffc46e;font-weight:700">PENDENTES</div><div style="font-size:22px;font-weight:800;margin-top:4px;color:#ffc46e">${pend}</div></div>
+      <div style="padding:14px;border-radius:14px;background:rgba(46,230,168,.10);border:1px solid rgba(46,230,168,.22)"><div style="font-size:11.5px;color:#5ff0bd;font-weight:700">CONCLUÍDAS</div><div style="font-size:22px;font-weight:800;margin-top:4px;color:#5ff0bd">${conc}</div></div>
+      <div style="padding:14px;border-radius:14px;background:rgba(124,92,255,.10);border:1px solid rgba(124,92,255,.22)"><div style="font-size:11.5px;color:#b9a6ff;font-weight:700">LEMBRETES</div><div style="font-size:22px;font-weight:800;margin-top:4px;color:#b9a6ff">${lem}</div></div>
+      <div style="padding:14px;border-radius:14px;background:rgba(61,220,255,.10);border:1px solid rgba(61,220,255,.22)"><div style="font-size:11.5px;color:#7ee6ff;font-weight:700">POR FOTO</div><div style="font-size:22px;font-weight:800;margin-top:4px;color:#7ee6ff">${foto}</div></div>
+    </div></div>
+    <div class="field"><label>Detalhes</label>
+      <div style="font-size:13.5px;color:#a9b0c4;line-height:1.9;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)">
+        <div><strong>Motor:</strong> IndexedDB</div>
+        <div><strong>Banco:</strong> ${DB_NAME}</div>
+        <div><strong>Por voz:</strong> ${voz}</div>
+        <div><strong>Por foto:</strong> ${foto}</div>
+        <div><strong>Contatos WhatsApp:</strong> ${contatos.length}</div>
+        <div><strong>Armazenamento:</strong> ${tamanho}</div>
+      </div>
+    </div>
+  `;
+}
+document.getElementById('btnDb').addEventListener('click', async ()=>{ await atualizarInfoBanco(); overlayDb.classList.add('on'); document.body.style.overflow = 'hidden'; });
+function fecharDb(){ overlayDb.classList.remove('on'); document.body.style.overflow=''; }
+document.getElementById('dbFechar').addEventListener('click', fecharDb);
+overlayDb.addEventListener('click', e=>{ if(e.target===overlayDb) fecharDb(); });
+document.getElementById('dbExportar').addEventListener('click', async ()=>{
+  const dados = await DB.listarTodos();
+  const pacote = { tarefas: dados, contatosWhatsapp: contatos };
+  const blob = new Blob([JSON.stringify(pacote, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `rotina_trabalho_${hojeISO()}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  toast('📤 Exportado');
+});
+document.getElementById('dbImportar').addEventListener('click', ()=>dbArquivo.click());
+dbArquivo.addEventListener('change', async (e)=>{
+  const file = e.target.files?.[0]; if(!file) return;
+  try{
+    const txt = await file.text();
+    let pacote = JSON.parse(txt);
+    let lista, contatosImport = [];
+    if(Array.isArray(pacote)){ lista = pacote; }
+    else if(pacote && Array.isArray(pacote.tarefas)){ lista = pacote.tarefas; contatosImport = Array.isArray(pacote.contatosWhatsapp) ? pacote.contatosWhatsapp : []; }
+    else { throw new Error('Formato inválido'); }
+    const convertidos = lista.map(i=>({
+      id: i.id || uid(),
+      titulo: '',
+      descricao: String(i.descricao || i.titulo || ''),
+      categoria: CATS[i.categoria] ? i.categoria : 'outro', prioridade: PRIOS[i.prioridade] ? i.prioridade : 'media',
+      data: i.data || '', hora: i.hora || '', lembrete: !!i.lembrete, horaLembrete: i.horaLembrete || '',
+      porVoz: !!i.porVoz, porFoto: !!i.porFoto, concluido: !!i.concluido, criadoEm: i.criadoEm || Date.now(),
+      isExtintor: !!i.isExtintor, tipoItem: i.tipoItem || 'tarefa',
+      numero: i.numero || '', tipo: i.tipo || '', capacidade: i.capacidade || '', local: i.local || '',
+      fabricacao: i.fabricacao || '', validade: i.validade || '', recarga: i.recarga || ''
+    }));
+    await DB.criarVarios(convertidos);
+    if(contatosImport.length > 0){
+      contatosImport.forEach(c => { if(!contatos.some(x => x.nome.toLowerCase() === (c.nome||'').toLowerCase())){ contatos.push({ id: c.id || uid(), nome: String(c.nome||'Contato'), telefone: String(c.telefone||'').replace(/\D/g,'') }); } });
+      salvarContatosLS();
+    }
+    await recarregarDoBanco(); await atualizarInfoBanco();
+    toast(`📥 ${convertidos.length} itens importados`);
+  }catch(err){ console.error(err); toast('⚠️ Arquivo inválido'); }
+  finally{ dbArquivo.value = ''; }
+});
+document.getElementById('dbLimpar').addEventListener('click', ()=>{
+  const total = items.length;
+  if(total === 0){ toast('Banco já está vazio'); return; }
+  abrirConfirmacao({ titulo: 'Apagar TUDO?', texto: `Isso vai excluir todos os ${total} itens permanentemente.`, destaque: 'Esta ação NÃO pode ser desfeita.', icone: '⚠️', botao: 'Apagar tudo', perigo: true, onConfirmar: async ()=>{ await DB.limpar(); await recarregarDoBanco(); await atualizarInfoBanco(); toast('🗑️ Apagado'); } });
+});
+
+/* ============================================================
+   INIT
+============================================================ */
+async function init(){
+  carregarContatos();
+  atualizarRelogio();
+  setInterval(atualizarRelogio, 1000);
+  document.getElementById('chipsCat').innerHTML = Object.entries(CATS).map(([k,v]) => `<button type="button" class="chip-opt" data-v="${k}">${v.icon} ${v.label}</button>`).join('');
+  document.getElementById('chipsPrio').innerHTML = Object.entries(PRIOS).map(([k,v]) => `<button type="button" class="chip-opt" data-v="${k}">${v.label}</button>`).join('');
+  document.getElementById('chipsCat').addEventListener('click', e=>{ const b = e.target.closest('.chip-opt'); if(!b) return; catSel = b.dataset.v; sincronizarChips(); });
+  document.getElementById('chipsPrio').addEventListener('click', e=>{ const b = e.target.closest('.chip-opt'); if(!b) return; prioSel = b.dataset.v; sincronizarChips(); });
+  document.getElementById('swLembrete').addEventListener('click', ()=>{ lembreteOn = !lembreteOn; sincronizarLembrete(); });
+  document.getElementById('btnNova').addEventListener('click', ()=>abrirModal());
+  document.getElementById('btnCancelar').addEventListener('click', fecharModal);
+  document.getElementById('btnSalvar').addEventListener('click', salvarItem);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) fecharModal(); });
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape'){
+      if(overlayContato.classList.contains('on')) fecharModalContato();
+      else if(overlayRel.classList.contains('on')) fecharRelatorio();
+      else if(overlayConf.classList.contains('on')) fecharConfirmacao();
+      else if(overlayFoto.classList.contains('on')) fecharFoto();
+      else if(overlayVoz.classList.contains('on')) fecharVoz();
+      else if(overlayDb.classList.contains('on')) fecharDb();
+      else if(overlay.classList.contains('on')) fecharModal();
+    }
+    if(e.key === 'Enter' && (e.metaKey || e.ctrlKey) && overlay.classList.contains('on')) salvarItem();
+  });
+  const boot = document.getElementById('boot');
+  const bootTxt = document.getElementById('bootTxt');
+  const dbDot = document.getElementById('dbDot');
+  try{
+    bootTxt.textContent = 'Abrindo banco de dados…';
+    await abrirDB();
+    bootTxt.textContent = 'Verificando dados antigos…';
+    const migradosAntigo = await migrarDoBancoAntigo();
+    const migradosLS = await migrarLocalStorageSePreciso();
+    bootTxt.textContent = 'Carregando rotina…';
+    await recarregarDoBanco();
+    dbDot.classList.add('ready');
+    const total = migradosAntigo + migradosLS;
+    if(total > 0) toast(`🗄️ ${total} itens migrados`);
+  }catch(e){ console.error('Erro no banco:', e); bootTxt.textContent = 'Erro ao abrir o banco.'; toast('⚠️ Não foi possível abrir o banco'); }
+  setTimeout(()=>{ boot.classList.add('off'); setTimeout(()=>boot.remove(), 500); }, 400);
+  atualizarSino();
+  dispararLembretes();
+}
+init();
+</script>
 </body>
 </html>
