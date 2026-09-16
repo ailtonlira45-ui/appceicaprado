@@ -127,11 +127,14 @@
   .ext-dias.cinza{background:rgba(139,147,168,.1);color:#9aa2b8;border:1px solid rgba(139,147,168,.25)}
   .ext-dias .emoji{font-size:16px}
 
-  .card-acoes{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:8px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07)}
-  .acao-btn{flex:1;padding:9px 12px;border-radius:11px;cursor:pointer;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);color:#c3c9db;font-family:inherit;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s}
+  /* Barra de ações do card — 3 botões */
+  .card-acoes{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:6px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07)}
+  .acao-btn{flex:1;padding:9px 8px;border-radius:11px;cursor:pointer;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);color:#c3c9db;font-family:inherit;font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s;white-space:nowrap}
   .acao-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.18)}
   .acao-btn.editar:hover{background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.45);color:#c9b8ff}
   .acao-btn.excluir:hover{background:rgba(255,92,124,.16);border-color:rgba(255,92,124,.45);color:#ff9db2}
+  .acao-btn.zap{border-color:rgba(37,211,102,.32);background:rgba(37,211,102,.08);color:#5fdc94}
+  .acao-btn.zap:hover{background:rgba(37,211,102,.22);border-color:rgba(37,211,102,.65);color:#7ceba9}
   .acao-btn svg{width:13px;height:13px;flex:0 0 auto}
 
   .vazio{text-align:center;padding:66px 20px;color:var(--muted);animation:entra .4s ease both}
@@ -157,12 +160,7 @@
 
   .form-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}
   .form-header h2{font-size:19px;font-weight:800;letter-spacing:-.4px}
-  .camera-form-btn{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:13px;
-    border:1px solid rgba(255,181,71,.4);background:rgba(255,181,71,.12);color:#ffc46e;
-    font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;
-    white-space:nowrap;flex:0 0 auto;
-  }
+  .camera-form-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:13px;border:1px solid rgba(255,181,71,.4);background:rgba(255,181,71,.12);color:#ffc46e;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;flex:0 0 auto}
   .camera-form-btn:hover{background:rgba(255,181,71,.24);border-color:rgba(255,181,71,.65);color:#ffd699}
   .camera-form-btn .em{font-size:16px;line-height:1}
   .camera-form-btn.busy{opacity:.6;pointer-events:none}
@@ -460,7 +458,7 @@
   @keyframes pulsa{0%{box-shadow:0 0 0 0 rgba(46,230,168,.65)}70%{box-shadow:0 0 0 9px rgba(46,230,168,0)}100%{box-shadow:0 0 0 0 rgba(46,230,168,0)}}
 
   @media(min-width:700px){.overlay{align-items:center;padding:24px}.sheet{border-radius:28px;max-height:88vh}.handle{display:none}}
-  @media(max-width:400px){.fab{padding:14px 16px;font-size:13px}.acao-circ{width:52px;height:52px;flex:0 0 52px;font-size:20px}.voz-mic{width:84px;height:84px;font-size:32px}.acao-btn{font-size:12px;padding:8px 10px}.ext-info{grid-template-columns:1fr}.ext-grid{grid-template-columns:1fr 1fr 1fr;gap:6px}.ext-stat .n{font-size:18px}.icone-btn{width:40px;height:40px;flex:0 0 40px;font-size:16px}.rev-campos{grid-template-columns:1fr}.foto-guia-grid{grid-template-columns:1fr}.contato-chip .contato-nome{max-width:100px}.camera-btn .camera-emoji{font-size:38px}.camera-btn .camera-titulo{font-size:15px}.camera-form-btn{padding:9px 11px;font-size:12px}}
+  @media(max-width:400px){.fab{padding:14px 16px;font-size:13px}.acao-circ{width:52px;height:52px;flex:0 0 52px;font-size:20px}.voz-mic{width:84px;height:84px;font-size:32px}.acao-btn{font-size:11px;padding:8px 6px;gap:4px}.acao-btn svg{width:12px;height:12px}.ext-info{grid-template-columns:1fr}.ext-grid{grid-template-columns:1fr 1fr 1fr;gap:6px}.ext-stat .n{font-size:18px}.icone-btn{width:40px;height:40px;flex:0 0 40px;font-size:16px}.rev-campos{grid-template-columns:1fr}.foto-guia-grid{grid-template-columns:1fr}.contato-chip .contato-nome{max-width:100px}.camera-btn .camera-emoji{font-size:38px}.camera-btn .camera-titulo{font-size:15px}.camera-form-btn{padding:9px 11px;font-size:12px}}
 
   .boot{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);transition:opacity .4s ease}
   .boot.off{opacity:0;pointer-events:none}
@@ -521,7 +519,6 @@
   <button class="fab" id="btnNova">+ Nova tarefa</button>
 </div>
 
-<!-- FORM MODAL — sem título, só descrição -->
 <div class="overlay" id="overlay">
   <div class="sheet">
     <div class="handle"></div>
@@ -781,6 +778,37 @@
   </div>
 </div>
 
+<!-- MODAL DE ENVIO WHATSAPP DE UMA OCORRÊNCIA -->
+<div class="overlay contato" id="overlayZapItem">
+  <div class="contato-box" style="max-width:440px">
+    <h3>💬 Enviar pelo WhatsApp</h3>
+    <div class="contato-sub" id="zapItemSub">Escolha para quem enviar ou apenas abra o WhatsApp.</div>
+
+    <div class="campo">
+      <label>Enviar para</label>
+      <div class="rel-contatos" id="zapItemContatos"></div>
+    </div>
+
+    <div class="campo">
+      <label>Pré-visualização</label>
+      <div class="rel-preview-box" style="padding:12px">
+        <textarea id="zapItemPreview" spellcheck="false" style="width:100%;background:transparent;border:none;color:#d8e6dc;font-family:'SF Mono',Consolas,Monaco,monospace;font-size:11.5px;line-height:1.55;outline:none;resize:vertical;min-height:140px;max-height:220px;padding:2px 0;white-space:pre-wrap;word-break:break-word"></textarea>
+      </div>
+    </div>
+
+    <div class="contato-acoes" style="flex-direction:column">
+      <button class="rel-btn-zap" id="zapItemEnviar" style="width:100%;padding:14px;font-size:14.5px">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span id="zapItemEnviarTxt">Enviar pelo WhatsApp</span>
+      </button>
+      <div style="display:flex;gap:9px;width:100%">
+        <button class="btn" id="zapItemCopiar" style="font-size:13.5px;padding:12px">📋 Copiar</button>
+        <button class="btn" id="zapItemFechar" style="font-size:13.5px;padding:12px">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -964,6 +992,8 @@ let itemFoto = null;
 let tesseractCarregado = false;
 let imgUrlAtual = null;
 let processandoFoto = false;
+let itemZapAtual = null;
+let zapItemContato = null;
 
 const CATS = {
   trabalho:  { icon:'💼', label:'Trabalho',   cor:'#7c5cff' },
@@ -1018,8 +1048,6 @@ function atualizarRelogio(){
   const hora = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   document.getElementById('dataHoje').innerHTML = `${data} <span class="sep">·</span> <span class="hora">${hora}</span>`;
 }
-
-/* Retorna o "conteúdo principal" (descrição, ou título como fallback de dados antigos) */
 function conteudoDe(i){
   return (i.descricao && i.descricao.trim()) || (i.titulo && i.titulo.trim()) || 'Sem descrição';
 }
@@ -1147,10 +1175,8 @@ function parseExtintor(texto){
   if(numero) partes.push('Nº ' + numero);
   if(tipo) partes.push(tipo);
   if(capacidade) partes.push(capacidade);
-  /* Descrição rica para extintores */
   const descPartes = [];
-  const cabec = '🧯 Extintor' + (partes.length ? ' ' + partes.join(' · ') : '');
-  descPartes.push(cabec);
+  descPartes.push('🧯 Extintor' + (partes.length ? ' ' + partes.join(' · ') : ''));
   if(local) descPartes.push('📍 Local: ' + local);
   if(fabricacao) descPartes.push('🔧 Fabricação: ' + dataBR(fabricacao));
   if(recarga) descPartes.push('♻️ Recarga: ' + dataBR(recarga));
@@ -1159,9 +1185,7 @@ function parseExtintor(texto){
   const st = statusExtintor(validade);
   return {
     isExtintor: true, tipoItem: 'extintor', numero, tipo: tipo || '', capacidade, local,
-    fabricacao, validade, recarga,
-    titulo: '', /* título removido */
-    descricao,
+    fabricacao, validade, recarga, titulo: '', descricao,
     categoria: 'extintor',
     prioridade: st.cor === 'vermelho' ? 'alta' : st.cor === 'amarelo' ? 'media' : 'baixa',
     data: validade || hojeISO(), hora: '', lembrete: !!validade, horaLembrete: '09:00'
@@ -1214,15 +1238,12 @@ function parseFala(texto, forcarModo){
   if(periodo && h!==null){ if((periodo==='tarde'||periodo==='noite')&&h<12) h+=12; if(periodo==='manhã'&&h===12) h=0; }
   let hora = '';
   if(h!==null && h>=0 && h<=23){ hora = String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0'); if(matchedHora) remover.push(new RegExp(escRegex(matchedHora),'gi')); }
-  /* Limpa o texto removendo as partes já extraídas (data/hora) do conteúdo */
   remover.forEach(re => { conteudo = conteudo.replace(re,' '); });
   conteudo = conteudo.replace(/[|_=\-\.]{3,}/g,' ').replace(/\s+/g,' ').replace(/^[\s,.:;\-–—]+|[\s,.:;\-–—]+$/g,'').trim();
   if(!conteudo) conteudo = original;
-  /* Capitaliza primeira letra */
   if(conteudo) conteudo = conteudo.charAt(0).toUpperCase() + conteudo.slice(1);
   return {
-    titulo: '', /* sem título */
-    descricao: conteudo,
+    titulo: '', descricao: conteudo,
     categoria, prioridade, data, hora,
     lembrete: !!hora, horaLembrete: hora || '09:00',
     isExtintor: false, tipoItem: 'tarefa'
@@ -1314,8 +1335,9 @@ function renderCardExtintor(i, idx){
         <div class="ext-dias ${s.cor}" style="grid-column:1 / -1"><span class="emoji">${s.emoji || ''}</span><span>${s.texto}</span></div>
       </div>
       <div class="card-acoes">
-        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
-        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
+        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
+        <button class="acao-btn zap" data-acao="zap" data-id="${i.id}" title="Enviar por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Enviar</button>
+        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}" title="Excluir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
       </div>
     </article>
   `;
@@ -1340,8 +1362,9 @@ function renderCardTarefa(i, idx){
         ${tags ? `<div class="meta">${tags}</div>` : ''}
       </div>
       <div class="card-acoes">
-        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
-        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
+        <button class="acao-btn editar" data-acao="editar" data-id="${i.id}" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Editar</button>
+        <button class="acao-btn zap" data-acao="zap" data-id="${i.id}" title="Enviar por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Enviar</button>
+        <button class="acao-btn excluir" data-acao="del" data-id="${i.id}" title="Excluir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Excluir</button>
       </div>
     </article>
   `;
@@ -1380,7 +1403,7 @@ function renderTudo(){ renderExtPanel(); renderPainel(); renderLista(); }
 async function recarregarDoBanco(){ items = await DB.listarTodos(); renderTudo(); }
 
 /* ============================================================
-   MODAL FORM — sem título, só descrição
+   MODAL FORM
 ============================================================ */
 const overlay = document.getElementById('overlay');
 const inputCameraForm = document.getElementById('inputCameraForm');
@@ -1495,15 +1518,13 @@ async function salvarItem(){
   const descricao = document.getElementById('fDesc').value.trim();
   if(!descricao){ toast('⚠️ Preencha a descrição'); document.getElementById('fDesc').focus(); return; }
   const dados = {
-    titulo: '', /* nunca mais usado */
-    descricao,
+    titulo: '', descricao,
     categoria: catSel, prioridade: prioSel,
     data: document.getElementById('fData').value || '',
     hora: document.getElementById('fHora').value || '',
     lembrete: lembreteOn,
     horaLembrete: lembreteOn ? (document.getElementById('fHoraLembrete').value || '09:00') : ''
   };
-  /* Extintor detectado: mantém isExtintor */
   if(/^🧯\s*extintor/i.test(descricao) || catSel === 'extintor'){
     dados.isExtintor = true;
     dados.tipoItem = 'extintor';
@@ -1523,6 +1544,139 @@ async function salvarItem(){
 }
 
 /* ============================================================
+   ENVIO DE UMA OCORRÊNCIA POR WHATSAPP
+============================================================ */
+const overlayZapItem = document.getElementById('overlayZapItem');
+const zapItemContatos = document.getElementById('zapItemContatos');
+const zapItemPreview = document.getElementById('zapItemPreview');
+const zapItemEnviarTxt = document.getElementById('zapItemEnviarTxt');
+
+function gerarTextoItem(i){
+  const linhas = [];
+  if(i.isExtintor){
+    const partes = [];
+    if(i.numero) partes.push(`Nº ${i.numero}`);
+    if(i.tipo) partes.push(i.tipo);
+    if(i.capacidade) partes.push(i.capacidade);
+    linhas.push(`🧯 *${partes.join(' · ') || 'Extintor'}*`);
+    if(i.local) linhas.push(`📍 *Local:* ${i.local}`);
+    if(i.fabricacao) linhas.push(`🔧 Fabricação: ${dataBR(i.fabricacao)}`);
+    if(i.recarga) linhas.push(`♻️ Recarga: ${dataBR(i.recarga)}`);
+    if(i.validade){
+      linhas.push(`📅 *Validade:* ${dataBR(i.validade)}`);
+      const s = statusExtintor(i.validade);
+      linhas.push(`${s.emoji} ${s.texto}`);
+    }
+  } else {
+    const cat = CATS[i.categoria] || CATS.outro;
+    linhas.push(`📌 *${cat.icon} ${cat.label}*`);
+    linhas.push('');
+    linhas.push(conteudoDe(i));
+    const meta = [];
+    if(i.data) meta.push(`📅 ${fmtData(i.data)}${i.hora ? ' às ' + i.hora : ''}`);
+    else if(i.hora) meta.push(`🕐 ${i.hora}`);
+    if(i.lembrete && i.horaLembrete) meta.push(`⏰ Lembrete: ${i.horaLembrete}`);
+    if(i.prioridade && PRIOS[i.prioridade]) meta.push(`⚡ Prioridade: ${PRIOS[i.prioridade].label}`);
+    if(i.concluido) meta.push('✅ Concluída');
+    if(meta.length){
+      linhas.push('');
+      linhas.push(meta.join(' · '));
+    }
+  }
+  linhas.push('');
+  linhas.push('_Enviado pelo app Rotina de Trabalho_');
+  return linhas.join('\n');
+}
+
+function renderZapItemContatos(){
+  if(contatos.length === 0){
+    zapItemContatos.innerHTML = `<div class="contato-vazio" style="font-size:11.5px"><span class="em">💡</span><span>Nenhum contato salvo. Abra o WhatsApp e escolha.</span></div>`;
+    return;
+  }
+  let html = `<button type="button" class="contato-chip ${zapItemContato === null ? 'on' : ''}" data-zapcontato="__geral__" style="font-size:11.5px;padding:7px 9px 7px 11px"><span class="contato-avatar" style="width:20px;height:20px;flex:0 0 20px;font-size:9px">💬</span><span class="contato-nome" style="max-width:110px">Escolher no WhatsApp</span></button>`;
+  contatos.forEach(c => {
+    const on = zapItemContato && zapItemContato.id === c.id;
+    const inicial = (c.nome || '?').trim().charAt(0).toUpperCase();
+    html += `<button type="button" class="contato-chip ${on ? 'on' : ''}" data-zapcontato="${c.id}" style="font-size:11.5px;padding:7px 11px 7px 11px"><span class="contato-avatar" style="width:20px;height:20px;flex:0 0 20px;font-size:9px">${inicial}</span><span class="contato-nome" style="max-width:110px">${escapar(c.nome || 'Sem nome')}</span></button>`;
+  });
+  zapItemContatos.innerHTML = html;
+}
+zapItemContatos.addEventListener('click', e => {
+  const b = e.target.closest('[data-zapcontato]'); if(!b) return;
+  const val = b.dataset.zapcontato;
+  if(val === '__geral__'){ zapItemContato = null; } else { zapItemContato = contatos.find(c => c.id === val) || null; }
+  renderZapItemContatos();
+  atualizarTextoBotaoZapItem();
+});
+function atualizarTextoBotaoZapItem(){
+  if(zapItemContato){ zapItemEnviarTxt.textContent = `Enviar para ${zapItemContato.nome}`; }
+  else { zapItemEnviarTxt.textContent = 'Enviar pelo WhatsApp'; }
+}
+function abrirZapItem(item){
+  itemZapAtual = item;
+  zapItemContato = null;
+  document.getElementById('zapItemSub').textContent = item.isExtintor
+    ? 'Envie este extintor por WhatsApp.'
+    : 'Envie esta tarefa por WhatsApp.';
+  zapItemPreview.value = gerarTextoItem(item);
+  renderZapItemContatos();
+  atualizarTextoBotaoZapItem();
+  overlayZapItem.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function fecharZapItem(){
+  overlayZapItem.classList.remove('on');
+  document.body.style.overflow = '';
+  itemZapAtual = null;
+  zapItemContato = null;
+}
+document.getElementById('zapItemFechar').addEventListener('click', fecharZapItem);
+overlayZapItem.addEventListener('click', e => { if(e.target === overlayZapItem) fecharZapItem(); });
+
+document.getElementById('zapItemEnviar').addEventListener('click', async () => {
+  const txt = (zapItemPreview.value || '').trim();
+  if(!txt){ toast('Mensagem vazia'); return; }
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile && navigator.share){
+    try{
+      await navigator.share({ title: 'Ocorrência - Rotina de Trabalho', text: txt });
+      toast('📱 Compartilhado!');
+      fecharZapItem();
+      return;
+    }catch(err){ if(err && err.name === 'AbortError'){ return; } }
+  }
+  if(txt.length > 6000){
+    try{
+      if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(txt); toast('⚠️ Muito grande — copiado'); }
+    }catch(e){}
+    return;
+  }
+  const encoded = encodeURIComponent(txt);
+  let url;
+  if(zapItemContato){ url = `https://wa.me/${zapItemContato.telefone}?text=${encoded}`; }
+  else { url = `https://wa.me/?text=${encoded}`; }
+  const win = window.open(url, '_blank', 'noopener,noreferrer');
+  if(!win){
+    try{ if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(txt); toast('📋 Copiado — cole no WhatsApp'); } }catch(e){}
+    return;
+  }
+  toast(zapItemContato ? `📱 Enviando para ${zapItemContato.nome}…` : '📱 Abrindo WhatsApp…');
+  setTimeout(fecharZapItem, 400);
+});
+document.getElementById('zapItemCopiar').addEventListener('click', async () => {
+  const txt = (zapItemPreview.value || '').trim();
+  if(!txt){ toast('Mensagem vazia'); return; }
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(txt); toast('📋 Copiado!'); }
+    else { zapItemPreview.select(); document.execCommand('copy'); window.getSelection()?.removeAllRanges(); toast('📋 Copiado!'); }
+  }catch(e){
+    zapItemPreview.select();
+    try { document.execCommand('copy'); toast('📋 Copiado!'); }
+    catch(err){ toast('⚠️ Selecione e copie'); }
+  }
+});
+
+/* ============================================================
    AÇÕES LISTA
 ============================================================ */
 document.getElementById('lista').addEventListener('click', async e => {
@@ -1539,6 +1693,7 @@ document.getElementById('lista').addEventListener('click', async e => {
       return;
     }
     if(acao === 'editar'){ const item = await DB.obter(id); if(item) abrirModal(item); return; }
+    if(acao === 'zap'){ const item = await DB.obter(id); if(item) abrirZapItem(item); return; }
     if(acao === 'del'){
       const item = await DB.obter(id); if(!item) return;
       abrirConfirmacao({ titulo: item.isExtintor ? 'Excluir extintor?' : 'Excluir tarefa?', texto: 'Esta ação não pode ser desfeita.', destaque: conteudoDe(item).slice(0,80), icone: item.isExtintor ? '🧯' : '🗑️', botao: 'Excluir', perigo: true,
@@ -1723,7 +1878,7 @@ vozInputBtn.addEventListener('click', ()=>{ const txt = vozInput.value.trim(); i
 vozInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); vozInputBtn.click(); } });
 
 /* ============================================================
-   FOTO / OCR (modal independente de extintor)
+   FOTO / OCR (modal de extintor)
 ============================================================ */
 const overlayFoto = document.getElementById('overlayFoto');
 const fotoEtapa1 = document.getElementById('fotoEtapa1');
@@ -2329,7 +2484,8 @@ async function init(){
   overlay.addEventListener('click', e=>{ if(e.target===overlay) fecharModal(); });
   document.addEventListener('keydown', e=>{
     if(e.key === 'Escape'){
-      if(overlayContato.classList.contains('on')) fecharModalContato();
+      if(overlayZapItem.classList.contains('on')) fecharZapItem();
+      else if(overlayContato.classList.contains('on')) fecharModalContato();
       else if(overlayRel.classList.contains('on')) fecharRelatorio();
       else if(overlayConf.classList.contains('on')) fecharConfirmacao();
       else if(overlayFoto.classList.contains('on')) fecharFoto();
